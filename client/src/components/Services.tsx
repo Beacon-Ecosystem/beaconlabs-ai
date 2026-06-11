@@ -79,7 +79,7 @@ const services = [
     icon: Handshake,
     title: "VSO Technology Partner Program",
     description:
-      "For veteran service organizations pursuing the VA SSG Fox Suicide Prevention Grant. We serve as your technology delivery platform — you apply, we build and operate the program. Designed for the $100K–$750K grant tier.",
+      "For veteran service organizations pursuing DoD CDMRP funding for traumatic brain injury and psychological health programs. We serve as your technology delivery platform — you apply, we build and operate the program. Awards range from $2.1M–$4.1M.",
     tag: "Grant Partnership",
     price: "Revenue Share",
     period: "grant-funded",
@@ -227,15 +227,15 @@ export default function Services() {
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
             <div>
               <p className="font-mono text-[0.6rem] tracking-[0.2em] uppercase text-[oklch(0.75_0.14_85/0.7)] mb-2">
-                Grant Partnership — June 12, 2026 Deadline
+                Grant Partnership — October 15, 2026 Deadline
               </p>
               <h3 className="font-serif text-xl text-[oklch(0.95_0.005_80)] mb-2">
-                VA Fox Grant: $112M Available for Veteran Suicide Prevention
+                DoD CDMRP: $2.1M–$4.1M Available for Veteran Psychological Health
               </h3>
               <p className="text-[oklch(0.60_0.02_185)] text-sm max-w-xl">
                 Beacon Labs is seeking one VSO fiscal sponsor for a joint application. We write the program,
                 operate the platform, and deliver outcomes. Your organization manages compliance and receives
-                an administrative fee. Individual awards range from $100K to $750K.
+                an administrative fee. Individual awards range from $2.1M to $4.1M.
               </p>
             </div>
             <a

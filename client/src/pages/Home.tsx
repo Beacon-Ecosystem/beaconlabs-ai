@@ -4,6 +4,7 @@ import VideoExplainer from "@/components/VideoExplainer";
 import TrustSignals from "@/components/TrustSignals";
 import NichePathways from "@/components/NichePathways";
 import Services from "@/components/Services";
+import TrustedPartners from "@/components/TrustedPartners";
 import WhyBeacon from "@/components/WhyBeacon";
 import Process from "@/components/Process";
 import Portfolio from "@/components/Portfolio";
@@ -20,6 +21,7 @@ export default function Home() {
       <TrustSignals />
       <NichePathways />
       <Services />
+      <TrustedPartners />
       <WhyBeacon />
       <Process />
       <Portfolio />
