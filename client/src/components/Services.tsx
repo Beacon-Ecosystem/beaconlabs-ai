@@ -27,7 +27,7 @@ const services = [
     description:
       "Your first three AI employees — deployed, tested, and running in 30 days. A custom n8n + LangChain agent stack that handles lead qualification, follow-up, scheduling, and reporting autonomously. Secured with NemoClaw enterprise governance.",
     tag: "Core Service",
-    price: "$3,500",
+    price: "Starting at $5,500",
     period: "one-time setup",
   },
   {
@@ -63,7 +63,7 @@ const services = [
     description:
       "Purpose-built AI agents that handle complex workflows: content generation, data analysis, customer service, and autonomous decision-making. Built on LangChain and CrewAI, integrated with your existing tools, white-labeled as yours.",
     tag: "Engineering",
-    price: "From $5,000",
+    price: "From $10,000",
     period: "project",
   },
   {
@@ -72,8 +72,8 @@ const services = [
     description:
       "Your brutal, unvarnished accountability partner. An autonomous AI agent that ingests your calendar, task manager, and sent emails every Friday to deliver an objective performance review against your stated goals.",
     tag: "Productivity",
-    price: "$997",
-    period: "one-time setup",
+    price: "$1,997 + $97/mo",
+    period: "setup + retainer",
   },
   {
     icon: Handshake,
@@ -90,7 +90,7 @@ const services = [
     description:
       "Full-stack web applications, e-commerce platforms, and custom software built with modern frameworks. From landing pages to complex SaaS products — all built to integrate with your AI stack from day one.",
     tag: "Development",
-    price: "From $2,500",
+    price: "From $5,000",
     period: "project",
   },
   {

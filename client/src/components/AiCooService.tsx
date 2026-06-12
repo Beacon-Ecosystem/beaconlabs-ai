@@ -9,8 +9,8 @@ const AiCooService = () => {
           <p className="text-[#8a9bb0] text-lg">Your brutal, unvarnished accountability partner.</p>
         </div>
         <div className="text-right">
-          <div className="text-3xl font-bold text-[#c9a84c]">$997</div>
-          <div className="text-sm text-[#5a7a8a] uppercase tracking-wider mt-1">One-Time Setup</div>
+          <div className="text-3xl font-bold text-[#c9a84c]">$1,997</div>
+          <div className="text-sm text-[#5a7a8a] uppercase tracking-wider mt-1">Setup + $97/mo Retainer</div>
         </div>
       </div>
 
