@@ -44,8 +44,7 @@ jobs:
             echo "=== Beacon Labs — Web Production Deploy ==="
             echo "Timestamp: $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
 
-            DEPLOY_DIR="/var/www/beaconlabs.ai"
-            DIST_DIR="$DEPLOY_DIR/dist"
+            DEPLOY_DIR="/var/www/beaconlabs-ai"
 
             # Pull latest code
             cd $DEPLOY_DIR
@@ -61,7 +60,11 @@ jobs:
             NODE_ENV=production pnpm run build
             echo "✓ Build complete"
 
-            # Restart the form handler service with updated code
+            # Reload nginx to serve the new static build
+            nginx -s reload
+            echo "✓ nginx reloaded"
+
+            # Restart the form handler service with updated code (if present)
             if systemctl is-active --quiet beaconlabs-form; then
               cp server/form-handler.mjs /opt/beaconlabs-form-handler/server.mjs
               systemctl restart beaconlabs-form
@@ -73,10 +76,10 @@ jobs:
 # ── Setup Instructions ────────────────────────────────────────────────────────
 # Add these secrets to GitHub → Settings → Secrets and variables → Actions:
 #
-#   BEACON_WEB_PRODUCTION_IP  = 143.198.23.240
-#   BEACON_WEB_PRODUCTION_SSH_KEY = (contents of manus_deploy private key)
+#   BEACON_WEB_PRODUCTION_IP          = 159.203.81.39
+#   BEACON_WEB_PRODUCTION_SSH_KEY     = (contents of beacon_bosun private key)
 #
-# The public key must be added to /root/.ssh/authorized_keys on 143.198.23.240
+# The public key must already be in /root/.ssh/authorized_keys on 159.203.81.39
 #
 # Note: pnpm must be installed on the production server:
 #   npm install -g pnpm
