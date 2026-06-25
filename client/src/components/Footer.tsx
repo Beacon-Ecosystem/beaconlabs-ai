@@ -7,11 +7,11 @@
 const LOGO_URL = "https://files.manuscdn.com/user_upload_by_module/session_file/310419663026807979/QZgXcwBxIIHPndiH.png";
 
 const ecosystemBrands = [
-  { name: "Beacon Momentum", url: "#" },
-  { name: "Hollow Threads", url: "#" },
-  { name: "Forge Caps", url: "#" },
-  { name: "Cask & Cuisine", url: "#" },
-  { name: "Vitality", url: "#" },
+  { name: "Beacon Momentum", url: "https://beaconmomentum.com" },
+  { name: "Beacon Trading \u00b7 Simulation Academy", url: "https://beacontrading.ai" },
+  { name: "Beacon Community", url: "https://beaconcommunity.net" },
+  { name: "Hollow Threads", url: "https://hollowthreads.store" },
+  { name: "Digital Grandpa", url: "https://digitalgrandpa.org" },
 ];
 
 const footerLinks = [
@@ -75,9 +75,14 @@ export default function Footer() {
             <ul className="space-y-2">
               {ecosystemBrands.map((brand) => (
                 <li key={brand.name}>
-                  <span className="text-sm">
+                  <a
+                    href={brand.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm hover:text-[oklch(0.85_0.005_80)] transition-colors"
+                  >
                     {brand.name}
-                  </span>
+                  </a>
                 </li>
               ))}
             </ul>
