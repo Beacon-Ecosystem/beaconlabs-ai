@@ -9,7 +9,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { useLocation } from "wouter";
 
-const LOGO_URL = "https://files.manuscdn.com/user_upload_by_module/session_file/310419663026807979/QZgXcwBxIIHPndiH.png";
+const LOGO_URL = "https://files.manuscdn.com/user_upload_by_module/session_file/310419663026807979/PvMfhRKIZBrzDTem.png";
 
 const navLinks = [
   { label: "Services", href: "/#services" },
