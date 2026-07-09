@@ -14,8 +14,25 @@ const COMMUNITY_IMG = "https://private-us-east-1.manuscdn.com/sessionFile/tKxNRt
 
 const caseStudies = [
   {
-    image: ECOMMERCE_IMG,
+    image: COMMUNITY_IMG,
     projectId: "BL-CS-001",
+    brand: "Beacon Momentum",
+    category: "Featured Build — Community Platform + AI Agents",
+    title: "AI-Powered Community Ecosystem with Autonomous Mentorship",
+    description:
+      "Engineered a complete community platform with AI mentor agents, automated onboarding flows, integrated community channels, AI-generated video lessons with custom avatars, and a purpose-built CRM. Every touchpoint carries the client's brand — the infrastructure is invisible. This is the flagship demonstration of what Beacon Labs builds.",
+    results: [
+      { metric: "24/7", label: "AI mentor availability" },
+      { metric: "50+", label: "Auto-generated lessons" },
+      { metric: "3", label: "Integrated platforms" },
+    ],
+    tags: ["AI Mentor Agents", "Community Platform", "Video Production", "Voice Synthesis", "Custom CRM", "Automation"],
+    liveUrl: "https://beaconmomentum.com",
+    featured: true,
+  },
+  {
+    image: ECOMMERCE_IMG,
+    projectId: "BL-CS-002",
     brand: "Hollow Threads",
     category: "E-Commerce + AI Automation",
     title: "Full-Stack E-Commerce with Automated Content Pipeline",
@@ -27,21 +44,8 @@ const caseStudies = [
       { metric: "0", label: "Manual content creation" },
     ],
     tags: ["Custom Storefronts", "Automated Fulfillment", "Payment Systems", "AI Content Gen", "Social Commerce", "Video Ads"],
-  },
-  {
-    image: COMMUNITY_IMG,
-    projectId: "BL-CS-002",
-    brand: "Beacon Momentum",
-    category: "Community Platform + AI Agents",
-    title: "AI-Powered Community Ecosystem with Autonomous Mentorship",
-    description:
-      "Engineered a complete community platform with AI mentor agents, automated onboarding flows, integrated community channels, AI-generated video lessons with custom avatars, and a purpose-built CRM. Every touchpoint carries the client's brand — the infrastructure is invisible.",
-    results: [
-      { metric: "24/7", label: "AI mentor availability" },
-      { metric: "50+", label: "Auto-generated lessons" },
-      { metric: "3", label: "Integrated platforms" },
-    ],
-    tags: ["AI Mentor Agents", "Community Platform", "Video Production", "Voice Synthesis", "Custom CRM", "Automation"],
+    liveUrl: null,
+    featured: false,
   },
 ];
 
@@ -121,9 +125,16 @@ export default function Portfolio() {
 
               {/* Content */}
               <div className={`${i % 2 === 1 ? "lg:order-1" : ""}`}>
-                <span className="font-mono text-[0.6rem] tracking-[0.2em] uppercase text-[oklch(0.75_0.14_85)]">
-                  {study.category}
-                </span>
+                <div className="flex items-center gap-3 mb-1">
+                  <span className="font-mono text-[0.6rem] tracking-[0.2em] uppercase text-[oklch(0.75_0.14_85)]">
+                    {study.category}
+                  </span>
+                  {study.featured && (
+                    <span className="font-mono text-[0.55rem] tracking-[0.15em] uppercase px-2 py-0.5 bg-[oklch(0.75_0.14_85/0.15)] text-[oklch(0.75_0.14_85)] rounded-sm border border-[oklch(0.75_0.14_85/0.3)]">
+                      Featured
+                    </span>
+                  )}
+                </div>
                 <h3 className="font-serif text-2xl md:text-3xl text-[oklch(0.95_0.005_80)] mt-2 mb-2">
                   {study.brand}
                 </h3>
@@ -149,7 +160,7 @@ export default function Portfolio() {
                 </div>
 
                 {/* Tags */}
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-2 mb-5">
                   {study.tags.map((tag) => (
                     <span
                       key={tag}
@@ -159,6 +170,19 @@ export default function Portfolio() {
                     </span>
                   ))}
                 </div>
+
+                {/* Live site link */}
+                {study.liveUrl && (
+                  <a
+                    href={study.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 font-mono text-xs tracking-[0.1em] uppercase text-[oklch(0.45_0.09_185)] hover:text-[oklch(0.55_0.10_185)] transition-colors duration-200 group"
+                  >
+                    <ArrowUpRight size={14} className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    View Live Ecosystem
+                  </a>
+                )}
               </div>
             </motion.div>
           ))}

@@ -4,7 +4,7 @@
  * Logo, nav links, ecosystem brands, copyright.
  */
 
-const LOGO_URL = "https://files.manuscdn.com/user_upload_by_module/session_file/310419663026807979/QZgXcwBxIIHPndiH.png";
+const LOGO_URL = "https://files.manuscdn.com/user_upload_by_module/session_file/310419663026807979/PvMfhRKIZBrzDTem.png";
 
 const ecosystemBrands = [
   { name: "Beacon Momentum", url: "https://beaconmomentum.com" },
@@ -28,6 +28,27 @@ export default function Footer() {
       <div className="absolute inset-0 blueprint-grid-dark opacity-10" />
 
       <div className="relative container">
+        {/* Cross-navigation banner to Beacon Momentum */}
+        <div className="mb-12 p-6 border border-[oklch(0.45_0.09_185/0.2)] rounded-sm bg-[oklch(0.14_0.03_240/0.5)] flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div>
+            <div className="font-mono text-[0.6rem] tracking-[0.2em] uppercase text-[oklch(0.75_0.14_85)] mb-1">Built by Beacon Labs</div>
+            <p className="font-serif text-lg text-[oklch(0.90_0.005_80)]">
+              See the ecosystem in action &mdash; visit Beacon Momentum
+            </p>
+            <p className="text-sm text-[oklch(0.55_0.02_185)] mt-1">
+              The community platform, AI mentor agents, and automated content pipeline we engineered. Live.
+            </p>
+          </div>
+          <a
+            href="https://beaconmomentum.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="shrink-0 font-mono text-xs tracking-[0.1em] uppercase px-5 py-2.5 border border-[oklch(0.45_0.09_185/0.4)] text-[oklch(0.65_0.06_185)] hover:border-[oklch(0.45_0.09_185/0.7)] hover:text-[oklch(0.80_0.005_80)] transition-all duration-300 rounded-sm whitespace-nowrap"
+          >
+            Visit Beacon Momentum &rarr;
+          </a>
+        </div>
+
         <div className="grid md:grid-cols-3 gap-12 mb-12">
           {/* Brand */}
           <div>
