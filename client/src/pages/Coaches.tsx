@@ -81,7 +81,6 @@ const stats = [
 const ecosystemBrands = [
   "Beacon Momentum",
   "Hollow Threads",
-  
 ];
 
 export default function Coaches() {

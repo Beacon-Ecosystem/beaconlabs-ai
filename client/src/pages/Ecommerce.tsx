@@ -20,7 +20,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 const LOGO_URL =
-  "https://files.manuscdn.com/user_upload_by_module/session_file/310419663026807979/QZgXcwBxIIHPndiH.png";
+  "https://files.manuscdn.com/user_upload_by_module/session_file/310419663026807979/PvMfhRKIZBrzDTem.png";
 
 const painPoints = [
   {

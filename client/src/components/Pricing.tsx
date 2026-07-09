@@ -124,9 +124,9 @@ const advertisingTiers: Tier[] = [
     description:
       "After your Campaign Build is complete and results are flowing, we stay on to manage, optimize, and scale. You\u2019re not paying for management \u2014 you\u2019re paying for performance. We commit to minimum ROAS and CPA targets, backed by the same AI systems that drove $0.15 CPC and 6.33% CTR across our own brands. If we don\u2019t hit the numbers, we optimize until we do.",
     features: [
-      "\u2705 Minimum 3x ROAS guarantee",
-      "\u2705 CPA cap agreed at onboarding",
-      "\u2705 Monthly performance benchmarks with transparent reporting",
+      "Minimum 3x ROAS guarantee",
+      "CPA cap agreed at onboarding",
+      "Monthly performance benchmarks with transparent reporting",
       "$1,500/mo \u2014 up to $10,000/mo ad spend",
       "$2,500/mo \u2014 $10,000\u2013$25,000/mo ad spend",
       "Ongoing AI-managed Facebook & Instagram campaigns",
@@ -150,10 +150,10 @@ const advertisingTiers: Tier[] = [
     description:
       "AI on both sides of the equation \u2014 managing your campaigns and placing you inside AI-generated responses. Multi-platform advertising with the strongest performance commitment we offer. We target 4.5x+ ROAS with hard CPA ceilings, weekly benchmarks, and quarterly proof-of-performance reviews. For brands ready to dominate, not just compete.",
     features: [
-      "\u2705 Minimum 4.5x ROAS target",
-      "\u2705 Hard CPA cap + cost-per-lead ceiling",
-      "\u2705 Weekly performance benchmarks",
-      "\u2705 Quarterly ROAS reviews with documented proof",
+      "Minimum 4.5x ROAS target",
+      "Hard CPA cap + cost-per-lead ceiling",
+      "Weekly performance benchmarks",
+      "Quarterly ROAS reviews with documented proof",
       "$3,500/mo \u2014 up to $50,000/mo ad spend",
       "$5,000/mo \u2014 $50,000\u2013$75,000/mo ad spend",
       "$7,500/mo \u2014 $75,000\u2013$100,000+/mo ad spend",
