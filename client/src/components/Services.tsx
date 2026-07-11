@@ -227,7 +227,7 @@ export default function Services() {
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
             <div>
               <p className="font-mono text-[0.6rem] tracking-[0.2em] uppercase text-[oklch(0.75_0.14_85/0.7)] mb-2">
-                Grant Partnership — October 15, 2026 Deadline
+                Grant Partnership — Applications Open Through October 15, 2026
               </p>
               <h3 className="font-serif text-xl text-[oklch(0.95_0.005_80)] mb-2">
                 DoD CDMRP: $2.1M–$4.1M Available for Veteran Psychological Health
