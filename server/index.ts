@@ -62,6 +62,12 @@ async function createGHLContact(data: {
   const json = await res.json() as Record<string, unknown>;
 
   if (!res.ok) {
+    if (res.status === 400 && (json as any)?.meta?.contactId) {
+      const existingId = (json as any).meta.contactId as string;
+      console.log(`[GHL] Duplicate contact, using existing: ${existingId}`);
+      await fetch(`https://services.leadconnectorhq.com/contacts/${existingId}`, { method: "PUT", headers: { Authorization: `Bearer ${GHL_PIT}`, Version: "2021-07-28", "Content-Type": "application/json" }, body: JSON.stringify({ tags: data.tags || ["signal-check-request", "audit-form"] }) });
+      return { contact: { id: existingId } };
+    }
     throw new Error(`GHL API error: ${res.status} - ${JSON.stringify(json)}`);
   }
 
@@ -95,6 +101,45 @@ async function startServer() {
   // ─────────────────────────────────────────────────────────────
   // Audit / Signal Check form submission endpoint
   // ─────────────────────────────────────────────────────────────
+  // ─────────────────────────────────────────────────────────────
+  // Signal Check / Audit form — /api/contact
+  // Called by Audit.tsx and Contact.tsx
+  // ─────────────────────────────────────────────────────────────
+  app.post("/api/contact", async (req, res) => {
+    try {
+      const {
+        firstName,
+        lastName,
+        email,
+        phone,
+        company,
+        website,
+        service,
+        budget,
+        message,
+      } = req.body;
+      if (!firstName || !lastName || !email) {
+        res.status(400).json({ error: "firstName, lastName, and email are required" });
+        return;
+      }
+      const result = await createGHLContact({
+        firstName,
+        lastName,
+        email,
+        phone,
+        businessName: company,
+        website,
+        monthlyAdSpend: budget,
+        primaryGoal: message,
+        tags: ["signal-check-request", "audit-form"],
+      });
+      res.json({ success: true, contactId: (result.contact as Record<string, unknown>)?.id });
+    } catch (err) {
+      console.error("Contact form error:", err);
+      res.status(500).json({ error: "Failed to submit request. Please try again." });
+    }
+  });
+
   app.post("/api/audit", async (req, res) => {
     try {
       const {
