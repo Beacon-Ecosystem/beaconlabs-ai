@@ -120,9 +120,12 @@ export default function Footer() {
               1309 Coffeen Avenue, Suite # 1200 &bull; Sheridan, WY 82801 &bull; (307) 461-5184
             </span>
           </div>
-          <span className="font-mono text-[0.6rem] tracking-[0.1em] text-[oklch(0.40_0.02_240)]">
-            Guiding the Way Forward. Always.
-          </span>
+          <div className="flex items-center gap-4 font-mono text-[0.6rem] tracking-[0.1em] text-[oklch(0.40_0.02_240)]">
+            <a href="/privacy" className="hover:text-[oklch(0.85_0.005_80)] transition-colors">
+              Privacy Notice
+            </a>
+            <span>Guiding the Way Forward. Always.</span>
+          </div>
         </div>
       </div>
     </footer>

@@ -11,6 +11,7 @@ import Audit from "./pages/Audit";
 import SignalCheck from "./pages/SignalCheck";
 import GrowthBlueprint from "./pages/GrowthBlueprint";
 import BlueprintThankYou from "./pages/BlueprintThankYou";
+import Privacy from "./pages/Privacy";
 
 
 function Router() {
@@ -23,6 +24,7 @@ function Router() {
       <Route path={"/signal-check"} component={SignalCheck} />
       <Route path={"/growth-blueprint"} component={GrowthBlueprint} />
       <Route path={"/blueprint-thank-you"} component={BlueprintThankYou} />
+      <Route path={"/privacy"} component={Privacy} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />

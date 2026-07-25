@@ -53,6 +53,11 @@ module.exports = {
       // GoHighLevel
       GHL_API_KEY: envVars.GHL_API_KEY || '',
       GHL_LOCATION_ID: envVars.GHL_LOCATION_ID || 'Z4OoFmxrotxASibl2PKv',
+      // Owner-approved active BL_Signal_Check routing. Explicit env values
+      // take precedence for future CRM migrations; these defaults prevent a
+      // silent return to the archived legacy pipeline.
+      GHL_SIGNAL_CHECK_PIPELINE_ID: envVars.GHL_SIGNAL_CHECK_PIPELINE_ID || 'FvAibf6Jpluw7IaL5OHq',
+      GHL_STAGE_SIGNAL_CHECK_REQUESTED: envVars.GHL_STAGE_SIGNAL_CHECK_REQUESTED || 'd6aa566d-b1ac-441b-80e7-48dd488f1a8a',
       // SendGrid
       SENDGRID_API_KEY: envVars.SENDGRID_API_KEY || '',
     },

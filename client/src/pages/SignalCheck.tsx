@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { Checkbox } from "@/components/ui/checkbox";
 
 const benefits = [
   {
@@ -41,9 +42,9 @@ const benefits = [
   },
   {
     icon: Zap,
-    title: "Delivered in 24 Hours",
+    title: "Clear Request Status",
     description:
-      "Your branded Signal Check report lands in your inbox within one business day. No sales call required to receive it.",
+      "Your request enters Beacon Labs' review queue. A free request does not guarantee a report, recommendation, or follow-up service.",
   },
   {
     icon: Globe,
@@ -61,21 +62,21 @@ const processSteps = [
   },
   {
     step: "02",
-    title: "We Run the AI Scan",
+    title: "We Review Your Request",
     description:
-      "Our system queries ChatGPT, Gemini, Perplexity, and Claude with the exact prompts your customers are using to find businesses like yours.",
+      "We review the information you provide to determine whether a Signal Check is appropriate. Submission does not start an automatic scan.",
   },
   {
     step: "03",
-    title: "Score + Gap Analysis Generated",
+    title: "Scope Is Confirmed",
     description:
-      "You receive a 0–100 AI Visibility Score with a detailed breakdown of what's working, what's missing, and what to fix first.",
+      "If we decide to move forward, Beacon Labs will contact you with the applicable next step and any requested information.",
   },
   {
     step: "04",
-    title: "Your Report, Free",
+    title: "No Obligation",
     description:
-      "A branded PDF report delivered to your inbox. If your score reveals significant gaps, we'll show you exactly how to fix them.",
+      "Submitting a free request creates no purchase, service, report-delivery, or implementation obligation for either side.",
   },
 ];
 
@@ -117,6 +118,7 @@ export default function SignalCheck() {
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [consentToContact, setConsentToContact] = useState(false);
 
   const heroRef = useRef(null);
   const formRef = useRef(null);
@@ -139,6 +141,10 @@ export default function SignalCheck() {
       setError("Please fill in all required fields.");
       return;
     }
+    if (!consentToContact) {
+      setError("Please confirm consent so Beacon Labs can review and respond to your request.");
+      return;
+    }
     setSubmitting(true);
     setError(null);
 
@@ -158,7 +164,7 @@ export default function SignalCheck() {
       const res = await fetch(`${apiBase}/api/signal-check`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, reelKeyword }),
+        body: JSON.stringify({ ...form, reelKeyword, consentToContact }),
       });
 
       if (!res.ok) {
@@ -189,15 +195,14 @@ export default function SignalCheck() {
             <div className="w-20 h-20 rounded-full bg-[#00d4ff]/10 border border-[#00d4ff]/30 flex items-center justify-center mx-auto mb-8">
               <Check className="w-10 h-10 text-[#00d4ff]" />
             </div>
-            <h1 className="text-3xl font-bold mb-4">Signal Check Submitted</h1>
+            <h1 className="text-3xl font-bold mb-4">Signal Check Request Received</h1>
             <p className="text-gray-400 text-lg mb-6">
-              We're running your AI visibility scan now. Your Signal Check report will be in your
-              inbox within{" "}
-              <span className="text-white font-semibold">24 hours</span>.
+              Your information has been recorded for Beacon Labs review. A submission does not
+              automatically begin a scan or guarantee a report, recommendation, or service.
             </p>
             <p className="text-gray-500 text-sm">
-              Check your spam folder if you don't see it. The report comes from{" "}
-              <span className="text-gray-400">reports@beaconlabs.ai</span>
+              If Beacon Labs moves forward with your request, we will contact you at the email
+              address you provided.
             </p>
           </motion.div>
         </div>
@@ -308,8 +313,7 @@ export default function SignalCheck() {
           <div className="text-center mb-10">
             <h2 className="text-3xl font-bold mb-4">Run Your Signal Check</h2>
             <p className="text-gray-400">
-              No credit card. No sales call. A clear read on what you are standing on —
-              delivered within 24 hours.
+              No credit card. No purchase required. Submit a request for Beacon Labs to review.
             </p>
           </div>
 
@@ -434,6 +438,23 @@ export default function SignalCheck() {
               </div>
             )}
 
+            <div className="flex items-start gap-3 rounded-lg border border-white/10 bg-black/10 p-4">
+              <Checkbox
+                id="signal-check-consent"
+                checked={consentToContact}
+                onCheckedChange={(checked) => setConsentToContact(checked === true)}
+                className="mt-0.5 border-[#00d4ff]/60 data-[state=checked]:bg-[#00d4ff] data-[state=checked]:text-black"
+              />
+              <label htmlFor="signal-check-consent" className="cursor-pointer text-sm leading-relaxed text-gray-300">
+                I agree that Beacon Labs may use the information in this form to review this Signal
+                Check request and contact me about it. I have read the{" "}
+                <a href="/privacy" className="text-[#00d4ff] underline underline-offset-2 hover:text-white">
+                  Privacy Notice
+                </a>
+                .
+              </label>
+            </div>
+
             <button
               type="submit"
               disabled={submitting}
@@ -453,7 +474,7 @@ export default function SignalCheck() {
             </button>
 
             <p className="text-center text-gray-500 text-xs">
-              No cost. No credit card. No obligation. Your report delivered within 24 hours.
+              No cost. No credit card. No obligation. Submission does not guarantee a report or service.
             </p>
           </form>
         </motion.div>

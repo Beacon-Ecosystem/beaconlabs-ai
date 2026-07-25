@@ -11,9 +11,12 @@ const __dirname = path.dirname(__filename);
 const GHL_PIT = process.env.GHL_API_KEY || "";
 const GHL_LOCATION_ID = "Z4OoFmxrotxASibl2PKv"; // Beacon AI Labs
 const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY || "";
-const GHL_SIGNAL_CHECK_PIPELINE_ID = process.env.GHL_SIGNAL_CHECK_PIPELINE_ID || "bvtePhtYnqw1EsmeQUrL";
+// Active BL_Signal_Check routing. Environment values can override these
+// versioned defaults after a deliberate CRM migration; never fall back to an
+// archived pipeline or stage.
+const GHL_SIGNAL_CHECK_PIPELINE_ID = process.env.GHL_SIGNAL_CHECK_PIPELINE_ID || "FvAibf6Jpluw7IaL5OHq";
 const GHL_SIGNAL_CHECK_REQUESTED_STAGE_ID =
-  process.env.GHL_STAGE_SIGNAL_CHECK_REQUESTED || "202a08e1-7f3a-42c9-879f-12704030768d";
+  process.env.GHL_STAGE_SIGNAL_CHECK_REQUESTED || "d6aa566d-b1ac-441b-80e7-48dd488f1a8a";
 
 const stripe = new Stripe(STRIPE_SECRET_KEY, { apiVersion: "2026-02-25.clover" });
 
@@ -30,6 +33,7 @@ async function createGHLContact(data: {
   website?: string;
   monthlyAdSpend?: string;
   primaryGoal?: string;
+  consentRecordedAt?: string;
   tags?: string[];
   source?: string;
 }) {
@@ -51,6 +55,11 @@ async function createGHLContact(data: {
   if (data.industry) notes.push(`Industry: ${data.industry}`);
   if (data.monthlyAdSpend) notes.push(`Monthly Ad Spend: ${data.monthlyAdSpend}`);
   if (data.primaryGoal) notes.push(`Primary Goal: ${data.primaryGoal}`);
+  if (data.consentRecordedAt) {
+    notes.push(
+      `Signal Check consent: confirmed for request-related contact and processing; privacy notice version signal-check-privacy-2026-07; recorded ${data.consentRecordedAt}.`
+    );
+  }
 
   const res = await fetch("https://services.leadconnectorhq.com/contacts/", {
     method: "POST",
@@ -230,6 +239,7 @@ async function startServer() {
         industry,
         description,
         reelKeyword,
+        consentToContact,
       } = req.body as Record<string, unknown>;
 
       const clean = (value: unknown, maxLength: number) =>
@@ -244,6 +254,7 @@ async function startServer() {
         industry: clean(industry, 120),
         description: clean(description, 2_000),
         reelKeyword: clean(reelKeyword, 50).toLowerCase(),
+        consentToContact: consentToContact === true,
       };
 
       if (!submission.firstName || !submission.lastName || !submission.email || !submission.businessName) {
@@ -258,8 +269,15 @@ async function startServer() {
         return;
       }
 
-      if (!GHL_PIT) {
-        console.error("Signal Check intake is unavailable: GHL_API_KEY is not configured.");
+      if (!submission.consentToContact) {
+        res.status(400).json({
+          error: "Please confirm consent for Beacon Labs to process and respond to this Signal Check request.",
+        });
+        return;
+      }
+
+      if (!GHL_PIT || !GHL_SIGNAL_CHECK_PIPELINE_ID || !GHL_SIGNAL_CHECK_REQUESTED_STAGE_ID) {
+        console.error("Signal Check intake is unavailable: required CRM configuration is incomplete.");
         res.status(503).json({ error: "The Signal Check is temporarily unavailable. Please try again shortly." });
         return;
       }
@@ -268,8 +286,10 @@ async function startServer() {
         "signal-check-requested",
         "free-signal-check",
         "beacon-labs",
+        "signal-check-consent-recorded",
         ...(submission.reelKeyword ? [`signal-source-${submission.reelKeyword}`] : []),
       ];
+      const consentRecordedAt = new Date().toISOString();
 
       const contactResult = await createGHLContact({
         firstName: submission.firstName,
@@ -279,6 +299,7 @@ async function startServer() {
         website: submission.website,
         industry: submission.industry,
         primaryGoal: submission.description,
+        consentRecordedAt,
         tags: sourceTags,
         source: "beaconlabs.ai/signal-check",
       });
