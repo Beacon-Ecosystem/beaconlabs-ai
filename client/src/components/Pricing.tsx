@@ -13,7 +13,7 @@ interface Tier {
   name: string;
   tag: string;
   price: string;
-  priceMax: string;
+  priceMax?: string;
   period: string;
   setupFee?: string;
   description: string;

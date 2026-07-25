@@ -11,8 +11,11 @@ const __dirname = path.dirname(__filename);
 const GHL_PIT = process.env.GHL_API_KEY || "";
 const GHL_LOCATION_ID = "Z4OoFmxrotxASibl2PKv"; // Beacon AI Labs
 const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY || "";
+const GHL_SIGNAL_CHECK_PIPELINE_ID = process.env.GHL_SIGNAL_CHECK_PIPELINE_ID || "bvtePhtYnqw1EsmeQUrL";
+const GHL_SIGNAL_CHECK_REQUESTED_STAGE_ID =
+  process.env.GHL_STAGE_SIGNAL_CHECK_REQUESTED || "202a08e1-7f3a-42c9-879f-12704030768d";
 
-const stripe = new Stripe(STRIPE_SECRET_KEY, { apiVersion: "2025-02-24.acacia" });
+const stripe = new Stripe(STRIPE_SECRET_KEY, { apiVersion: "2026-02-25.clover" });
 
 // Price ID for the $997 AI Growth Blueprint
 const BLUEPRINT_PRICE_ID = "price_1T9IMlE69P40ey9pyk61nYwC";
@@ -90,6 +93,39 @@ async function createGHLContact(data: {
   }
 
   return json;
+}
+
+async function createGHLSignalCheckOpportunity(data: {
+  contactId: string;
+  firstName: string;
+  lastName: string;
+  businessName: string;
+}) {
+  const response = await fetch("https://services.leadconnectorhq.com/opportunities/", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${GHL_PIT}`,
+      Version: "2021-07-28",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      pipelineId: GHL_SIGNAL_CHECK_PIPELINE_ID,
+      locationId: GHL_LOCATION_ID,
+      pipelineStageId: GHL_SIGNAL_CHECK_REQUESTED_STAGE_ID,
+      status: "open",
+      contactId: data.contactId,
+      monetaryValue: 0,
+      source: "beaconlabs.ai/signal-check",
+      name: `${data.firstName} ${data.lastName} — Signal Check (${data.businessName})`,
+    }),
+  });
+
+  if (!response.ok) {
+    const detail = await response.text();
+    throw new Error(`GHL Signal Check opportunity error: ${response.status} - ${detail}`);
+  }
+
+  return response.json() as Promise<Record<string, unknown>>;
 }
 
 async function startServer() {
@@ -175,6 +211,98 @@ async function startServer() {
     } catch (err) {
       console.error("Audit form error:", err);
       res.status(500).json({ error: "Failed to submit request. Please try again." });
+    }
+  });
+
+  // ─────────────────────────────────────────────────────────────
+  // Free Signal Check — Stage 1 of the Beacon Labs B2B funnel.
+  // The public page has always posted here; this tracked route restores
+  // the server-owned CRM/report-queue handoff after a production 404.
+  // ─────────────────────────────────────────────────────────────
+  app.post("/api/signal-check", async (req, res) => {
+    try {
+      const {
+        firstName,
+        lastName,
+        email,
+        businessName,
+        website,
+        industry,
+        description,
+        reelKeyword,
+      } = req.body as Record<string, unknown>;
+
+      const clean = (value: unknown, maxLength: number) =>
+        typeof value === "string" ? value.trim().slice(0, maxLength) : "";
+
+      const submission = {
+        firstName: clean(firstName, 100),
+        lastName: clean(lastName, 100),
+        email: clean(email, 254).toLowerCase(),
+        businessName: clean(businessName, 180),
+        website: clean(website, 500),
+        industry: clean(industry, 120),
+        description: clean(description, 2_000),
+        reelKeyword: clean(reelKeyword, 50).toLowerCase(),
+      };
+
+      if (!submission.firstName || !submission.lastName || !submission.email || !submission.businessName) {
+        res.status(400).json({
+          error: "firstName, lastName, email, and businessName are required.",
+        });
+        return;
+      }
+
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(submission.email)) {
+        res.status(400).json({ error: "Please provide a valid email address." });
+        return;
+      }
+
+      if (!GHL_PIT) {
+        console.error("Signal Check intake is unavailable: GHL_API_KEY is not configured.");
+        res.status(503).json({ error: "The Signal Check is temporarily unavailable. Please try again shortly." });
+        return;
+      }
+
+      const sourceTags = [
+        "signal-check-requested",
+        "free-signal-check",
+        "beacon-labs",
+        ...(submission.reelKeyword ? [`signal-source-${submission.reelKeyword}`] : []),
+      ];
+
+      const contactResult = await createGHLContact({
+        firstName: submission.firstName,
+        lastName: submission.lastName,
+        email: submission.email,
+        businessName: submission.businessName,
+        website: submission.website,
+        industry: submission.industry,
+        primaryGoal: submission.description,
+        tags: sourceTags,
+        source: "beaconlabs.ai/signal-check",
+      });
+
+      const contact = (contactResult as Record<string, unknown>).contact as Record<string, unknown> | undefined;
+      const contactId = typeof contact?.id === "string" ? contact.id : "";
+
+      if (!contactId) {
+        throw new Error("GHL did not return a Signal Check contact identifier.");
+      }
+
+      await createGHLSignalCheckOpportunity({
+        contactId,
+        firstName: submission.firstName,
+        lastName: submission.lastName,
+        businessName: submission.businessName,
+      });
+
+      res.status(201).json({ success: true, status: "requested" });
+    } catch (err) {
+      console.error("Signal Check intake error:", err);
+      res.status(502).json({
+        error: "We could not queue your Signal Check. Please try again or contact Beacon Labs.",
+      });
     }
   });
 
