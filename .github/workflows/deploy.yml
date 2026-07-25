@@ -64,7 +64,18 @@ jobs:
             nginx -s reload
             echo "✓ nginx reloaded"
 
-            # Restart the form handler service with updated code (if present)
+            # Reload the active Express process so API routes use the newly
+            # built dist/index.js and the current ecosystem environment.
+            if pm2 describe beaconlabs >/dev/null 2>&1; then
+              pm2 reload ecosystem.config.cjs --only beaconlabs --update-env
+              echo "✓ Beacon Labs API reloaded"
+            else
+              pm2 start ecosystem.config.cjs --only beaconlabs
+              echo "✓ Beacon Labs API started"
+            fi
+            pm2 save
+
+            # Retain compatibility with the legacy dedicated handler, if present.
             if systemctl is-active --quiet beaconlabs-form; then
               cp server/form-handler.mjs /opt/beaconlabs-form-handler/server.mjs
               systemctl restart beaconlabs-form
