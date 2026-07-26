@@ -1,13 +1,12 @@
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
-import { Route, Switch } from "wouter";
+import { Redirect, Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
 import Ecommerce from "./pages/Ecommerce";
 import Coaches from "./pages/Coaches";
-import Audit from "./pages/Audit";
 import SignalCheck from "./pages/SignalCheck";
 import GrowthBlueprint from "./pages/GrowthBlueprint";
 import BlueprintThankYou from "./pages/BlueprintThankYou";
@@ -20,7 +19,9 @@ function Router() {
       <Route path={"/"} component={Home} />
       <Route path={"/ecommerce"} component={Ecommerce} />
       <Route path={"/coaches"} component={Coaches} />
-      <Route path={"/audit"} component={Audit} />
+      <Route path={"/audit"}>
+        <Redirect to="/signal-check" replace />
+      </Route>
       <Route path={"/signal-check"} component={SignalCheck} />
       <Route path={"/growth-blueprint"} component={GrowthBlueprint} />
       <Route path={"/blueprint-thank-you"} component={BlueprintThankYou} />
