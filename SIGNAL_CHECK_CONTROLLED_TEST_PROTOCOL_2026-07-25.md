@@ -17,7 +17,7 @@ The test must use one owner-approved, clearly labeled identity and an email inbo
 
 ## Expected live behavior
 
-The current `POST /api/signal-check` route validates `firstName`, `lastName`, `email`, and `businessName`; creates or reuses a GHL contact; applies the `signal-check-requested`, `free-signal-check`, and `beacon-labs` tags plus the source tag; then creates a zero-value open opportunity in the configured Signal Check Requested stage. A successful request returns HTTP `201` with `{ "success": true, "status": "requested" }`.
+The current `POST /api/signal-check` route validates `firstName`, `lastName`, `email`, and `businessName` and requires affirmative `consentToContact` before any CRM request. It then creates or reuses a GHL contact; applies the `signal-check-requested`, `free-signal-check`, `beacon-labs`, and `signal-check-consent-recorded` tags plus the source tag; and creates a zero-value open opportunity in the configured Signal Check Requested stage. A successful request returns HTTP `201` with `{ "success": true, "status": "requested" }`.
 
 The controlled test must capture the HTTP status and response, the CRM contact identity, contact tags/source, the opportunity identity/pipeline/stage/value, and any server-side error output. A pre-existing safe invalid-payload probe returning HTTP `400` documents the input-validation path and must not be repeated with a valid identity until owner confirmation.
 
@@ -25,19 +25,19 @@ The controlled test must capture the HTTP status and response, the CRM contact i
 
 | Area | Observed current state | Test interpretation |
 |---|---|---|
-| CRM intake | The active route owns GHL contact and opportunity creation. | Testable through one approved production submission. |
-| Report delivery | The active server source has no implemented report-generation, SendGrid-send, or completion-callback path for this route. | A CRM success does **not** prove report delivery; report delivery remains an open release gate. |
-| Consent | The public form has no affirmative consent control. | Do not treat a successful test as consent readiness for a real prospect campaign. |
-| Privacy notice | The Signal Check form has only a short “no cost / no obligation” statement and the tracked app has no dedicated privacy-policy route. | Do not publish or scale the paid expansion until approved privacy/disclosure controls are added. |
-| CRM inspection | The current HighLevel connector lacks access to the Beacon AI Labs location; production may still use its separate service credential. | Capture server-side outcome and obtain proper CRM-location access before relying on connector-based evidence. |
+| CRM intake | The active route owns GHL contact and opportunity creation in `BL_Signal_Check → SC_Requested`; it does not fall back to the archived pipeline. | A controlled production submission verified the dedicated-pipeline placement. |
+| Report delivery | The active server source has no deployed report worker, delivery queue, transactional-send path, or completion callback for this route. | A CRM success does **not** prove report delivery; report delivery remains an open release gate. |
+| Consent | The public form has an affirmative consent control, and the server rejects a no-consent request before any CRM call. | The consent-negative production probe returned HTTP `400`; this is intake readiness, not a marketing-consent or counsel-review conclusion. |
+| Privacy notice | The Signal Check form links to a public operational Privacy Notice at `/privacy`. | Counsel review remains required before broad public acquisition or a paid expansion launch. |
+| CRM inspection | The owner’s authenticated HighLevel session confirmed the retained QA opportunity in the dedicated active pipeline and requested stage. | CRM attribution and initial routing are verified; later lifecycle automation still requires implementation. |
 
 ## Go / no-go evidence
 
-The test is a **partial pass** only if the live endpoint returns HTTP `201` and evidence confirms the correct contact and $0 opportunity. It remains a **no-go for broad free promotion or the $297 stage** unless all three release gates below are addressed:
+The test is a **partial pass** only if the live endpoint returns HTTP `201` and evidence confirms the correct contact and $0 opportunity. The intake, routing, consent, and legacy-route-consolidation phase has passed. It remains a **no-go for broad free promotion or the $297 stage** unless all three release gates below are addressed:
 
 1. The report-generation and delivery workflow must have an owned, observable queue and a confirmed delivery outcome.
-2. The public form must have approved affirmative consent and linked privacy/disclosure controls appropriate to the data collected and future communications.
-3. Authorized CRM access must permit verification of contact, opportunity, attribution, and any downstream report-completion status without relying solely on server logs.
+2. The operational Privacy Notice must complete appropriate counsel review before broad public acquisition or a paid expansion launch.
+3. The $297 expanded scope, payment, consent, and post-payment access controls must receive separate explicit owner approval and validation before implementation or publication.
 
 ## Execution sequence
 
@@ -105,6 +105,12 @@ Read-only production inspection found no deployed `fulfillment_pipeline.py`, no 
 
 An existing production `pdf-service` is online and exposes `POST /api/generate-signal-check-pdf`. Its visible handler accepts a prospect/company/website/industry and score payload, writes a generated PDF to the public Beacon Labs reports directory, and returns a public report URL plus a base64 payload. It is a rendering component only: it does not establish request ownership, queue state, reviewer approval, CRM completion state, outbound email delivery, delivery-event evidence, or a privacy-safe failure notification. The visible service setup also does not show request-authentication middleware. It must not be treated as an independently safe public fulfillment API without a reviewed access and delivery design.
 
-The public legacy `/audit` page remains a separate, published Signal Check-like intake. It posts directly to `/api/contact`, lacks affirmative consent and a linked privacy control, and makes unverified promises that AI/strategist review and email delivery will occur within 24 hours. It therefore bypasses the validated `/signal-check` consent gate and dedicated `BL_Signal_Check` routing. Before broad free promotion or any paid expansion, this parallel route must be retired, redirected to `/signal-check`, or rebuilt to use the same consent, privacy, CRM, and delivery controls; its unsupported delivery claims must not remain public.
+The public legacy `/audit` page has been retired as an independent intake. Canonical commit `0dbce83` deploys a Wouter redirect from `/audit` to `/signal-check`; the production browser verification resolved `https://beaconlabs.ai/audit` to `https://beaconlabs.ai/signal-check`. All public Signal Check traffic now uses the consent-gated route and active `BL_Signal_Check` routing.
 
-The remaining release gates are: (1) establish an owned fulfillment worker or queue that produces bounded report data, (2) use the PDF renderer behind authenticated internal orchestration only if its access model is approved, (3) send through a monitored delivery channel and store delivery state in `SC_Delivered`, (4) create a staff exception path and privacy-safe applicant notification for failures, and (5) consolidate `/audit` behind the validated intake before publishing either free or $297 expansion traffic.
+The remaining free-stage release gates are: (1) establish an owned fulfillment worker and durable job store that produces bounded report data, (2) use the PDF renderer only behind authenticated internal orchestration after its access model is reviewed, (3) send through a monitored transactional delivery channel and store delivery state in `SC_Delivered`, and (4) create a staff exception path plus privacy-safe applicant notification for failures. The operational Privacy Notice still requires counsel review before broad public acquisition. The $297 expansion remains outside this release: it requires separate explicit owner approval for scope, payment, consent, and post-payment access controls. The surviving $0 QA opportunity may be closed or deleted after the owner determines that its evidence-retention purpose has ended.
+
+## Final intake-phase verification — 2026-07-25
+
+The canonical intake-consolidation deployment completed successfully in GitHub Actions run `30181250949`. A post-deployment no-consent probe returned HTTP `400`, confirming that the server-side consent gate remains active without creating a CRM record. A live browser navigation to `/audit` resolved to `/signal-check`, confirming that the separate legacy intake is no longer reachable as an independent public form.
+
+> **Release boundary.** The free Signal Check can accept a consented request into `BL_Signal_Check → SC_Requested`, but it cannot yet generate, deliver, or promise a report. No real report email or $297 expansion work is authorized by this intake-phase completion.
