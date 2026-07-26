@@ -1,7 +1,5 @@
 /*
- * Footer — Blueprint Aesthetic
- * Dark navy footer with blueprint grid, teal accents.
- * Logo, nav links, ecosystem brands, copyright.
+ * Beacon Brand System — B2B Blueprint: a Labs-specific technical footer with explicit parent-company context and unchanged ecosystem routes.
  */
 
 const LOGO_URL = "https://files.manuscdn.com/user_upload_by_module/session_file/310419663026807979/PvMfhRKIZBrzDTem.png";
@@ -24,19 +22,20 @@ const footerLinks = [
 
 export default function Footer() {
   return (
-    <footer className="relative bg-[oklch(0.12_0.03_240)] text-[oklch(0.60_0.02_240)] py-16">
+    <footer className="relative overflow-hidden bg-[oklch(0.12_0.03_240)] py-16 text-[oklch(0.60_0.02_240)]">
       <div className="absolute inset-0 blueprint-grid-dark opacity-10" />
+      <div className="absolute inset-x-0 top-0 h-px beacon-family-rule" />
 
       <div className="relative container">
         {/* Cross-navigation banner to Beacon Momentum */}
-        <div className="mb-12 p-6 border border-[oklch(0.45_0.09_185/0.2)] rounded-sm bg-[oklch(0.14_0.03_240/0.5)] flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="mb-12 flex flex-col items-center justify-between gap-4 border border-[oklch(0.45_0.09_185/0.22)] bg-[oklch(0.14_0.03_240/0.72)] p-6 shadow-[0_18px_50px_oklch(0.08_0.02_240/0.28)] sm:flex-row">
           <div>
-            <div className="font-mono text-[0.6rem] tracking-[0.2em] uppercase text-[oklch(0.75_0.14_85)] mb-1">Built by Beacon Labs</div>
+            <div className="mb-1 font-mono text-[0.6rem] tracking-[0.2em] uppercase text-[oklch(0.75_0.14_85)]">Beacon Momentum, LLC · Parent Company</div>
             <p className="font-serif text-lg text-[oklch(0.90_0.005_80)]">
-              See the ecosystem in action &mdash; visit Beacon Momentum
+              Start with the ecosystem. Continue with the right operating system.
             </p>
             <p className="text-sm text-[oklch(0.55_0.02_185)] mt-1">
-              The community platform, AI mentor agents, and automated content pipeline we engineered. Live.
+              Beacon Labs AI is the B2B systems and support arm. Beacon Momentum is the public front door.
             </p>
           </div>
           <a
@@ -45,7 +44,7 @@ export default function Footer() {
             rel="noopener noreferrer"
             className="shrink-0 font-mono text-xs tracking-[0.1em] uppercase px-5 py-2.5 border border-[oklch(0.45_0.09_185/0.4)] text-[oklch(0.65_0.06_185)] hover:border-[oklch(0.45_0.09_185/0.7)] hover:text-[oklch(0.80_0.005_80)] transition-all duration-300 rounded-sm whitespace-nowrap"
           >
-            Visit Beacon Momentum &rarr;
+            Visit the parent site &rarr;
           </a>
         </div>
 
@@ -56,16 +55,15 @@ export default function Footer() {
               <img src={LOGO_URL} alt="Beacon Labs" className="h-10 w-auto" />
               <div>
                 <span className="font-serif text-lg text-[oklch(0.90_0.005_80)]">
-                  Beacon Labs
+                  Beacon Labs AI
                 </span>
                 <div className="font-mono text-[0.55rem] tracking-[0.2em] uppercase text-[oklch(0.45_0.09_185)] -mt-0.5">
-                  Guiding the Way Forward
+                  B2B systems and support
                 </div>
               </div>
             </a>
             <p className="text-sm leading-relaxed max-w-xs mt-4">
-              We build the AI-powered infrastructure that makes your business
-              the confident answer. Deliver results. Stand behind your word. Earn the relationship.
+              We build the systems, supports, and operating rhythms that make your organization easier to find and easier to run.
             </p>
           </div>
 

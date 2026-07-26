@@ -4,10 +4,9 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * DESIGN SYSTEM: "Blueprint Aesthetic"
- * Technical precision meets warmth. Deep teal authority, gold value accents,
- * warm off-white canvas. Instrument Serif for headlines, DM Sans for body,
- * JetBrains Mono for technical labels.
+ * BEACON BRAND SYSTEM — B2B Blueprint
+ * Beacon Labs keeps its technical teal as a division accent while sharing Beacon
+ * Momentum's Harbor Navy, Signal Brass, editorial typography, and horizon-rule rhythm.
  */
 
 @theme inline {
@@ -219,6 +218,18 @@
     linear-gradient(oklch(0.45 0.09 185 / 0.12) 1px, transparent 1px),
     linear-gradient(90deg, oklch(0.45 0.09 185 / 0.12) 1px, transparent 1px);
   background-size: 40px 40px;
+}
+
+/* Shared Beacon family signal: parent-company wayfinding without flattening the Labs B2B identity. */
+.beacon-family-rule {
+  background: linear-gradient(90deg, oklch(0.45 0.09 185), oklch(0.75 0.14 85 / 0.52), transparent);
+}
+
+.beacon-paper-noise {
+  background-image:
+    radial-gradient(oklch(0.16 0.03 240 / 0.035) 0.65px, transparent 0.65px),
+    linear-gradient(140deg, oklch(0.97 0.005 80), oklch(0.95 0.008 80));
+  background-size: 8px 8px, auto;
 }
 
 /* Frosted glass effect */

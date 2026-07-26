@@ -1,8 +1,6 @@
 /*
- * Hero — Blueprint Aesthetic
- * Dramatic diagonal split layout. Left: headline + CTA over warm canvas.
- * Right: lighthouse hero image with blueprint overlay.
- * Gold wire-frame accents, technical annotations.
+ * Beacon Brand System — B2B Blueprint: editorial split hero with Labs' teal technical proof and Beacon Momentum's brass navigation signal.
+ * Service CTA and philosophy anchors remain unchanged.
  */
 import { motion } from "framer-motion";
 import { ArrowRight, Cpu, Zap, Globe } from "lucide-react";
@@ -17,12 +15,12 @@ const stats = [
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen overflow-hidden">
+    <section className="beacon-paper-noise relative min-h-screen overflow-hidden">
       {/* Blueprint grid background */}
       <div className="absolute inset-0 blueprint-grid opacity-50" />
 
       {/* Content */}
-      <div className="relative container pt-28 md:pt-36 pb-20">
+      <div className="relative container pt-36 md:pt-40 pb-20">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center min-h-[70vh]">
           {/* Left: Text Content */}
           <div className="relative z-10">
@@ -33,8 +31,8 @@ export default function Hero() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="flex items-center gap-3 mb-8"
             >
-              <div className="w-12 h-px bg-[oklch(0.75_0.14_85)]" />
-              <span className="section-label">AI Infrastructure Engineering</span>
+              <div className="h-px w-12 beacon-family-rule" />
+              <span className="section-label">Beacon Labs AI · B2B infrastructure</span>
             </motion.div>
 
             <motion.h1
@@ -43,15 +41,15 @@ export default function Hero() {
               transition={{ duration: 0.7, delay: 0.3 }}
               className="font-serif text-[2.75rem] md:text-[3.5rem] lg:text-[4rem] leading-[1.05] tracking-tight text-[oklch(0.16_0.03_240)] mb-6"
             >
-              Guiding The{" "}
+              Systems that make
               <span className="relative inline-block">
-                <span className="text-[oklch(0.40_0.08_185)]">Way</span>
+                <span className="text-[oklch(0.40_0.08_185)]">the work</span>
                 <svg className="absolute -bottom-1 left-0 w-full" viewBox="0 0 200 8" fill="none">
                   <path d="M0 6 Q50 0 100 4 Q150 8 200 2" stroke="oklch(0.75 0.14 85)" strokeWidth="2" fill="none" />
                 </svg>
               </span>
               <br />
-              <em className="text-[oklch(0.75_0.14_85)] not-italic">Forward</em>
+              <em className="text-[oklch(0.75_0.14_85)] not-italic">hold together.</em>
             </motion.h1>
 
             <motion.p
@@ -60,9 +58,7 @@ export default function Hero() {
               transition={{ duration: 0.6, delay: 0.5 }}
               className="text-lg md:text-xl text-[oklch(0.40_0.03_240)] leading-relaxed max-w-lg mb-10"
             >
-              People aren't just searching anymore — they're asking, and AI is answering.
-              We build the AI-powered infrastructure that makes your business the confident
-              answer. 40 years of operational discipline, guided by Navy principles. Technology that works.
+              AI is now part of how people discover, evaluate, and choose. We build the operational infrastructure that makes an organization the confident answer — with the discipline to keep it usable after launch.
             </motion.p>
 
             {/* CTAs */}
@@ -76,14 +72,14 @@ export default function Hero() {
                 href="#contact"
                 className="group inline-flex items-center gap-2 font-mono text-sm tracking-[0.05em] uppercase px-7 py-3.5 bg-[oklch(0.40_0.08_185)] text-[oklch(0.97_0.005_80)] rounded-sm hover:bg-[oklch(0.35_0.07_185)] transition-all duration-300 hover:shadow-[0_0_30px_oklch(0.45_0.09_185/0.3)]"
               >
-                Book a Discovery Call
+                Map Your System
                 <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
               </a>
               <a
                 href="#portfolio"
                 className="inline-flex items-center gap-2 font-mono text-sm tracking-[0.05em] uppercase px-7 py-3.5 border border-[oklch(0.45_0.09_185/0.3)] text-[oklch(0.35_0.07_185)] rounded-sm hover:border-[oklch(0.45_0.09_185/0.6)] hover:bg-[oklch(0.45_0.09_185/0.05)] transition-all duration-300"
               >
-                See Our Philosophy
+                See the Operating Model
               </a>
             </motion.div>
 
@@ -118,13 +114,13 @@ export default function Hero() {
             className="relative"
           >
             {/* Blueprint frame */}
-            <div className="absolute -inset-3 border border-[oklch(0.45_0.09_185/0.15)] rounded-sm" />
+            <div className="absolute -inset-3 border border-[oklch(0.45_0.09_185/0.18)] rounded-sm" />
             <div className="absolute -inset-6 border border-[oklch(0.45_0.09_185/0.08)] rounded-sm hidden lg:block" />
 
             {/* Corner annotations */}
             <div className="absolute -top-8 -right-8 font-mono text-[0.6rem] text-[oklch(0.45_0.09_185/0.5)] hidden lg:block">
-              <div>REF: BL-2026-001</div>
-              <div>SCALE: 1:1</div>
+              <div>REF: BLAI-2026-001</div>
+              <div>OPERATIONS: LIVE</div>
             </div>
 
             <div className="relative rounded-sm overflow-hidden shadow-2xl">
@@ -151,7 +147,7 @@ export default function Hero() {
               <div className="flex items-center gap-2 mt-1">
                 <div className="w-2 h-2 rounded-full bg-[oklch(0.65_0.20_145)] animate-pulse" />
                 <span className="font-mono text-xs text-[oklch(0.30_0.04_240)]">
-                  All agents operational
+                  Systems are ready to work
                 </span>
               </div>
             </motion.div>

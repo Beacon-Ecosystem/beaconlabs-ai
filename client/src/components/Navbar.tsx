@@ -1,8 +1,6 @@
 /*
- * Navbar — Blueprint Aesthetic
- * Frosted glass navigation bar with teal/gold accents.
- * Instrument Serif logo, JetBrains Mono nav labels.
- * Updated with niche landing page links and Free Signal Check CTA.
+ * Beacon Brand System — B2B Blueprint: parent-company wayfinding above a precise Labs navigation shell.
+ * Existing service, audit, contact, and niche-route destinations remain unchanged.
  */
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -48,11 +46,17 @@ export default function Navbar() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled
-          ? "bg-[oklch(0.97_0.005_80/0.92)] backdrop-blur-xl shadow-[0_1px_0_oklch(0.45_0.09_185/0.15),0_4px_20px_oklch(0.16_0.03_240/0.08)]"
-          : "bg-transparent"
+          ? "bg-[oklch(0.97_0.005_80/0.94)] backdrop-blur-xl shadow-[0_1px_0_oklch(0.45_0.09_185/0.15),0_10px_30px_oklch(0.16_0.03_240/0.08)]"
+          : "bg-[oklch(0.97_0.005_80/0.72)] backdrop-blur-md"
       }`}
     >
-      <nav className="container flex items-center justify-between h-16 md:h-20">
+      <div className="border-b border-[oklch(0.45_0.09_185/0.12)] bg-[oklch(0.16_0.03_240)] text-[oklch(0.92_0.005_80)]">
+        <div className="container flex h-8 items-center justify-between gap-3 overflow-hidden whitespace-nowrap font-mono text-[0.58rem] tracking-[0.15em] uppercase">
+          <span><span className="text-[oklch(0.75_0.14_85)]">Beacon Momentum, LLC</span><span className="mx-2 text-[oklch(0.55_0.02_185)]">/</span>Beacon Labs AI · B2B Systems</span>
+          <a href="https://beaconmomentum.com" target="_blank" rel="noopener noreferrer" className="hidden shrink-0 text-[oklch(0.70_0.10_185)] transition-colors hover:text-[oklch(0.92_0.005_80)] sm:inline">Parent-company front door ↗</a>
+        </div>
+      </div>
+      <nav className="container flex items-center justify-between h-16 md:h-[4.75rem]">
         {/* Logo */}
         <a href="/" className="flex items-center gap-3 group">
           <img
@@ -62,10 +66,10 @@ export default function Navbar() {
           />
           <div className="flex flex-col">
             <span className="font-serif text-lg md:text-xl font-normal tracking-tight text-[oklch(0.16_0.03_240)]">
-              Beacon Labs
+              Beacon Labs AI
             </span>
             <span className="hidden md:block font-mono text-[0.6rem] tracking-[0.2em] uppercase text-[oklch(0.45_0.09_185)] -mt-0.5">
-              AI Infrastructure Engineering
+              B2B Systems Engineering
             </span>
           </div>
         </a>
@@ -98,7 +102,7 @@ export default function Navbar() {
           ))}
           <a
             href="/audit"
-            className="ml-4 font-mono text-xs tracking-[0.1em] uppercase px-5 py-2.5 bg-[oklch(0.40_0.08_185)] text-[oklch(0.97_0.005_80)] rounded-sm hover:bg-[oklch(0.35_0.07_185)] transition-all duration-300 hover:shadow-[0_0_20px_oklch(0.45_0.09_185/0.3)]"
+            className="ml-4 font-mono text-xs tracking-[0.1em] uppercase px-5 py-2.5 bg-[oklch(0.40_0.08_185)] text-[oklch(0.97_0.005_80)] rounded-sm transition-[transform,box-shadow,background-color] duration-200 hover:-translate-y-0.5 hover:bg-[oklch(0.35_0.07_185)] hover:shadow-[0_0_20px_oklch(0.45_0.09_185/0.3)] active:translate-y-0"
           >
             Free Signal Check
           </a>
@@ -121,7 +125,7 @@ export default function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden bg-[oklch(0.97_0.005_80/0.95)] backdrop-blur-xl border-t border-[oklch(0.45_0.09_185/0.1)]"
+            className="lg:hidden bg-[oklch(0.97_0.005_80/0.97)] backdrop-blur-xl border-t border-[oklch(0.45_0.09_185/0.1)]"
           >
             <div className="container py-6 flex flex-col gap-1">
               {navLinks.map((link) => (
