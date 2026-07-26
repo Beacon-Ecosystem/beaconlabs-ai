@@ -12,6 +12,7 @@
 | Desktop public shell | Passed | Local preview displayed the Beacon Momentum, LLC parent-company strip, retained navigation destinations, Beacon Labs AI B2B label, and Free Signal Check CTA. |
 | Hero hierarchy | Passed | The local preview displayed the revised operational headline, readable supporting copy, both existing CTA destinations, proof statistics, lighthouse asset, and operational-status annotation without visible clipping. |
 | Customer path preservation | Passed visually | Existing Services, E-Commerce, Coaches, Pricing, Contact, Audit, and hero-anchor navigation remained present in the rendered preview. No links were clicked or submitted during the visual check. |
+| Mobile public shell | Passed | A 390px viewport review showed the parent-company strip, compact menu control, readable B2B headline and supporting copy, and both primary calls to action without clipping or contrast loss. |
 
 ## Notes
 
