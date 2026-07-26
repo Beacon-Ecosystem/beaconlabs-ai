@@ -1,23 +1,16 @@
 /*
- * Beacon Brand System — B2B Blueprint: a Labs-specific technical footer with explicit parent-company context and unchanged ecosystem routes.
+ * Beacon Brand System — B2B Blueprint: a compact B2B footer that keeps parent
+ * context explicit without suggesting shared accounts, shared data, or a generic
+ * ecosystem-directory handoff.
  */
 
 const LOGO_URL = "https://files.manuscdn.com/user_upload_by_module/session_file/310419663026807979/PvMfhRKIZBrzDTem.png";
 
-const ecosystemBrands = [
-  { name: "Beacon Momentum", url: "https://beaconmomentum.com" },
-  { name: "Beacon Trading \u00b7 Simulation Academy", url: "https://beacontrading.ai" },
-  { name: "Beacon Community", url: "https://beaconcommunity.net" },
-  { name: "Hollow Threads", url: "https://hollowthreads.store" },
-  { name: "Digital Grandpa", url: "https://digitalgrandpa.org" },
-];
-
 const footerLinks = [
-  { label: "Services", href: "#services" },
-  { label: "Process", href: "#process" },
-  { label: "Portfolio", href: "#portfolio" },
-  { label: "Pricing", href: "#pricing" },
-  { label: "Contact", href: "#contact" },
+  { label: "Approach", href: "#approach" },
+  { label: "Working model", href: "#capabilities" },
+  { label: "Start a conversation", href: "#conversation" },
+  { label: "Privacy notice", href: "/privacy" },
 ];
 
 export default function Footer() {
@@ -32,10 +25,10 @@ export default function Footer() {
           <div>
             <div className="mb-1 font-mono text-[0.6rem] tracking-[0.2em] uppercase text-[oklch(0.75_0.14_85)]">Beacon Momentum, LLC · Parent Company</div>
             <p className="font-serif text-lg text-[oklch(0.90_0.005_80)]">
-              Start with the ecosystem. Continue with the right operating system.
+              A Beacon Momentum, LLC B2B service.
             </p>
             <p className="text-sm text-[oklch(0.55_0.02_185)] mt-1">
-              Beacon Labs AI is the B2B systems and support arm. Beacon Momentum is the public front door.
+              Beacon Labs AI is a separate client-service experience. Accounts and submitted details are not transferred automatically.
             </p>
           </div>
           <a
@@ -48,7 +41,7 @@ export default function Footer() {
           </a>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-12 mb-12">
+        <div className="grid gap-12 mb-12 md:grid-cols-[1.25fr_0.75fr]">
           {/* Brand */}
           <div>
             <a href="#" className="flex items-center gap-3 mb-4">
@@ -86,25 +79,17 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Ecosystem */}
+          {/* Service boundary */}
           <div>
             <h4 className="font-mono text-[0.65rem] tracking-[0.2em] uppercase text-[oklch(0.75_0.14_85)] mb-4">
-              Beacon Ecosystem
+              Contact
             </h4>
-            <ul className="space-y-2">
-              {ecosystemBrands.map((brand) => (
-                <li key={brand.name}>
-                  <a
-                    href={brand.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm hover:text-[oklch(0.85_0.005_80)] transition-colors"
-                  >
-                    {brand.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
+            <a href="mailto:hello@beaconlabs.ai" className="text-sm hover:text-[oklch(0.85_0.005_80)] transition-colors">
+              hello@beaconlabs.ai
+            </a>
+            <p className="mt-3 max-w-xs text-sm leading-6 text-[oklch(0.55_0.02_185)]">
+              Contact Beacon Labs about a B2B systems-engagement conversation.
+            </p>
           </div>
         </div>
 
@@ -122,7 +107,7 @@ export default function Footer() {
             <a href="/privacy" className="hover:text-[oklch(0.85_0.005_80)] transition-colors">
               Privacy Notice
             </a>
-            <span>Guiding the Way Forward. Always.</span>
+            <span>B2B systems engineering</span>
           </div>
         </div>
       </div>

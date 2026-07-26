@@ -1,6 +1,7 @@
 /*
- * Beacon Brand System — B2B Blueprint: parent-company wayfinding above a precise Labs navigation shell.
- * Existing service, audit, contact, and niche-route destinations remain unchanged.
+ * Beacon Brand System — B2B Blueprint: a role-aware navigation shell for the
+ * focused Beacon Labs B2B journey. It provides a clearly labeled parent handoff
+ * while keeping the client-service boundary and conversion path on this property.
  */
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -10,11 +11,9 @@ import { useLocation } from "wouter";
 const LOGO_URL = "https://files.manuscdn.com/user_upload_by_module/session_file/310419663026807979/PvMfhRKIZBrzDTem.png";
 
 const navLinks = [
-  { label: "Services", href: "/#services" },
-  { label: "E-Commerce", href: "/ecommerce" },
-  { label: "Coaches", href: "/coaches" },
-  { label: "Pricing", href: "/#pricing" },
-  { label: "Contact", href: "/#contact" },
+  { label: "Approach", href: "/#approach" },
+  { label: "Working Model", href: "/#capabilities" },
+  { label: "Engagement", href: "/#conversation" },
 ];
 
 export default function Navbar() {
@@ -101,10 +100,16 @@ export default function Navbar() {
             </a>
           ))}
           <a
-            href="/audit"
+            href="/#conversation"
+            onClick={(event) => {
+              if (location === "/") {
+                event.preventDefault();
+                handleNavClick("/#conversation");
+              }
+            }}
             className="ml-4 font-mono text-xs tracking-[0.1em] uppercase px-5 py-2.5 bg-[oklch(0.40_0.08_185)] text-[oklch(0.97_0.005_80)] rounded-sm transition-[transform,box-shadow,background-color] duration-200 hover:-translate-y-0.5 hover:bg-[oklch(0.35_0.07_185)] hover:shadow-[0_0_20px_oklch(0.45_0.09_185/0.3)] active:translate-y-0"
           >
-            Free Signal Check
+            Start a Conversation
           </a>
         </div>
 
@@ -146,11 +151,14 @@ export default function Navbar() {
                 </a>
               ))}
               <a
-                href="/audit"
-                onClick={() => setMobileOpen(false)}
+                href="/#conversation"
+                onClick={(event) => {
+                  event.preventDefault();
+                  handleNavClick("/#conversation");
+                }}
                 className="mt-3 font-mono text-sm tracking-[0.1em] uppercase px-4 py-3 bg-[oklch(0.40_0.08_185)] text-[oklch(0.97_0.005_80)] rounded-sm text-center"
               >
-                Free Signal Check
+                Start a Conversation
               </a>
             </div>
           </motion.div>
