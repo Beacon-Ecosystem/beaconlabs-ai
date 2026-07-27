@@ -1,14 +1,13 @@
 /*
  * VideoExplainer — Blueprint Aesthetic (V6 Final)
- * UGC-style explainer video section featuring Bob Burr (founder).
- * Positioned between Hero and TrustSignals to capture attention early.
- * Dark teal background with blueprint grid, asymmetric layout:
- * Left: video player with technical frame annotations.
- * Right: key talking points and CTA.
+ * Founder briefing for the Beacon Labs B2B Blueprint homepage.
+ * It preserves the approved Bob Burr video asset while reframing the surrounding
+ * copy and CTA around the free-report-first Signal Check pathway, including the
+ * separately chosen paid follow-up described in the report when appropriate.
  */
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
-import { Play, Pause, Search, MessageSquare, TrendingUp, ArrowRight } from "lucide-react";
+import { Play, Search, MessageSquare, TrendingUp, ArrowRight } from "lucide-react";
 
 const VIDEO_URL = "https://files.manuscdn.com/user_upload_by_module/session_file/310419663026807979/bzYejrWwNWFmBWbF.mp4";
 const POSTER_URL = "https://files.manuscdn.com/user_upload_by_module/session_file/310419663026807979/SjkajeBhRNKbGKdL.jpg";
@@ -16,21 +15,21 @@ const POSTER_URL = "https://files.manuscdn.com/user_upload_by_module/session_fil
 const keyPoints = [
   {
     icon: Search,
-    title: "AI Is Replacing Google",
+    title: "Make the work legible",
     description:
-      "Buyers are asking ChatGPT, Gemini, and Siri for recommendations — and skipping search results entirely.",
+      "Clear service language, evidence, and ownership help people and emerging discovery systems understand what an organization actually does.",
   },
   {
     icon: MessageSquare,
-    title: "You Might Be Invisible",
+    title: "Set the handoff on purpose",
     description:
-      "If your business isn't structured for AI discovery, you're not showing up when it matters most.",
+      "A request should arrive with a responsible team and clear expectations—not disappear into an opaque funnel.",
   },
   {
     icon: TrendingUp,
-    title: "39% of Consumers Use AI",
+    title: "Choose the next step consciously",
     description:
-      "According to a 2025 Adobe study, 39% of consumers have already used generative AI for online shopping, with 53% planning to do so this year.",
+      "The free report can explain an optional paid follow-up. It remains a separate, affirmative decision—not an automatic next step.",
   },
 ];
 
@@ -53,7 +52,7 @@ export default function VideoExplainer() {
   };
 
   return (
-    <section className="relative bg-[oklch(0.18_0.035_200)] py-20 md:py-28 overflow-hidden">
+    <section id="founder-brief" className="relative bg-[oklch(0.18_0.035_200)] py-20 md:py-28 overflow-hidden">
       {/* Blueprint grid */}
       <div className="absolute inset-0 blueprint-grid-dark opacity-20" />
 
@@ -70,7 +69,7 @@ export default function VideoExplainer() {
         >
           <div className="w-8 h-px bg-[oklch(0.75_0.14_85)]" />
           <span className="section-label text-[oklch(0.75_0.14_85)]">
-            Why AI Search Visibility Matters
+              A founder briefing on responsible next steps
           </span>
         </motion.div>
 
@@ -142,7 +141,7 @@ export default function VideoExplainer() {
                   Bob Burr
                 </div>
                 <div className="font-mono text-[0.6rem] tracking-[0.1em] uppercase text-[oklch(0.55_0.03_185)]">
-                  Founder, Beacon Labs
+                  Founder, Beacon Labs AI
                 </div>
               </div>
             </motion.div>
@@ -156,9 +155,9 @@ export default function VideoExplainer() {
               transition={{ duration: 0.6, delay: 0.3 }}
               className="font-serif text-2xl md:text-3xl leading-tight text-[oklch(0.95_0.005_80)] mb-3"
             >
-              The Technology Is New.
+              The operating question is real.
               <br />
-              <span className="text-[oklch(0.75_0.14_85)]">The Principles Aren't.</span>
+              <span className="text-[oklch(0.75_0.14_85)]">The next step should be clear.</span>
             </motion.h2>
 
             <motion.p
@@ -167,9 +166,7 @@ export default function VideoExplainer() {
               transition={{ duration: 0.5, delay: 0.4 }}
               className="text-[oklch(0.65_0.03_185)] mb-8 leading-relaxed"
             >
-              With 40 years of operational discipline, guided by Navy principles, Bob built Beacon Labs
-              on a simple belief: deliver results, stand behind your word, earn the
-              relationship. In this video, Bob explains why this shift to AI-powered search is the most important change for businesses today.
+              In this briefing, Bob explains the discipline behind Beacon Labs: make the operating problem visible, establish accountability, and choose the next decision on purpose. The free Signal Check report makes the immediate need easier to see; when it fits, that report also introduces a separately chosen paid follow-up that begins answering the questions it surfaces.
             </motion.p>
 
             <div className="space-y-5 mb-8">
@@ -206,14 +203,14 @@ export default function VideoExplainer() {
                 href="/signal-check"
                 className="group inline-flex items-center gap-2 font-mono text-xs tracking-[0.1em] uppercase px-6 py-3 bg-[oklch(0.75_0.14_85)] text-[oklch(0.16_0.03_240)] rounded-sm hover:bg-[oklch(0.80_0.13_85)] transition-all duration-300 hover:shadow-[0_0_25px_oklch(0.75_0.14_85/0.3)]"
               >
-                Get Your Beacon Signal Check
+                Request the free Signal Check
                 <ArrowRight
                   size={14}
                   className="transition-transform group-hover:translate-x-1"
                 />
               </a>
               <p className="font-mono text-[0.6rem] tracking-[0.1em] text-[oklch(0.45_0.03_185)] mt-3">
-                No cost. No obligation. A clear read on what you are standing on.
+                A free request is reviewed first. It does not begin an automatic scan, report, paid follow-up, or service engagement.
               </p>
             </motion.div>
           </div>

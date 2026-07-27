@@ -11,6 +11,9 @@ import SignalCheck from "./pages/SignalCheck";
 import GrowthBlueprint from "./pages/GrowthBlueprint";
 import BlueprintThankYou from "./pages/BlueprintThankYou";
 import Privacy from "./pages/Privacy";
+import Services from "./pages/Services";
+import FounderBrief from "./pages/FounderBrief";
+import PatchPilotResource from "./pages/PatchPilotResource";
 
 
 function Router() {
@@ -23,6 +26,9 @@ function Router() {
         <Redirect to="/signal-check" replace />
       </Route>
       <Route path={"/signal-check"} component={SignalCheck} />
+      <Route path={"/services"} component={Services} />
+      <Route path={"/founder-brief"} component={FounderBrief} />
+      <Route path={"/patchpilot"} component={PatchPilotResource} />
       <Route path={"/growth-blueprint"} component={GrowthBlueprint} />
       <Route path={"/blueprint-thank-you"} component={BlueprintThankYou} />
       <Route path={"/privacy"} component={Privacy} />

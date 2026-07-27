@@ -2,9 +2,9 @@
  * Beacon Labs AI — Marketing Partnerships Section
  * Design: Blueprint / Dark Teal + Gold Mono Typography
  *
- * This section surfaces products that Beacon Labs has deployed on its own
- * infrastructure and chosen to formally market. The standard: we endorse
- * what we run, not the other way around.
+ * This section surfaces the owner-approved PatchPilot endorsement on the Beacon
+ * Labs B2B Blueprint homepage. It makes CTO ownership, partner status, current
+ * pricing ownership, and the separate product/data relationship explicit.
  */
 
 import { Handshake, Shield, Server, Smartphone, Lock } from "lucide-react";
@@ -23,39 +23,37 @@ interface Partner {
 const PARTNERS: Partner[] = [
   {
     name: "PatchPilot",
-    tagline: "Autonomous server patching. Zero agents. Zero risk.",
+    tagline: "Agentless server patching for practical infrastructure stewardship.",
     description:
-      "PatchPilot is an agentless server patching platform built for teams that need to maintain security compliance without deploying persistent agents on production infrastructure. It connects via standard SSH, applies patches on a defined schedule, and reports back — nothing installed, nothing left running.",
-    url: "https://patchpilot.beaconlabs.ai/",
+      "PatchPilot is an independent server-patching product for teams that want a defined operational process without adding a persistent agent to production infrastructure. Beacon Labs recommends it as a resource for the kind of accountable systems work we practice.",
+    url: "https://patchpilot.beaconlabs.ai/overlay.html",
     partnerStatement:
-      "Beacon Labs does not endorse software we have not run in production. PatchPilot is built by our own CTO and deployed across the Beacon infrastructure stack. We became its marketing partner because we trust the product — not the other way around.",
+      "PatchPilot is CTO John Sanborn’s software. Beacon Labs uses it in the Beacon environment and publicly endorses it as an independent partner product. If you follow this link, PatchPilot handles its own product, account, terms, and data relationship separately.",
     highlights: [
-      { icon: <Server className="w-4 h-4" />, label: "Self-hosted" },
-      { icon: <Shield className="w-4 h-4" />, label: "Agentless SSH" },
-      { icon: <Lock className="w-4 h-4" />, label: "AES-256 encrypted" },
-      { icon: <Smartphone className="w-4 h-4" />, label: "iOS mobile client" },
+      { icon: <Server className="w-4 h-4" />, label: "Infrastructure resource" },
+      { icon: <Shield className="w-4 h-4" />, label: "Agentless approach" },
+      { icon: <Lock className="w-4 h-4" />, label: "Separate product account" },
+      { icon: <Smartphone className="w-4 h-4" />, label: "CTO-built product" },
     ],
-    tags: ["Linux", "macOS", "Windows", "SSH", "Compliance", "DevOps"],
-    pricing: "Free tier available · Pro from $29/month",
+    tags: ["Patching", "Operations", "Infrastructure", "Security", "DevOps"],
+    pricing: "Current plans and pricing are provided directly by PatchPilot.",
   },
 ];
 
 export default function TrustedPartners() {
   return (
-    <section className="py-24 px-6 bg-[oklch(0.14_0.02_195)]">
+    <section id="partners" className="py-24 px-6 bg-[oklch(0.14_0.02_195)]">
       <div className="max-w-5xl mx-auto">
         {/* Section Header */}
         <div className="mb-14">
           <p className="text-xs font-mono tracking-[0.2em] uppercase text-[oklch(0.65_0.08_185)] mb-3">
-            Marketing Partnerships
+            Recommended partner resource
           </p>
           <h2 className="font-serif text-4xl text-[oklch(0.95_0.005_80)] mb-4">
-            We Market What We Trust
+            A resource we publicly endorse
           </h2>
           <p className="text-[oklch(0.60_0.02_185)] max-w-2xl leading-relaxed">
-            Every product in this section has been deployed on Beacon's own
-            infrastructure before any partnership agreement was signed. We are
-            not a directory. We are a co-sign.
+            PatchPilot is built by Beacon Labs CTO John Sanborn. Beacon Labs recommends it as an independent product resource; following the link below takes you to a separate product experience with its own plans, terms, and data practices.
           </p>
         </div>
 
@@ -75,7 +73,7 @@ export default function TrustedPartners() {
                     </span>
                     <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-sm text-xs font-mono tracking-widest uppercase border border-[oklch(0.75_0.12_80)] text-[oklch(0.75_0.12_80)]">
                       <Handshake className="w-3 h-3" />
-                      Marketing Partner
+                      Beacon-endorsed partner
                     </span>
                   </div>
                   <p className="text-[oklch(0.65_0.05_185)] font-mono text-sm tracking-wide">
@@ -88,7 +86,7 @@ export default function TrustedPartners() {
                   rel="noopener noreferrer"
                   className="flex-shrink-0 px-5 py-2.5 rounded-sm text-xs font-mono tracking-widest uppercase bg-[oklch(0.35_0.08_185)] text-[oklch(0.90_0.05_185)] hover:bg-[oklch(0.40_0.10_185)] transition-colors"
                 >
-                  Visit Site
+                  Explore PatchPilot
                 </a>
               </div>
 
@@ -143,12 +141,12 @@ export default function TrustedPartners() {
 
         {/* Footer note */}
         <p className="mt-10 text-xs font-mono text-[oklch(0.40_0.02_185)] tracking-wide">
-          Interested in a marketing partnership with Beacon Labs?{" "}
+          Need help determining whether PatchPilot or a Beacon Labs systems engagement is the right fit?{" "}
           <a
             href="mailto:partnerships@beaconlabs.ai"
             className="text-[oklch(0.65_0.08_185)] hover:text-[oklch(0.75_0.10_185)] transition-colors"
           >
-            partnerships@beaconlabs.ai
+            Contact Beacon Labs
           </a>
         </p>
       </div>

@@ -1,8 +1,7 @@
 /*
- * Signal Check Landing Page — Coffy Clone Funnel
- * AI Visibility Score request form.
- * Collects business info, submits to /api/signal-check, shows confirmation.
- * Linked from GHL comment-trigger DM (SIGNAL keyword).
+ * Signal Check Landing Page
+ * Consent-based request form for the free Signal Check report.
+ * The report may introduce the separately chosen $297 paid follow-up.
  */
 import { motion, useInView } from "framer-motion";
 import { useRef, useState, useCallback } from "react";
@@ -24,41 +23,41 @@ import { Checkbox } from "@/components/ui/checkbox";
 const benefits = [
   {
     icon: Brain,
-    title: "AI Search Visibility Score",
+    title: "Context reviewed with consent",
     description:
-      "We run your business through the top AI platforms — ChatGPT, Gemini, Perplexity, and Claude — and score how often and how accurately you appear when potential customers ask for what you offer.",
+      "We begin with the information you choose to provide. A request does not authorize account access, system changes, or an automatic scan.",
   },
   {
     icon: Search,
-    title: "Competitor Comparison",
+    title: "A clear first report",
     description:
-      "See exactly how your AI visibility stacks up against your top 3 competitors. Know who's winning the AI search game in your market — and why.",
+      "If Beacon Labs accepts the request, the no-cost report identifies the operating question, what is visible now, and the possible next paths.",
   },
   {
     icon: BarChart3,
-    title: "Gap Analysis",
+    title: "The option to go deeper",
     description:
-      "A clear breakdown of the specific infrastructure gaps preventing AI platforms from recommending your business, with prioritized action items.",
+      "The free report may introduce a separate $297 paid follow-up for organizations that want to begin answering the questions it surfaces. It is optional and never automatic.",
   },
   {
     icon: Zap,
     title: "Clear Request Status",
     description:
-      "Your request enters Beacon Labs' review queue. A free request does not guarantee a report, recommendation, or follow-up service.",
+      "Your request enters Beacon Labs' review queue. A free request does not guarantee a report, recommendation, paid follow-up, or service engagement.",
   },
   {
     icon: Globe,
-    title: "Platform Dependency Assessment",
+    title: "A responsible engagement path",
     description:
-      "We map how much of your business's visibility and revenue depends on platforms you do not control — and show you exactly where your exposure is in the current environment.",
+      "Broader Beacon Labs systems work is scoped separately after an affirmative conversation about the question, owners, timing, and investment.",
   },
 ];
 
 const processSteps = [
   {
     step: "01",
-    title: "Submit Your Business Info",
-    description: "Tell us your business name, website, and what you do. Takes 90 seconds.",
+    title: "Request the free Signal Check",
+    description: "Share the organization, operating question, and context you want Beacon Labs to review.",
   },
   {
     step: "02",
@@ -68,15 +67,15 @@ const processSteps = [
   },
   {
     step: "03",
-    title: "Scope Is Confirmed",
+    title: "Receive the free report",
     description:
-      "If we decide to move forward, Beacon Labs will contact you with the applicable next step and any requested information.",
+      "If Beacon Labs accepts the request, the report makes the immediate need and responsible next paths easier to see.",
   },
   {
     step: "04",
-    title: "No Obligation",
+    title: "Choose any deeper work separately",
     description:
-      "Submitting a free request creates no purchase, service, report-delivery, or implementation obligation for either side.",
+      "The report may include the optional $297 paid follow-up. It is a separate affirmative choice, not a charge, membership, or service commitment.",
   },
 ];
 
@@ -152,7 +151,7 @@ export default function SignalCheck() {
     if (typeof window !== "undefined" && (window as any).fbq) {
       (window as any).fbq("track", "Lead", {
         content_name: "Signal Check",
-        content_category: "AI Visibility",
+        content_category: "B2B Signal Check",
       });
     }
 
@@ -198,11 +197,13 @@ export default function SignalCheck() {
             <h1 className="text-3xl font-bold mb-4">Signal Check Request Received</h1>
             <p className="text-gray-400 text-lg mb-6">
               Your information has been recorded for Beacon Labs review. A submission does not
-              automatically begin a scan or guarantee a report, recommendation, or service.
+              automatically begin a scan or guarantee a report, recommendation, paid follow-up,
+              or service.
             </p>
             <p className="text-gray-500 text-sm">
-              If Beacon Labs moves forward with your request, we will contact you at the email
-              address you provided.
+              If Beacon Labs accepts the request, we will contact you at the email address you
+              provided. The free report may introduce an optional $297 paid follow-up; it does not
+              authorize a charge or create an engagement.
             </p>
           </motion.div>
         </div>
@@ -226,22 +227,22 @@ export default function SignalCheck() {
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#00d4ff]/10 border border-[#00d4ff]/20 text-[#00d4ff] text-sm font-medium mb-8">
             <Zap className="w-4 h-4" />
-            No Cost. No Obligation. Just Clarity.
+            No Cost. Reviewed First. No Automatic Commitment.
           </div>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-            When Everything Is Shifting,{" "}
-            <span className="text-[#00d4ff]">Clarity Is the Competitive Advantage</span>
+            Start with the question.{" "}
+            <span className="text-[#00d4ff]">Choose the next step on purpose.</span>
           </h1>
           <p className="text-xl text-gray-400 mb-10 max-w-2xl mx-auto">
-            The Beacon Signal Check tells you exactly what in your business is built to hold — and
-            what is exposed to the disruption happening right now. 15 minutes. No sales pitch.
-            No obligation. Just a clear read on your signal.
+            Request a no-cost Beacon Signal Check when an operating question needs a clearer first
+            look. If Beacon Labs accepts the request, the free report makes the immediate need and
+            possible next paths easier to see.
           </p>
           <a
             href="#signal-check-form"
             className="inline-flex items-center gap-2 px-8 py-4 bg-[#00d4ff] text-black font-bold rounded-lg hover:bg-[#00b8d9] transition-colors text-lg"
           >
-            Get My Signal Check — No Cost
+            Request My Free Signal Check
             <ArrowRight className="w-5 h-5" />
           </a>
         </motion.div>
@@ -250,11 +251,10 @@ export default function SignalCheck() {
       {/* Benefits */}
       <section className="py-20 px-6 bg-[#0f0f0f]">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-4">What You'll Receive</h2>
+          <h2 className="text-3xl font-bold text-center mb-4">What the Signal Check Makes Clear</h2>
           <p className="text-gray-400 text-center mb-12 max-w-2xl mx-auto">
-            A direct assessment of your business's current positioning, visibility, and stability —
-            not a generic checklist, but a real scan of what is working, what is missing, and where
-            your exposure is in a market that is changing faster than most advisory frameworks can track.
+            A no-cost request is reviewed first. If it is accepted, the free report gives you a
+            grounded starting point and explains the choices available from there.
           </p>
           <div className="grid md:grid-cols-2 gap-6">
             {benefits.map((b, i) => (
@@ -313,7 +313,7 @@ export default function SignalCheck() {
           <div className="text-center mb-10">
             <h2 className="text-3xl font-bold mb-4">Run Your Signal Check</h2>
             <p className="text-gray-400">
-              No credit card. No purchase required. Submit a request for Beacon Labs to review.
+              No credit card. No purchase required. Submit a consented request for Beacon Labs to review.
             </p>
           </div>
 
@@ -420,7 +420,7 @@ export default function SignalCheck() {
 
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-1.5">
-                What do customers search for when looking for a business like yours?
+                What is becoming hard to see, run, or hand off in the organization?
               </label>
               <textarea
                 name="description"
@@ -428,7 +428,7 @@ export default function SignalCheck() {
                 onChange={handleChange}
                 rows={3}
                 className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-[#00d4ff]/50 transition-colors resize-none"
-                placeholder="e.g. 'business coach for entrepreneurs', 'best coffee shop in Austin', 'online fitness programs for women over 40'"
+                placeholder="Briefly describe the operating question, decision, workflow, or handoff you want to examine."
               />
             </div>
 
@@ -468,13 +468,13 @@ export default function SignalCheck() {
               ) : (
                 <>
                   <Send className="w-5 h-5" />
-                  Run My Signal Check
+                  Request My Free Signal Check
                 </>
               )}
             </button>
 
             <p className="text-center text-gray-500 text-xs">
-              No cost. No credit card. No obligation. Submission does not guarantee a report or service.
+              No cost. No credit card. Submission does not guarantee a report or service. The optional $297 paid follow-up is presented only in the free report and requires a separate affirmative choice.
             </p>
           </form>
         </motion.div>

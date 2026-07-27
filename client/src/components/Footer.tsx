@@ -7,9 +7,10 @@
 const LOGO_URL = "https://files.manuscdn.com/user_upload_by_module/session_file/310419663026807979/PvMfhRKIZBrzDTem.png";
 
 const footerLinks = [
-  { label: "Approach", href: "#approach" },
-  { label: "Working model", href: "#capabilities" },
-  { label: "Start a conversation", href: "#conversation" },
+  { label: "Free Signal Check", href: "/signal-check" },
+  { label: "B2B services", href: "/services" },
+  { label: "Founder briefing", href: "/founder-brief" },
+  { label: "PatchPilot resource", href: "/patchpilot" },
   { label: "Privacy notice", href: "/privacy" },
 ];
 
@@ -44,7 +45,7 @@ export default function Footer() {
         <div className="grid gap-12 mb-12 md:grid-cols-[1.25fr_0.75fr]">
           {/* Brand */}
           <div>
-            <a href="#" className="flex items-center gap-3 mb-4">
+            <a href="/" className="flex items-center gap-3 mb-4">
               <img src={LOGO_URL} alt="Beacon Labs" className="h-10 w-auto" />
               <div>
                 <span className="font-serif text-lg text-[oklch(0.90_0.005_80)]">

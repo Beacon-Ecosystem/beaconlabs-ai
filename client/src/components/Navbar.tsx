@@ -1,7 +1,7 @@
 /*
  * Beacon Brand System — B2B Blueprint: a role-aware navigation shell for the
- * focused Beacon Labs B2B journey. It provides a clearly labeled parent handoff
- * while keeping the client-service boundary and conversion path on this property.
+ * focused Beacon Labs B2B journey. It provides clear discovery links to the
+ * governed services, approach, endorsed resource, and conversation pathways.
  */
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -11,9 +11,10 @@ import { useLocation } from "wouter";
 const LOGO_URL = "https://files.manuscdn.com/user_upload_by_module/session_file/310419663026807979/PvMfhRKIZBrzDTem.png";
 
 const navLinks = [
-  { label: "Approach", href: "/#approach" },
-  { label: "Working Model", href: "/#capabilities" },
-  { label: "Engagement", href: "/#conversation" },
+  { label: "Signal Check", href: "/signal-check" },
+  { label: "Services", href: "/services" },
+  { label: "Founder Brief", href: "/founder-brief" },
+  { label: "PatchPilot", href: "/patchpilot" },
 ];
 
 export default function Navbar() {
@@ -100,16 +101,10 @@ export default function Navbar() {
             </a>
           ))}
           <a
-            href="/#conversation"
-            onClick={(event) => {
-              if (location === "/") {
-                event.preventDefault();
-                handleNavClick("/#conversation");
-              }
-            }}
+            href="/signal-check"
             className="ml-4 font-mono text-xs tracking-[0.1em] uppercase px-5 py-2.5 bg-[oklch(0.40_0.08_185)] text-[oklch(0.97_0.005_80)] rounded-sm transition-[transform,box-shadow,background-color] duration-200 hover:-translate-y-0.5 hover:bg-[oklch(0.35_0.07_185)] hover:shadow-[0_0_20px_oklch(0.45_0.09_185/0.3)] active:translate-y-0"
           >
-            Start a Conversation
+            Request a Signal Check
           </a>
         </div>
 
@@ -151,14 +146,10 @@ export default function Navbar() {
                 </a>
               ))}
               <a
-                href="/#conversation"
-                onClick={(event) => {
-                  event.preventDefault();
-                  handleNavClick("/#conversation");
-                }}
+                href="/signal-check"
                 className="mt-3 font-mono text-sm tracking-[0.1em] uppercase px-4 py-3 bg-[oklch(0.40_0.08_185)] text-[oklch(0.97_0.005_80)] rounded-sm text-center"
               >
-                Start a Conversation
+                Request a Signal Check
               </a>
             </div>
           </motion.div>
