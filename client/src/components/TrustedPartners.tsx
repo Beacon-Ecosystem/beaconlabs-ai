@@ -3,8 +3,8 @@
  * Design: Blueprint / Dark Teal + Gold Mono Typography
  *
  * This section surfaces the owner-approved PatchPilot endorsement on the Beacon
- * Labs B2B Blueprint homepage. It makes CTO ownership, partner status, current
- * pricing ownership, and the separate product/data relationship explicit.
+ * Labs B2B Blueprint homepage. It makes partner status, pricing ownership, and
+ * the separate product/data relationship explicit.
  */
 
 import { Handshake, Shield, Server, Smartphone, Lock } from "lucide-react";
@@ -28,12 +28,12 @@ const PARTNERS: Partner[] = [
       "PatchPilot is an independent server-patching product for teams that want a defined operational process without adding a persistent agent to production infrastructure. Beacon Labs recommends it as a resource for the kind of accountable systems work we practice.",
     url: "https://patchpilot.beaconlabs.ai/overlay.html",
     partnerStatement:
-      "PatchPilot is CTO John Sanborn’s software. Beacon Labs uses it in the Beacon environment and publicly endorses it as an independent partner product. If you follow this link, PatchPilot handles its own product, account, terms, and data relationship separately.",
+      "Beacon Labs uses PatchPilot in the Beacon environment and publicly endorses it as an independent partner product. If you follow this link, PatchPilot handles its own product, account, terms, and data relationship separately.",
     highlights: [
       { icon: <Server className="w-4 h-4" />, label: "Infrastructure resource" },
       { icon: <Shield className="w-4 h-4" />, label: "Agentless approach" },
       { icon: <Lock className="w-4 h-4" />, label: "Separate product account" },
-      { icon: <Smartphone className="w-4 h-4" />, label: "CTO-built product" },
+      { icon: <Smartphone className="w-4 h-4" />, label: "Beacon-endorsed product" },
     ],
     tags: ["Patching", "Operations", "Infrastructure", "Security", "DevOps"],
     pricing: "Current plans and pricing are provided directly by PatchPilot.",
@@ -53,7 +53,7 @@ export default function TrustedPartners() {
             A resource we publicly endorse
           </h2>
           <p className="text-[oklch(0.60_0.02_185)] max-w-2xl leading-relaxed">
-            PatchPilot is built by Beacon Labs CTO John Sanborn. Beacon Labs recommends it as an independent product resource; following the link below takes you to a separate product experience with its own plans, terms, and data practices.
+            Beacon Labs recommends PatchPilot as an independent product resource; following the link below takes you to a separate product experience with its own plans, terms, and data practices.
           </p>
         </div>
 

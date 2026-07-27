@@ -48,6 +48,33 @@ const entryPoints = [
   },
 ];
 
+const serviceAreas = [
+  {
+    icon: SearchCheck,
+    code: "01 / SIGNAL",
+    title: "Position and operating visibility",
+    copy: "Clarify what the organization does, where people lose the thread, and which decision or handoff deserves attention first.",
+  },
+  {
+    icon: Workflow,
+    code: "02 / SYSTEM",
+    title: "Service and workflow design",
+    copy: "Map the information, ownership, client experience, and internal rhythm that make the work easier to run.",
+  },
+  {
+    icon: Compass,
+    code: "03 / IMPLEMENT",
+    title: "Practical systems delivery",
+    copy: "Turn an agreed model into a documented, usable implementation with a responsible handoff—not a black-box launch.",
+  },
+  {
+    icon: ShieldCheck,
+    code: "04 / STEWARD",
+    title: "Responsible AI readiness",
+    copy: "Assess where assisted systems may help and define the review, accountability, and continuity controls around their use.",
+  },
+];
+
 const diagnosticSteps = [
   {
     number: "01",
@@ -123,6 +150,35 @@ export default function Home() {
           <div className="relative container pb-10"><div className="flex items-center gap-3 font-mono text-[0.58rem] tracking-[0.15em] text-[oklch(0.45_0.09_185)] uppercase"><span className="h-px w-16 bg-[oklch(0.75_0.14_85)]" /> B2B systems engineering · responsible engagement</div></div>
         </section>
 
+        <section className="beacon-paper-noise relative overflow-hidden border-y border-[oklch(0.35_0.07_185/0.16)] py-24 md:py-32">
+          <div className="pointer-events-none absolute right-[9%] top-0 h-full w-px bg-[oklch(0.45_0.09_185/0.1)]" />
+          <div className="relative container">
+            <div className="grid gap-10 border-b border-[oklch(0.35_0.07_185/0.2)] pb-12 lg:grid-cols-[0.72fr_1.28fr] lg:items-end">
+              <div>
+                <SectionLabel>What Beacon Labs helps make clearer</SectionLabel>
+                <p className="max-w-sm text-[0.98rem] leading-7 text-[oklch(0.38_0.03_240)]">For organizations responding to a meaningful operating question—not a pre-bundled promise.</p>
+              </div>
+              <div>
+                <h2 className="max-w-4xl font-serif text-[clamp(2.8rem,5vw,5.25rem)] leading-[0.94] tracking-[-0.045em] text-[oklch(0.16_0.03_240)]">Four service areas. <span className="text-[oklch(0.40_0.08_185)]">One accountable way forward.</span></h2>
+                <p className="mt-6 max-w-2xl text-base leading-7 text-[oklch(0.43_0.03_240)]">A direct conversation is welcome, but the no-cost Signal Check remains the clearest first step when the question is still taking shape.</p>
+              </div>
+            </div>
+            <div className="grid divide-y divide-[oklch(0.35_0.07_185/0.2)] md:grid-cols-2 md:divide-x md:divide-y-0">
+              {serviceAreas.map((area, index) => (
+                <motion.article key={area.title} initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.42, delay: index * 0.06 }} className="px-0 py-10 even:md:pl-9 odd:md:pr-9 md:py-14">
+                  <div className="flex items-center justify-between gap-4"><area.icon className="size-6 text-[oklch(0.45_0.09_185)]" strokeWidth={1.3} /><span className="font-mono text-[0.58rem] tracking-[0.16em] text-[oklch(0.45_0.09_185)] uppercase">{area.code}</span></div>
+                  <h3 className="mt-10 max-w-md font-serif text-3xl leading-[1.02] tracking-[-0.025em] text-[oklch(0.16_0.03_240)]">{area.title}</h3>
+                  <p className="mt-5 max-w-lg text-[0.98rem] leading-7 text-[oklch(0.43_0.03_240)]">{area.copy}</p>
+                </motion.article>
+              ))}
+            </div>
+            <div className="mt-12 flex flex-col gap-4 sm:flex-row sm:items-center">
+              <a href="/services" className="group inline-flex min-h-12 items-center justify-center gap-3 border border-[oklch(0.35_0.07_185/0.34)] px-6 py-3 font-mono text-xs font-medium tracking-[0.14em] text-[oklch(0.30_0.04_240)] uppercase transition-colors duration-200 hover:border-[oklch(0.75_0.14_85)] hover:bg-[oklch(0.75_0.14_85/0.08)]">Explore the service path <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" /></a>
+              <a href="/signal-check" className="group inline-flex min-h-12 items-center justify-center gap-3 bg-[oklch(0.40_0.08_185)] px-6 py-3 font-mono text-xs font-medium tracking-[0.14em] text-[oklch(0.98_0.003_80)] uppercase transition-[background-color,transform] duration-200 hover:-translate-y-0.5 hover:bg-[oklch(0.35_0.07_185)] active:translate-y-0">Request the free Signal Check <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" /></a>
+            </div>
+          </div>
+        </section>
+
         <section className="relative bg-[oklch(0.14_0.032_240)] py-24 text-[oklch(0.92_0.005_80)] md:py-32">
           <div className="blueprint-grid-dark pointer-events-none absolute inset-0 opacity-35" />
           <div className="relative container">
@@ -159,7 +215,7 @@ export default function Home() {
         </section>
 
         <section className="relative overflow-hidden bg-[oklch(0.82_0.105_85)] py-16 text-[oklch(0.16_0.03_240)] md:py-20">
-          <div className="container grid gap-8 md:grid-cols-[auto_1fr_auto] md:items-center"><span className="flex size-12 items-center justify-center border border-[oklch(0.16_0.03_240/0.3)]"><Compass className="size-5" /></span><p className="max-w-3xl font-serif text-2xl leading-[1.08] tracking-[-0.02em] md:text-3xl">Looking for a practical infrastructure resource instead? Explore PatchPilot—CTO John Sanborn’s independently operated, Beacon-endorsed software.</p><a href="/patchpilot" className="group inline-flex items-center gap-2 font-mono text-xs font-medium tracking-[0.14em] uppercase hover:underline">Explore PatchPilot <ArrowDownRight className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:translate-y-0.5" /></a></div>
+          <div className="container grid gap-8 md:grid-cols-[auto_1fr_auto] md:items-center"><span className="flex size-12 items-center justify-center border border-[oklch(0.16_0.03_240/0.3)]"><Compass className="size-5" /></span><p className="max-w-3xl font-serif text-2xl leading-[1.08] tracking-[-0.02em] md:text-3xl">Looking for a practical infrastructure resource instead? Explore PatchPilot—an independently operated, Beacon-endorsed software resource.</p><a href="/patchpilot" className="group inline-flex items-center gap-2 font-mono text-xs font-medium tracking-[0.14em] uppercase hover:underline">Explore PatchPilot <ArrowDownRight className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:translate-y-0.5" /></a></div>
         </section>
 
         <section className="relative bg-[oklch(0.14_0.032_240)] py-20 text-[oklch(0.92_0.005_80)] md:py-24">

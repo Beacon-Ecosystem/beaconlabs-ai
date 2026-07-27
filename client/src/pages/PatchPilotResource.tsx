@@ -1,6 +1,6 @@
 /*
  * BEACON BRAND SYSTEM — Partner resource route
- * Provides a distinct, clearly disclosed route to CTO John Sanborn's PatchPilot
+ * Provides a distinct, clearly disclosed route to the Beacon-endorsed PatchPilot
  * product without blurring product accounts, pricing, terms, or data boundaries.
  */
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
@@ -23,7 +23,7 @@ export default function PatchPilotResource() {
                 <div className="mb-6 flex items-center gap-3 font-mono text-[0.65rem] font-medium tracking-[0.2em] text-[oklch(0.45_0.09_185)] uppercase"><span className="h-px w-10 bg-[oklch(0.75_0.14_85)]" /> Recommended partner resource</div>
                 <h1 className="max-w-4xl font-serif text-[clamp(3.2rem,6vw,6rem)] leading-[0.9] tracking-[-0.05em] text-[oklch(0.16_0.03_240)]">A practical resource for infrastructure <span className="text-[oklch(0.40_0.08_185)]">stewardship.</span></h1>
               </div>
-              <p className="max-w-xl border-l border-[oklch(0.75_0.14_85/0.72)] pl-7 text-lg leading-8 text-[oklch(0.38_0.03_240)] md:pl-10">Beacon Labs publicly endorses PatchPilot, CTO John Sanborn’s software, as an independent resource for teams that want an agentless patching approach.</p>
+              <p className="max-w-xl border-l border-[oklch(0.75_0.14_85/0.72)] pl-7 text-lg leading-8 text-[oklch(0.38_0.03_240)] md:pl-10">Beacon Labs publicly endorses PatchPilot as an independent resource for teams that want an agentless patching approach.</p>
             </div>
           </div>
         </section>
