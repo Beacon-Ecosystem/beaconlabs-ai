@@ -32,6 +32,8 @@ async function createGHLContact(data: {
   industry?: string;
   website?: string;
   monthlyAdSpend?: string;
+  investmentRange?: string;
+  serviceInterest?: string;
   primaryGoal?: string;
   consentRecordedAt?: string;
   tags?: string[];
@@ -54,6 +56,8 @@ async function createGHLContact(data: {
   const notes: string[] = [];
   if (data.industry) notes.push(`Industry: ${data.industry}`);
   if (data.monthlyAdSpend) notes.push(`Monthly Ad Spend: ${data.monthlyAdSpend}`);
+  if (data.investmentRange) notes.push(`Package or investment range: ${data.investmentRange}`);
+  if (data.serviceInterest) notes.push(`Package or service interest: ${data.serviceInterest}`);
   if (data.primaryGoal) notes.push(`Primary Goal: ${data.primaryGoal}`);
   if (data.consentRecordedAt) {
     notes.push(
@@ -174,9 +178,11 @@ async function startServer() {
         phone,
         businessName: company,
         website,
-        monthlyAdSpend: budget,
+        investmentRange: budget,
+        serviceInterest: service,
         primaryGoal: message,
-        tags: ["signal-check-request", "audit-form"],
+        tags: ["b2b-project-inquiry", "beacon-labs", "package-pricing"],
+        source: "beaconlabs.ai/pricing",
       });
       res.json({ success: true, contactId: (result.contact as Record<string, unknown>)?.id });
     } catch (err) {

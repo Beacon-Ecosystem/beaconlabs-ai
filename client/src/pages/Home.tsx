@@ -31,10 +31,10 @@ const entryPoints = [
   {
     icon: Workflow,
     label: "Understand the work",
-    title: "B2B services",
-    copy: "Explore the operating, service, workflow, and implementation questions Beacon Labs can scope with a qualified organization.",
-    href: "/services",
-    action: "Explore services",
+    title: "Founding packages",
+    copy: "Review the published infrastructure and growth packages, price anchors, and qualified project-inquiry path.",
+    href: "/pricing",
+    action: "Review packages & pricing",
     featured: false,
   },
   {
@@ -121,12 +121,15 @@ export default function Home() {
               <p className="mt-9 max-w-2xl text-lg leading-8 text-[oklch(0.38_0.03_240)] md:text-xl">
                 Beacon Labs helps organizations make their operating reality easier to see, explain, and improve. Start with the free Signal Check when there is a meaningful question to examine.
               </p>
+              <p className="mt-5 max-w-2xl font-mono text-[0.66rem] leading-6 tracking-[0.07em] text-[oklch(0.45_0.09_185)] uppercase">
+                Founding packages are publicly priced from $3,000. The free Signal Check and optional $297 follow-up remain separate, deliberate entry points.
+              </p>
               <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
                 <a href="/signal-check" className="group inline-flex min-h-13 items-center justify-center gap-3 bg-[oklch(0.40_0.08_185)] px-7 py-4 font-mono text-xs font-medium tracking-[0.15em] text-[oklch(0.98_0.003_80)] uppercase transition-[background-color,transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:bg-[oklch(0.35_0.07_185)] hover:shadow-[0_20px_30px_oklch(0.16_0.03_240/0.18)] active:translate-y-0">
                   Request the free Signal Check <ArrowUpRight className="size-4 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                 </a>
-                <a href="/founder-brief" className="inline-flex min-h-13 items-center justify-center gap-3 border border-[oklch(0.35_0.07_185/0.3)] px-7 py-4 font-mono text-xs font-medium tracking-[0.15em] text-[oklch(0.30_0.04_240)] uppercase transition-colors duration-200 hover:border-[oklch(0.75_0.14_85)] hover:bg-[oklch(0.75_0.14_85/0.08)]">
-                  Watch the founder briefing <PlayCircle className="size-4" />
+                <a href="/pricing" className="inline-flex min-h-13 items-center justify-center gap-3 border border-[oklch(0.35_0.07_185/0.3)] px-7 py-4 font-mono text-xs font-medium tracking-[0.15em] text-[oklch(0.30_0.04_240)] uppercase transition-colors duration-200 hover:border-[oklch(0.75_0.14_85)] hover:bg-[oklch(0.75_0.14_85/0.08)]">
+                  View packages & pricing <ArrowUpRight className="size-4" />
                 </a>
               </div>
               <p className="mt-5 max-w-xl font-mono text-[0.63rem] leading-5 tracking-[0.05em] text-[oklch(0.47_0.03_185)]">

@@ -13,6 +13,7 @@ const LOGO_URL = "https://files.manuscdn.com/user_upload_by_module/session_file/
 const navLinks = [
   { label: "Signal Check", href: "/signal-check" },
   { label: "Services", href: "/services" },
+  { label: "Packages", href: "/pricing" },
   { label: "Founder Brief", href: "/founder-brief" },
   { label: "PatchPilot", href: "/patchpilot" },
 ];

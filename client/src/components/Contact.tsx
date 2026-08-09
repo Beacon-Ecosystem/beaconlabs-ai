@@ -10,22 +10,20 @@ import { Send, Mail, MapPin, Clock } from "lucide-react";
 import { toast } from "sonner";
 
 const budgetOptions = [
-  "Under $1,500/mo",
-  "$1,500 – $3,000/mo",
-  "$3,000 – $7,500/mo",
-  "$7,500 – $15,000/mo",
-  "$15,000+/mo",
+  "Up to $3,000",
+  "$3,000 – $5,000",
+  "$5,000 – $10,000",
+  "$10,000 – $25,000",
+  "$25,000+",
 ];
 
 const serviceOptions = [
-  "AI Automation Systems",
-  "Custom Agent Development",
-  "AEO + GEO + SEO Optimization",
-  "Web & App Development",
-  "E-Commerce Build",
-  "Social Media & Content Automation",
-  "AI Video Production",
-  "Full Digital Ecosystem",
+  "Campaign Build — $3,000 one-time",
+  "Growth Retainer — from $1,500/month",
+  "Full-Stack Growth — from $3,500/month",
+  "AI Automation — $2,500–$5,000/month",
+  "Digital Infrastructure — $5,000–$10,000/month",
+  "Enterprise AI — $10,000–$25,000/month",
   "Other / Not Sure",
 ];
 
@@ -251,7 +249,7 @@ export default function Contact() {
                   {/* Service Interest */}
                   <div>
                     <label className="font-mono text-[0.6rem] tracking-[0.15em] uppercase text-[oklch(0.55_0.02_185)] mb-1.5 block">
-                      Service Interest *
+                        Founding Package or Service Interest *
                     </label>
                     <select
                       name="service"
@@ -270,7 +268,7 @@ export default function Contact() {
                   {/* Budget */}
                   <div>
                     <label className="font-mono text-[0.6rem] tracking-[0.15em] uppercase text-[oklch(0.55_0.02_185)] mb-1.5 block">
-                      Monthly Budget
+                        Approximate Project or Monthly Investment Range
                     </label>
                     <select
                       name="budget"
@@ -305,7 +303,7 @@ export default function Contact() {
                     disabled={sending}
                     className="group w-full inline-flex items-center justify-center gap-2 font-mono text-sm tracking-[0.1em] uppercase px-6 py-3.5 bg-[oklch(0.75_0.14_85)] text-[oklch(0.16_0.03_240)] rounded-sm hover:bg-[oklch(0.70_0.14_80)] disabled:opacity-50 transition-all duration-300 hover:shadow-[0_0_30px_oklch(0.75_0.14_85/0.3)]"
                   >
-                    {sending ? "Sending..." : "Submit Project Inquiry"}
+                      {sending ? "Sending..." : "Request a Qualified Project Conversation"}
                     {!sending && (
                       <Send size={14} className="transition-transform group-hover:translate-x-1" />
                     )}

@@ -9,6 +9,7 @@ const LOGO_URL = "https://files.manuscdn.com/user_upload_by_module/session_file/
 const footerLinks = [
   { label: "Free Signal Check", href: "/signal-check" },
   { label: "B2B services", href: "/services" },
+  { label: "Packages & pricing", href: "/pricing" },
   { label: "Founder briefing", href: "/founder-brief" },
   { label: "PatchPilot resource", href: "/patchpilot" },
   { label: "Privacy notice", href: "/privacy" },

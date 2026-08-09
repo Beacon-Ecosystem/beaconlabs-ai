@@ -18,6 +18,8 @@ import {
 } from "lucide-react";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
+import Contact from "@/components/Contact";
+import Pricing from "@/components/Pricing";
 
 const serviceAreas = [
   {
@@ -82,7 +84,7 @@ export default function Services() {
               </div>
               <div className="border-l border-[oklch(0.75_0.14_85/0.72)] pl-7 md:pl-10">
                 <p className="max-w-xl text-lg leading-8 text-[oklch(0.38_0.03_240)]">
-                  Beacon Labs works with organizations that have a meaningful operating question and need a disciplined way to make progress. The public path starts with a no-cost, consented Signal Check request—not a package commitment.
+                  Beacon Labs works with organizations that have a meaningful operating question and need a disciplined way to make progress. Start with a no-cost Signal Check when the question needs definition, or review the published founding packages when the work is already clear enough to scope.
                 </p>
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                   <a href="/signal-check" className="group inline-flex min-h-12 items-center justify-center gap-3 bg-[oklch(0.40_0.08_185)] px-6 py-3 font-mono text-xs font-medium tracking-[0.14em] text-[oklch(0.98_0.003_80)] uppercase transition-[background-color,transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:bg-[oklch(0.35_0.07_185)] hover:shadow-[0_18px_28px_oklch(0.16_0.03_240/0.16)] active:translate-y-0">
@@ -90,6 +92,9 @@ export default function Services() {
                   </a>
                   <a href="mailto:hello@beaconlabs.ai?subject=Beacon%20Labs%20B2B%20conversation" className="inline-flex min-h-12 items-center justify-center gap-3 border border-[oklch(0.35_0.07_185/0.34)] px-6 py-3 font-mono text-xs font-medium tracking-[0.14em] text-[oklch(0.30_0.04_240)] uppercase transition-colors duration-200 hover:border-[oklch(0.75_0.14_85)] hover:bg-[oklch(0.75_0.14_85/0.08)]">
                     <Mail className="size-4" /> Discuss an engagement
+                  </a>
+                  <a href="/pricing" className="inline-flex min-h-12 items-center justify-center gap-3 border border-[oklch(0.35_0.07_185/0.34)] px-6 py-3 font-mono text-xs font-medium tracking-[0.14em] text-[oklch(0.30_0.04_240)] uppercase transition-colors duration-200 hover:border-[oklch(0.75_0.14_85)] hover:bg-[oklch(0.75_0.14_85/0.08)]">
+                    View packages & pricing <ArrowUpRight className="size-4" />
                   </a>
                 </div>
               </div>
@@ -139,12 +144,17 @@ export default function Services() {
           </div>
         </section>
 
+        <section id="packages" className="relative overflow-hidden border-y border-[oklch(0.35_0.07_185/0.16)] bg-[oklch(0.97_0.005_80)] py-10 md:py-16">
+          <Pricing />
+        </section>
+
         <section className="relative overflow-hidden bg-[oklch(0.82_0.105_85)] py-14 text-[oklch(0.16_0.03_240)] md:py-18">
           <div className="container grid gap-8 md:grid-cols-[auto_1fr] md:items-center">
             <span className="flex size-11 items-center justify-center border border-[oklch(0.16_0.03_240/0.3)]"><FileSearch className="size-5" /></span>
             <p className="max-w-4xl font-serif text-2xl leading-[1.1] tracking-[-0.02em] md:text-3xl">The Initial Signal Check request is no-cost. The free report may introduce a separately chosen paid follow-up when it fits the questions surfaced. Professional Beacon Labs work is separately scoped and quoted.</p>
           </div>
         </section>
+        <Contact />
       </main>
       <Footer />
     </>

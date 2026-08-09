@@ -301,7 +301,7 @@ export default function Pricing() {
             className="flex items-center justify-center gap-3 mb-4"
           >
             <div className="w-8 h-px bg-[oklch(0.75_0.14_85)]" />
-            <span className="section-label">Investment</span>
+            <span className="section-label">Founding packages</span>
             <div className="w-8 h-px bg-[oklch(0.75_0.14_85)]" />
           </motion.div>
           <motion.h2
@@ -310,7 +310,7 @@ export default function Pricing() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="font-serif text-3xl md:text-[2.75rem] leading-tight text-[oklch(0.16_0.03_240)]"
           >
-            Transparent Investment, Real Results
+            Clear package options. Clear pricing.
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 15 }}
@@ -318,9 +318,9 @@ export default function Pricing() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="text-[oklch(0.45_0.03_240)] mt-3 max-w-2xl mx-auto text-lg"
           >
-            Two ways to work with us. Build the infrastructure that powers your business,
-            or let our AI manage your advertising. We believe in proving our value first —
-            most clients start with one and add the other.
+            Two purchase paths for qualified organizations: build the infrastructure that powers the work,
+            or engage Beacon Labs to build and manage a campaign system. Review the scope, price anchor,
+            and next conversation before requesting a proposal.
           </motion.p>
         </div>
 
@@ -374,7 +374,7 @@ export default function Pricing() {
         >
           {activeTab === "infrastructure"
             ? "All plans include a one-time engineering & build phase scoped during discovery. You're investing in infrastructure, not subscribing to software."
-            : "*Pricing scales with your managed ad spend — see tier details above for exact breakdowns. All advertising plans begin with a Beacon Signal Check — a no-cost assessment of your current positioning, visibility, and platform dependency. A comprehensive, human-led Beacon Growth Blueprint is available for $997, which is credited in full toward any campaign build. Ad spend is paid directly to the platforms — our fee covers strategy, management, and optimization."}
+            : "*Pricing scales with managed ad spend — see tier details above for the published breakdowns. A no-cost Signal Check can clarify the starting question; its optional $297 paid follow-up is a separate affirmative choice. Package selection, scope, timing, and any proposal are confirmed only after a qualified B2B conversation. Ad spend is paid directly to the platforms; Beacon Labs fees cover the agreed strategy, management, and optimization work."}
         </motion.p>
       </div>
     </section>
