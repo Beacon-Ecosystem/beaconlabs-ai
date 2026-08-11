@@ -8,8 +8,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { useLocation } from "wouter";
 
-const LOGO_URL = "https://files.manuscdn.com/user_upload_by_module/session_file/310419663026807979/PvMfhRKIZBrzDTem.png";
-
 const navLinks = [
   { label: "Signal Check", href: "/signal-check" },
   { label: "Services", href: "/services" },
@@ -47,29 +45,29 @@ export default function Navbar() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled
-          ? "bg-[oklch(0.97_0.005_80/0.94)] backdrop-blur-xl shadow-[0_1px_0_oklch(0.45_0.09_185/0.15),0_10px_30px_oklch(0.16_0.03_240/0.08)]"
-          : "bg-[oklch(0.97_0.005_80/0.72)] backdrop-blur-md"
+          ? "bg-[#09161f]/98 backdrop-blur-xl shadow-[0_1px_0_rgba(125,211,199,0.14),0_10px_30px_rgba(0,0,0,0.24)]"
+          : "bg-[#09161f]/94 backdrop-blur-md"
       }`}
     >
-      <div className="border-b border-[oklch(0.45_0.09_185/0.12)] bg-[oklch(0.16_0.03_240)] text-[oklch(0.92_0.005_80)]">
+      <div className="border-b border-white/10 bg-[#061019] text-slate-200">
         <div className="container flex h-8 items-center justify-between gap-3 overflow-hidden whitespace-nowrap font-mono text-[0.58rem] tracking-[0.15em] uppercase">
-          <span><span className="text-[oklch(0.75_0.14_85)]">Beacon Momentum, LLC</span><span className="mx-2 text-[oklch(0.55_0.02_185)]">/</span>Beacon Labs AI · B2B Systems</span>
-          <a href="https://beaconmomentum.com" target="_blank" rel="noopener noreferrer" className="hidden shrink-0 text-[oklch(0.70_0.10_185)] transition-colors hover:text-[oklch(0.92_0.005_80)] sm:inline">Parent-company front door ↗</a>
+          <span><span className="text-[#d6b45a]">Beacon Momentum, LLC</span><span className="mx-2 text-slate-600">/</span>Beacon Labs · B2B Systems</span>
+          <a href="https://beaconmomentum.com" target="_blank" rel="noopener noreferrer" className="hidden shrink-0 text-[#7dd3c7] transition-colors hover:text-white sm:inline">Parent-company front door ↗</a>
         </div>
       </div>
       <nav className="container flex items-center justify-between h-16 md:h-[4.75rem]">
         {/* Logo */}
         <a href="/" className="flex items-center gap-3 group">
           <img
-            src={LOGO_URL}
-            alt="Beacon Labs"
-            className="h-9 md:h-11 w-auto transition-transform duration-300 group-hover:scale-105"
+            src="/brand/beacon-mark.svg"
+            alt="Beacon"
+            className="h-9 w-9 rounded-lg border border-white/10 bg-[#0d1f2b] p-1.5 transition-transform duration-300 group-hover:scale-105 md:h-11 md:w-11"
           />
           <div className="flex flex-col">
-            <span className="font-serif text-lg md:text-xl font-normal tracking-tight text-[oklch(0.16_0.03_240)]">
-              Beacon Labs AI
+            <span className="font-serif text-lg font-normal tracking-tight text-white md:text-xl">
+              Beacon Labs
             </span>
-            <span className="hidden md:block font-mono text-[0.6rem] tracking-[0.2em] uppercase text-[oklch(0.45_0.09_185)] -mt-0.5">
+            <span className="-mt-0.5 hidden font-mono text-[0.6rem] tracking-[0.2em] text-[#7dd3c7] uppercase md:block">
               B2B Systems Engineering
             </span>
           </div>
@@ -89,8 +87,8 @@ export default function Navbar() {
               }}
               className={`font-mono text-xs tracking-[0.1em] uppercase px-4 py-2 transition-colors duration-300 relative group ${
                 location === link.href
-                  ? "text-[oklch(0.45_0.09_185)]"
-                  : "text-[oklch(0.35_0.04_240)] hover:text-[oklch(0.45_0.09_185)]"
+                  ? "text-[#7dd3c7]"
+                  : "text-slate-200 hover:text-white"
               }`}
             >
               {link.label}
@@ -103,7 +101,7 @@ export default function Navbar() {
           ))}
           <a
             href="/signal-check"
-            className="ml-4 font-mono text-xs tracking-[0.1em] uppercase px-5 py-2.5 bg-[oklch(0.40_0.08_185)] text-[oklch(0.97_0.005_80)] rounded-sm transition-[transform,box-shadow,background-color] duration-200 hover:-translate-y-0.5 hover:bg-[oklch(0.35_0.07_185)] hover:shadow-[0_0_20px_oklch(0.45_0.09_185/0.3)] active:translate-y-0"
+            className="ml-4 rounded-sm bg-[#2f7b75] px-5 py-2.5 font-mono text-xs tracking-[0.1em] text-white uppercase transition-[transform,box-shadow,background-color] duration-200 hover:-translate-y-0.5 hover:bg-[#276661] hover:shadow-[0_0_20px_rgba(125,211,199,0.24)] active:translate-y-0"
           >
             Request a Signal Check
           </a>
@@ -112,7 +110,7 @@ export default function Navbar() {
         {/* Mobile Toggle */}
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
-          className="lg:hidden p-2 text-[oklch(0.30_0.04_240)]"
+          className="p-2 text-slate-100 lg:hidden"
           aria-label="Toggle menu"
         >
           {mobileOpen ? <X size={24} /> : <Menu size={24} />}
@@ -126,7 +124,7 @@ export default function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden bg-[oklch(0.97_0.005_80/0.97)] backdrop-blur-xl border-t border-[oklch(0.45_0.09_185/0.1)]"
+            className="border-t border-white/10 bg-[#09161f]/98 backdrop-blur-xl lg:hidden"
           >
             <div className="container py-6 flex flex-col gap-1">
               {navLinks.map((link) => (
@@ -139,8 +137,8 @@ export default function Navbar() {
                   }}
                   className={`font-mono text-sm tracking-[0.1em] uppercase px-4 py-3 rounded-sm transition-colors ${
                     location === link.href
-                      ? "text-[oklch(0.45_0.09_185)] bg-[oklch(0.45_0.09_185/0.05)]"
-                      : "text-[oklch(0.30_0.04_240)] hover:text-[oklch(0.45_0.09_185)] hover:bg-[oklch(0.45_0.09_185/0.05)]"
+                      ? "bg-[#7dd3c7]/10 text-[#7dd3c7]"
+                      : "text-slate-100 hover:bg-white/5 hover:text-white"
                   }`}
                 >
                   {link.label}
@@ -148,7 +146,7 @@ export default function Navbar() {
               ))}
               <a
                 href="/signal-check"
-                className="mt-3 font-mono text-sm tracking-[0.1em] uppercase px-4 py-3 bg-[oklch(0.40_0.08_185)] text-[oklch(0.97_0.005_80)] rounded-sm text-center"
+                className="mt-3 rounded-sm bg-[#2f7b75] px-4 py-3 text-center font-mono text-sm tracking-[0.1em] text-white uppercase"
               >
                 Request a Signal Check
               </a>
