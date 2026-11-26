@@ -150,14 +150,6 @@ export default function SignalCheck() {
     setSubmitting(true);
     setError(null);
 
-    // Fire Meta Pixel Lead event
-    if (typeof window !== "undefined" && (window as any).fbq) {
-      (window as any).fbq("track", "Lead", {
-        content_name: "Signal Check",
-        content_category: "B2B Signal Check",
-      });
-    }
-
     try {
       const apiBase =
         import.meta.env.VITE_API_BASE_URL ||
