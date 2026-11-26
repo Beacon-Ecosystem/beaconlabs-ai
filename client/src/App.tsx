@@ -5,14 +5,8 @@ import { Redirect, Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
-import Ecommerce from "./pages/Ecommerce";
-import Coaches from "./pages/Coaches";
 import SignalCheck from "./pages/SignalCheck";
-import GrowthBlueprint from "./pages/GrowthBlueprint";
-import BlueprintThankYou from "./pages/BlueprintThankYou";
 import Privacy from "./pages/Privacy";
-import Services from "./pages/Services";
-import PricingPage from "./pages/PricingPage";
 import FounderBrief from "./pages/FounderBrief";
 import PatchPilotResource from "./pages/PatchPilotResource";
 
@@ -21,18 +15,31 @@ function Router() {
   return (
     <Switch>
       <Route path={"/"} component={Home} />
-      <Route path={"/ecommerce"} component={Ecommerce} />
-      <Route path={"/coaches"} component={Coaches} />
+      {/* Retired Nov 2026: old agency catalog and funnels. Old links land on a live page. */}
+      <Route path={"/pricing"}>
+        <Redirect to="/" replace />
+      </Route>
+      <Route path={"/services"}>
+        <Redirect to="/" replace />
+      </Route>
+      <Route path={"/ecommerce"}>
+        <Redirect to="/signal-check" replace />
+      </Route>
+      <Route path={"/coaches"}>
+        <Redirect to="/signal-check" replace />
+      </Route>
+      <Route path={"/growth-blueprint"}>
+        <Redirect to="/signal-check" replace />
+      </Route>
+      <Route path={"/blueprint-thank-you"}>
+        <Redirect to="/signal-check" replace />
+      </Route>
       <Route path={"/audit"}>
         <Redirect to="/signal-check" replace />
       </Route>
       <Route path={"/signal-check"} component={SignalCheck} />
-      <Route path={"/services"} component={Services} />
-      <Route path={"/pricing"} component={PricingPage} />
       <Route path={"/founder-brief"} component={FounderBrief} />
       <Route path={"/patchpilot"} component={PatchPilotResource} />
-      <Route path={"/growth-blueprint"} component={GrowthBlueprint} />
-      <Route path={"/blueprint-thank-you"} component={BlueprintThankYou} />
       <Route path={"/privacy"} component={Privacy} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}

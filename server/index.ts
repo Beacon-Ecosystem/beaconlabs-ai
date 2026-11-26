@@ -2,15 +2,12 @@ import express from "express";
 import { createServer } from "http";
 import path from "path";
 import { fileURLToPath } from "url";
-import Stripe from "stripe";
-import { sendPurchaseEvent } from "./meta-capi.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const GHL_PIT = process.env.GHL_API_KEY || "";
 const GHL_LOCATION_ID = "Z4OoFmxrotxASibl2PKv"; // Beacon AI Labs
-const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY || "";
 // Active BL_Signal_Check routing. Environment values can override these
 // versioned defaults after a deliberate CRM migration; never fall back to an
 // archived pipeline or stage.
@@ -18,10 +15,7 @@ const GHL_SIGNAL_CHECK_PIPELINE_ID = process.env.GHL_SIGNAL_CHECK_PIPELINE_ID ||
 const GHL_SIGNAL_CHECK_REQUESTED_STAGE_ID =
   process.env.GHL_STAGE_SIGNAL_CHECK_REQUESTED || "d6aa566d-b1ac-441b-80e7-48dd488f1a8a";
 
-const stripe = new Stripe(STRIPE_SECRET_KEY, { apiVersion: "2026-02-25.clover" });
 
-// Price ID for the $997 AI Growth Blueprint
-const BLUEPRINT_PRICE_ID = "price_1T9IMlE69P40ey9pyk61nYwC";
 
 async function createGHLContact(data: {
   firstName: string;
@@ -191,44 +185,6 @@ async function startServer() {
     }
   });
 
-  app.post("/api/audit", async (req, res) => {
-    try {
-      const {
-        firstName,
-        lastName,
-        email,
-        phone,
-        businessName,
-        industry,
-        website,
-        monthlyAdSpend,
-        primaryGoal,
-      } = req.body;
-
-      if (!firstName || !lastName || !email) {
-        res.status(400).json({ error: "firstName, lastName, and email are required" });
-        return;
-      }
-
-      const result = await createGHLContact({
-        firstName,
-        lastName,
-        email,
-        phone,
-        businessName,
-        industry,
-        website,
-        monthlyAdSpend,
-        primaryGoal,
-      });
-
-      res.json({ success: true, contactId: (result.contact as Record<string, unknown>)?.id });
-    } catch (err) {
-      console.error("Audit form error:", err);
-      res.status(500).json({ error: "Failed to submit request. Please try again." });
-    }
-  });
-
   // ─────────────────────────────────────────────────────────────
   // Free Signal Check — Stage 1 of the Beacon Labs B2B funnel.
   // The public page has always posted here; this tracked route restores
@@ -333,131 +289,10 @@ async function startServer() {
     }
   });
 
-  // ─────────────────────────────────────────────────────────────
-  // Blueprint checkout — Step 1: Create PaymentIntent
-  // Called when user clicks "Pay Now" — returns a client_secret
-  // for Stripe Elements to confirm the payment on the frontend.
-  // ─────────────────────────────────────────────────────────────
-  app.post("/api/blueprint/create-payment-intent", async (req, res) => {
-    try {
-      const { firstName, lastName, email, businessName } = req.body;
-
-      if (!firstName || !lastName || !email) {
-        res.status(400).json({ error: "Name and email are required." });
-        return;
-      }
-
-      // Look up or create a Stripe customer so receipts are tied to the email
-      const existingCustomers = await stripe.customers.list({ email, limit: 1 });
-      let customer: Stripe.Customer;
-      if (existingCustomers.data.length > 0) {
-        customer = existingCustomers.data[0];
-      } else {
-        customer = await stripe.customers.create({
-          name: `${firstName} ${lastName}`,
-          email,
-          metadata: { businessName: businessName || "", source: "beaconlabs.ai/growth-blueprint" },
-        });
-      }
-
-      // Create the PaymentIntent for $997
-      const paymentIntent = await stripe.paymentIntents.create({
-        amount: 99700, // $997.00 in cents
-        currency: "usd",
-        customer: customer.id,
-        receipt_email: email,
-        description: "Beacon Labs — AI Growth Blueprint",
-        metadata: {
-          firstName,
-          lastName,
-          email,
-          businessName: businessName || "",
-          product: "AI Growth Blueprint",
-          priceId: BLUEPRINT_PRICE_ID,
-        },
-        automatic_payment_methods: { enabled: true },
-      });
-
-      res.json({ clientSecret: paymentIntent.client_secret });
-    } catch (err) {
-      console.error("PaymentIntent creation error:", err);
-      res.status(500).json({ error: "Unable to initialise payment. Please try again." });
-    }
-  });
-
-  // ─────────────────────────────────────────────────────────────
-  // Blueprint checkout — Step 2: Confirm order after payment
-  // Called after Stripe confirms the payment on the frontend.
-  // Creates the GHL contact/opportunity and returns confirmation.
-  // ─────────────────────────────────────────────────────────────
-  app.post("/api/blueprint/confirm-order", async (req, res) => {
-    try {
-      const { paymentIntentId, firstName, lastName, email, businessName } = req.body;
-
-      if (!paymentIntentId || !email) {
-        res.status(400).json({ error: "paymentIntentId and email are required." });
-        return;
-      }
-
-      // Verify the payment actually succeeded with Stripe
-      const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId);
-      if (paymentIntent.status !== "succeeded") {
-        res.status(402).json({ error: `Payment not completed. Status: ${paymentIntent.status}` });
-        return;
-      }
-
-      // Create GHL contact tagged as Blueprint purchaser
-      let ghlContactId: string | null = null;
-      try {
-        const ghlResult = await createGHLContact({
-          firstName,
-          lastName,
-          email,
-          businessName,
-          tags: ["blueprint-purchaser", "growth-blueprint", "paid-client"],
-          source: "beaconlabs.ai/growth-blueprint",
-        });
-        const contact = (ghlResult as Record<string, unknown>).contact as Record<string, unknown>;
-        ghlContactId = contact?.id as string | null;
-      } catch (ghlErr) {
-        // Non-fatal — log but don't fail the order confirmation
-        console.error("GHL contact creation failed (non-fatal):", ghlErr);
-      }
-
-      // Fire server-side Meta CAPI Purchase event for improved attribution.
-      // event_id matches the browser-side fbq('track', 'Purchase') call for deduplication.
-      try {
-        await sendPurchaseEvent({
-          eventId: paymentIntent.id,
-          email,
-          firstName: firstName || "",
-          lastName: lastName || "",
-          value: paymentIntent.amount / 100, // Convert cents to dollars
-          currency: paymentIntent.currency?.toUpperCase() || "USD",
-          contentName: "AI Growth Blueprint",
-          ipAddress:
-            (req.headers["x-forwarded-for"] as string | undefined)?.split(",")[0].trim() ||
-            req.socket.remoteAddress ||
-            undefined,
-          userAgent: req.headers["user-agent"] || undefined,
-          eventSourceUrl: "https://beaconmomentum.com/growth-blueprint",
-        });
-      } catch (capiErr) {
-        // Non-fatal — log but don't fail the order confirmation
-        console.error("CAPI event failed (non-fatal):", capiErr);
-      }
-
-      res.json({
-        success: true,
-        orderId: paymentIntent.id,
-        amount: paymentIntent.amount,
-        email,
-        ghlContactId,
-      });
-    } catch (err) {
-      console.error("Order confirmation error:", err);
-      res.status(500).json({ error: "Order confirmation failed. Please contact support." });
-    }
+  // Retired Nov 26, 2026: the $997 Growth Blueprint checkout (/api/blueprint/*) and the
+  // unused /api/audit GHL form. Answer 410 so old clients get a clear response.
+  app.all(["/api/blueprint/*", "/api/audit"], (_req, res) => {
+    res.status(410).json({ error: "This endpoint has been retired." });
   });
 
   // Serve static files from dist/public in production

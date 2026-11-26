@@ -210,7 +210,7 @@ export default function VideoExplainer() {
                 />
               </a>
               <p className="font-mono text-[0.6rem] tracking-[0.1em] text-[oklch(0.45_0.03_185)] mt-3">
-                A free request is reviewed first. It does not begin an automatic scan, report, paid follow-up, or service engagement.
+                I read every request myself and reply in writing within one business day.
               </p>
             </motion.div>
           </div>

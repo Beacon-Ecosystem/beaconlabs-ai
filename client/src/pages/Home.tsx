@@ -1,97 +1,14 @@
 /*
- * BEACON BRAND SYSTEM — B2B Blueprint / Signal-Check-first public surface
- * The homepage remains deliberately focused: it describes Beacon Labs, makes the
- * free consented Signal Check the primary entry point, and directs fuller detail
- * to dedicated services, founder-brief, and PatchPilot resource pages.
+ * BEACON LABS — home page (Black Friday cleanup, Nov 26, 2026)
+ * One operator, written async delivery. Three doors only: the free Signal Check,
+ * the Signal Check Working Session, and the 90-Day Operator Engagement.
+ * Prices and links live in client/src/lib/offers.ts.
  */
 import { motion } from "framer-motion";
-import {
-  ArrowDownRight,
-  ArrowUpRight,
-  Compass,
-  FileSearch,
-  PlayCircle,
-  SearchCheck,
-  ShieldCheck,
-  Workflow,
-} from "lucide-react";
+import { ArrowUpRight, Compass, FileSearch, SearchCheck, Workflow } from "lucide-react";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
-
-const entryPoints = [
-  {
-    icon: SearchCheck,
-    label: "Start here",
-    title: "Free Signal Check",
-    copy: "A consented request for organizations that want a clearer view of what is becoming hard to see, run, or hand off.",
-    href: "/signal-check",
-    action: "Request a Signal Check",
-    featured: true,
-  },
-  {
-    icon: Workflow,
-    label: "Understand the work",
-    title: "Founding packages",
-    copy: "Review the published infrastructure and growth packages, price anchors, and qualified project-inquiry path.",
-    href: "/pricing",
-    action: "Review packages & pricing",
-    featured: false,
-  },
-  {
-    icon: PlayCircle,
-    label: "Hear the approach",
-    title: "Founder briefing",
-    copy: "A concise orientation from Bob Burr on turning an unclear operating question into a responsible next decision.",
-    href: "/founder-brief",
-    action: "Watch the briefing",
-    featured: false,
-  },
-];
-
-const serviceAreas = [
-  {
-    icon: SearchCheck,
-    code: "01 / SIGNAL",
-    title: "Position and operating visibility",
-    copy: "Clarify what the organization does, where people lose the thread, and which decision or handoff deserves attention first.",
-  },
-  {
-    icon: Workflow,
-    code: "02 / SYSTEM",
-    title: "Service and workflow design",
-    copy: "Map the information, ownership, client experience, and internal rhythm that make the work easier to run.",
-  },
-  {
-    icon: Compass,
-    code: "03 / IMPLEMENT",
-    title: "Practical systems delivery",
-    copy: "Turn an agreed model into a documented, usable implementation with a responsible handoff—not a black-box launch.",
-  },
-  {
-    icon: ShieldCheck,
-    code: "04 / STEWARD",
-    title: "Responsible AI readiness",
-    copy: "Assess where assisted systems may help and define the review, accountability, and continuity controls around their use.",
-  },
-];
-
-const diagnosticSteps = [
-  {
-    number: "01",
-    title: "Request the free Signal Check",
-    copy: "Share enough context for Beacon Labs to review the question. The request is no-cost and requires your affirmative permission to be processed.",
-  },
-  {
-    number: "02",
-    title: "Receive the first clear picture",
-    copy: "If Beacon Labs accepts the request, the free report identifies the need and gives you a grounded place to begin. Submission does not create an automatic scan, report, account, or service engagement.",
-  },
-  {
-    number: "03",
-    title: "Choose any deeper work separately",
-    copy: "The report can introduce an optional, separately chosen paid follow-up for organizations that want to begin answering the questions it surfaces. It is never automatic, bundled into membership, or a substitute for scoped services.",
-  },
-];
+import { isBlackFriday, mailto, whatHappensNext, wontDo, workingSessionHref, CONTACT_EMAIL } from "@/lib/offers";
 
 function SectionLabel({ children }: { children: string }) {
   return (
@@ -102,7 +19,78 @@ function SectionLabel({ children }: { children: string }) {
   );
 }
 
+type Door = {
+  icon: typeof SearchCheck;
+  label: string;
+  title: string;
+  price: string;
+  priceNote?: string;
+  copy: string;
+  gets: string[];
+  how: string;
+  action: string;
+  href: string;
+  external?: boolean;
+  featured?: boolean;
+};
+
 export default function Home() {
+  const bf = isBlackFriday();
+  const doors: Door[] = [
+    {
+      icon: SearchCheck,
+      label: "Start here",
+      title: "Signal Check",
+      price: "Free",
+      copy: "Send me your website and the one question on your mind. I'll look at how your organization shows up today: on your own site, in search, and when someone asks an AI tool who to trust.",
+      gets: [
+        "A short written snapshot within five business days",
+        "What I checked and when",
+        "My honest read on what to look at first",
+      ],
+      how: "You fill in one form. I read it, and if I can help, the snapshot comes by email. I take a few of these each week.",
+      action: "Request a Signal Check",
+      href: "/signal-check",
+      featured: true,
+    },
+    {
+      icon: FileSearch,
+      label: "The full picture",
+      title: "Signal Check Working Session",
+      price: bf ? "$197" : "$297",
+      priceNote: bf ? "Through Monday, Dec 1, five spots. $297 after." : undefined,
+      copy: "When you want the full picture and a plan you can act on.",
+      gets: [
+        "Up to seven findings, in order of what to fix first",
+        "A 30/60/90-day action brief",
+        "A 15-minute recorded walkthrough you can watch when it suits you",
+        "One round of written follow-up questions within 14 days",
+      ],
+      how: "I confirm within one business day whether I can help. If I can't, you get a full refund. Delivery is within seven business days. All in writing, no calls.",
+      action: "Book a Working Session",
+      href: workingSessionHref(),
+      external: true,
+    },
+    {
+      icon: Workflow,
+      label: "Ongoing help",
+      title: "90-Day Operator Engagement",
+      price: "$15,000",
+      priceNote: "Per 90 days, or $6,000 a month. Founding terms for a January start.",
+      copy: "For founders, small teams and nonprofits that need an operator without making a hire.",
+      gets: [
+        "A written review and a 90-day plan in week one",
+        "Hands-on work we agree on: your site, your offers, your workflows, and local AI tools you own",
+        "A written status brief every week, and written answers within one business day",
+        "A handoff document at the end, so nothing depends on me",
+      ],
+      how: "It starts with a short written inquiry. I reply with a written proposal. I take two engagements at a time, and January has two openings. Larger builds by written proposal.",
+      action: "Ask about an engagement",
+      href: mailto("90-Day Operator Engagement inquiry"),
+      external: true,
+    },
+  ];
+
   return (
     <>
       <Navbar />
@@ -113,117 +101,132 @@ export default function Home() {
           <div className="pointer-events-none absolute right-[14%] top-20 size-[24rem] rounded-full bg-[oklch(0.75_0.14_85/0.12)] blur-[110px]" />
           <div className="relative container grid min-h-[650px] gap-14 py-18 md:py-24 lg:grid-cols-[1.1fr_0.7fr] lg:items-end">
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }}>
-              <SectionLabel>Beacon Momentum, LLC · B2B operating arm</SectionLabel>
+              <SectionLabel>Beacon Labs · Bob Burr</SectionLabel>
               <h1 className="max-w-5xl font-serif text-[clamp(3.75rem,7vw,7.25rem)] leading-[0.86] tracking-[-0.06em] text-[oklch(0.16_0.03_240)]">
                 Find the signal.<br />
                 <span className="text-[oklch(0.40_0.08_185)]">Choose the next move.</span>
               </h1>
               <p className="mt-9 max-w-2xl text-lg leading-8 text-[oklch(0.38_0.03_240)] md:text-xl">
-                Beacon Labs helps organizations make their operating reality easier to see, explain, and improve. Start with the free Signal Check when there is a meaningful question to examine.
-              </p>
-              <p className="mt-5 max-w-2xl font-mono text-[0.66rem] leading-6 tracking-[0.07em] text-[oklch(0.45_0.09_185)] uppercase">
-                Founding packages are publicly priced from $3,000. The free Signal Check and optional $297 follow-up remain separate, deliberate entry points.
+                I'm Bob Burr. I run Beacon Labs myself, from a private AI lab in my home. You tell me what's getting hard to see, run or hand off. I look, I write down what I found, and I tell you what I'd do first. It's all in writing, on your schedule. No sales calls.
               </p>
               <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
                 <a href="/signal-check" className="group inline-flex min-h-13 items-center justify-center gap-3 bg-[oklch(0.40_0.08_185)] px-7 py-4 font-mono text-xs font-medium tracking-[0.15em] text-[oklch(0.98_0.003_80)] uppercase transition-[background-color,transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:bg-[oklch(0.35_0.07_185)] hover:shadow-[0_20px_30px_oklch(0.16_0.03_240/0.18)] active:translate-y-0">
-                  Request the free Signal Check <ArrowUpRight className="size-4 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                  Send me your question <ArrowUpRight className="size-4 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                 </a>
-                <a href="/pricing" className="inline-flex min-h-13 items-center justify-center gap-3 border border-[oklch(0.35_0.07_185/0.3)] px-7 py-4 font-mono text-xs font-medium tracking-[0.15em] text-[oklch(0.30_0.04_240)] uppercase transition-colors duration-200 hover:border-[oklch(0.75_0.14_85)] hover:bg-[oklch(0.75_0.14_85/0.08)]">
-                  View packages & pricing <ArrowUpRight className="size-4" />
+                <a href="#work" className="inline-flex min-h-13 items-center justify-center gap-3 border border-[oklch(0.35_0.07_185/0.3)] px-7 py-4 font-mono text-xs font-medium tracking-[0.15em] text-[oklch(0.30_0.04_240)] uppercase transition-colors duration-200 hover:border-[oklch(0.75_0.14_85)] hover:bg-[oklch(0.75_0.14_85/0.08)]">
+                  See the three ways to work with me
                 </a>
               </div>
-              <p className="mt-5 max-w-xl font-mono text-[0.63rem] leading-5 tracking-[0.05em] text-[oklch(0.47_0.03_185)]">
-                A request is reviewed first. It does not begin an automatic scan, create an account, promise a report, or create a paid engagement.
+              <p className="mt-5 max-w-xl text-sm leading-6 text-[oklch(0.43_0.03_240)]">
+                I do the analysis on my own equipment, with local AI models. I don't paste client details into public AI services.
               </p>
             </motion.div>
 
             <motion.aside initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.55, delay: 0.12 }} className="relative overflow-hidden border border-[oklch(0.35_0.07_185/0.24)] bg-[oklch(0.14_0.032_240)] p-7 text-[oklch(0.92_0.005_80)] shadow-[0_22px_55px_oklch(0.12_0.03_240/0.18)] md:p-9">
               <div className="blueprint-grid-dark pointer-events-none absolute inset-0 opacity-30" />
               <div className="relative">
-                <div className="flex items-center justify-between gap-4"><span className="font-mono text-[0.6rem] tracking-[0.18em] text-[oklch(0.76_0.14_85)] uppercase">The intentional entry point</span><FileSearch className="size-5 text-[oklch(0.76_0.14_85)]" /></div>
-                <h2 className="mt-8 max-w-sm font-serif text-4xl leading-[0.96] tracking-[-0.035em]">A free report first. A deeper decision only if it serves the work.</h2>
-                <ol className="mt-9 space-y-5 border-l border-[oklch(0.76_0.14_85/0.48)] pl-5">
-                  <li><span className="font-mono text-[0.58rem] tracking-[0.16em] text-[oklch(0.76_0.14_85)] uppercase">Free request</span><p className="mt-1 text-sm leading-6 text-[oklch(0.69_0.025_240)]">We review the operating question and consented context.</p></li>
-                  <li><span className="font-mono text-[0.58rem] tracking-[0.16em] text-[oklch(0.76_0.14_85)] uppercase">Free report</span><p className="mt-1 text-sm leading-6 text-[oklch(0.69_0.025_240)]">The report makes the immediate need visible and explains the possible next paths.</p></li>
-                  <li><span className="font-mono text-[0.58rem] tracking-[0.16em] text-[oklch(0.76_0.14_85)] uppercase">Optional follow-up</span><p className="mt-1 text-sm leading-6 text-[oklch(0.69_0.025_240)]">A separate paid follow-up is introduced in the report when a deeper diagnostic conversation is appropriate.</p></li>
+                <div className="flex items-center justify-between gap-4">
+                  <span className="font-mono text-[0.6rem] tracking-[0.18em] text-[oklch(0.76_0.14_85)] uppercase">What happens after you send it</span>
+                  <FileSearch className="size-5 text-[oklch(0.76_0.14_85)]" strokeWidth={1.3} />
+                </div>
+                <ol className="mt-8 space-y-5 border-l border-[oklch(0.76_0.14_85/0.48)] pl-5">
+                  {whatHappensNext.map((line, i) => (
+                    <li key={line}>
+                      <span className="font-mono text-[0.58rem] tracking-[0.16em] text-[oklch(0.76_0.14_85)] uppercase">Step {i + 1}</span>
+                      <p className="mt-1 text-base leading-7 text-[oklch(0.80_0.02_240)]">{line}</p>
+                    </li>
+                  ))}
                 </ol>
               </div>
             </motion.aside>
           </div>
-          <div className="relative container pb-10"><div className="flex items-center gap-3 font-mono text-[0.58rem] tracking-[0.15em] text-[oklch(0.45_0.09_185)] uppercase"><span className="h-px w-16 bg-[oklch(0.75_0.14_85)]" /> B2B systems engineering · responsible engagement</div></div>
         </section>
 
-        <section className="beacon-paper-noise relative overflow-hidden border-y border-[oklch(0.35_0.07_185/0.16)] py-24 md:py-32">
-          <div className="pointer-events-none absolute right-[9%] top-0 h-full w-px bg-[oklch(0.45_0.09_185/0.1)]" />
+        <section id="work" className="beacon-paper-noise relative scroll-mt-28 overflow-hidden border-y border-[oklch(0.35_0.07_185/0.16)] py-24 md:py-32">
           <div className="relative container">
             <div className="grid gap-10 border-b border-[oklch(0.35_0.07_185/0.2)] pb-12 lg:grid-cols-[0.72fr_1.28fr] lg:items-end">
               <div>
-                <SectionLabel>What Beacon Labs helps make clearer</SectionLabel>
-                <p className="max-w-sm text-[0.98rem] leading-7 text-[oklch(0.38_0.03_240)]">For organizations responding to a meaningful operating question—not a pre-bundled promise.</p>
+                <SectionLabel>Three ways to work with me</SectionLabel>
+                <p className="max-w-sm text-[0.98rem] leading-7 text-[oklch(0.38_0.03_240)]">Each one is delivered in writing. Start with whichever fits. If you're not sure, start with the free Signal Check.</p>
               </div>
-              <div>
-                <h2 className="max-w-4xl font-serif text-[clamp(2.8rem,5vw,5.25rem)] leading-[0.94] tracking-[-0.045em] text-[oklch(0.16_0.03_240)]">Four service areas. <span className="text-[oklch(0.40_0.08_185)]">One accountable way forward.</span></h2>
-                <p className="mt-6 max-w-2xl text-base leading-7 text-[oklch(0.43_0.03_240)]">A direct conversation is welcome, but the no-cost Signal Check remains the clearest first step when the question is still taking shape.</p>
-              </div>
+              <h2 className="max-w-4xl font-serif text-[clamp(2.8rem,5vw,5.25rem)] leading-[0.94] tracking-[-0.045em] text-[oklch(0.16_0.03_240)]">
+                Fewer doors. <span className="text-[oklch(0.40_0.08_185)]">Clear next steps.</span>
+              </h2>
             </div>
-            <div className="grid divide-y divide-[oklch(0.35_0.07_185/0.2)] md:grid-cols-2 md:divide-x md:divide-y-0">
-              {serviceAreas.map((area, index) => (
-                <motion.article key={area.title} initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.42, delay: index * 0.06 }} className="px-0 py-10 even:md:pl-9 odd:md:pr-9 md:py-14">
-                  <div className="flex items-center justify-between gap-4"><area.icon className="size-6 text-[oklch(0.45_0.09_185)]" strokeWidth={1.3} /><span className="font-mono text-[0.58rem] tracking-[0.16em] text-[oklch(0.45_0.09_185)] uppercase">{area.code}</span></div>
-                  <h3 className="mt-10 max-w-md font-serif text-3xl leading-[1.02] tracking-[-0.025em] text-[oklch(0.16_0.03_240)]">{area.title}</h3>
-                  <p className="mt-5 max-w-lg text-[0.98rem] leading-7 text-[oklch(0.43_0.03_240)]">{area.copy}</p>
-                </motion.article>
+            <div className="mt-14 grid gap-px bg-[oklch(0.35_0.07_185/0.2)] lg:grid-cols-3">
+              {doors.map((door) => (
+                <article key={door.title} className={`flex flex-col p-7 md:p-8 ${door.featured ? "bg-[oklch(0.40_0.08_185)] text-[oklch(0.98_0.003_80)]" : "bg-[oklch(0.98_0.004_80)] text-[oklch(0.16_0.03_240)]"}`}>
+                  <door.icon className={`size-6 ${door.featured ? "text-[oklch(0.82_0.105_85)]" : "text-[oklch(0.45_0.09_185)]"}`} strokeWidth={1.3} />
+                  <div className={`mt-8 font-mono text-[0.59rem] tracking-[0.16em] uppercase ${door.featured ? "text-[oklch(0.82_0.105_85)]" : "text-[oklch(0.45_0.09_185)]"}`}>{door.label}</div>
+                  <h3 className="mt-3 font-serif text-3xl leading-[1.02] tracking-[-0.025em]">{door.title}</h3>
+                  <div className="mt-5 font-serif text-4xl tracking-[-0.03em]">{door.price}</div>
+                  {door.priceNote && <p className={`mt-2 text-sm leading-6 ${door.featured ? "text-[oklch(0.90_0.02_185)]" : "text-[oklch(0.43_0.03_240)]"}`}>{door.priceNote}</p>}
+                  <p className={`mt-5 text-[0.98rem] leading-7 ${door.featured ? "text-[oklch(0.94_0.01_185)]" : "text-[oklch(0.38_0.03_240)]"}`}>{door.copy}</p>
+                  <div className={`mt-6 font-mono text-[0.58rem] tracking-[0.16em] uppercase ${door.featured ? "text-[oklch(0.82_0.105_85)]" : "text-[oklch(0.45_0.09_185)]"}`}>What you get</div>
+                  <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-6">
+                    {door.gets.map((g) => <li key={g}>{g}</li>)}
+                  </ul>
+                  <div className={`mt-6 font-mono text-[0.58rem] tracking-[0.16em] uppercase ${door.featured ? "text-[oklch(0.82_0.105_85)]" : "text-[oklch(0.45_0.09_185)]"}`}>How it works</div>
+                  <p className="mt-3 text-sm leading-6">{door.how}</p>
+                  <div className="mt-auto pt-8">
+                    <a href={door.href} className={`inline-flex min-h-12 items-center justify-center gap-3 px-6 py-3 font-mono text-xs font-medium tracking-[0.14em] uppercase transition-colors duration-200 ${door.featured ? "bg-[oklch(0.98_0.003_80)] text-[oklch(0.30_0.06_185)] hover:bg-[oklch(0.92_0.02_85)]" : "border border-[oklch(0.35_0.07_185/0.34)] text-[oklch(0.30_0.04_240)] hover:border-[oklch(0.75_0.14_85)] hover:bg-[oklch(0.75_0.14_85/0.08)]"}`}>
+                      {door.action} <ArrowUpRight className="size-4" />
+                    </a>
+                  </div>
+                </article>
               ))}
-            </div>
-            <div className="mt-12 flex flex-col gap-4 sm:flex-row sm:items-center">
-              <a href="/services" className="group inline-flex min-h-12 items-center justify-center gap-3 border border-[oklch(0.35_0.07_185/0.34)] px-6 py-3 font-mono text-xs font-medium tracking-[0.14em] text-[oklch(0.30_0.04_240)] uppercase transition-colors duration-200 hover:border-[oklch(0.75_0.14_85)] hover:bg-[oklch(0.75_0.14_85/0.08)]">Explore the service path <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" /></a>
-              <a href="/signal-check" className="group inline-flex min-h-12 items-center justify-center gap-3 bg-[oklch(0.40_0.08_185)] px-6 py-3 font-mono text-xs font-medium tracking-[0.14em] text-[oklch(0.98_0.003_80)] uppercase transition-[background-color,transform] duration-200 hover:-translate-y-0.5 hover:bg-[oklch(0.35_0.07_185)] active:translate-y-0">Request the free Signal Check <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" /></a>
             </div>
           </div>
         </section>
 
-        <section className="relative bg-[oklch(0.14_0.032_240)] py-24 text-[oklch(0.92_0.005_80)] md:py-32">
+        <section className="relative bg-[oklch(0.14_0.032_240)] py-24 text-[oklch(0.92_0.005_80)] md:py-28">
           <div className="blueprint-grid-dark pointer-events-none absolute inset-0 opacity-35" />
-          <div className="relative container">
-            <div className="grid gap-10 border-b border-[oklch(0.92_0.005_80/0.15)] pb-12 lg:grid-cols-[0.7fr_1.3fr] lg:items-end">
-              <div><SectionLabel>How the diagnostic path works</SectionLabel><p className="max-w-sm text-[0.98rem] leading-7 text-[oklch(0.68_0.025_240)]">Clear language and explicit consent keep the entry point useful without pretending a form submission is a finished service.</p></div>
-              <h2 className="max-w-4xl font-serif text-[clamp(2.8rem,5vw,5.25rem)] leading-[0.94] tracking-[-0.045em]">A practical path from <span className="text-[oklch(0.76_0.14_85)]">question</span> to <span className="text-[oklch(0.76_0.14_85)]">choice.</span></h2>
+          <div className="relative container grid gap-10 lg:grid-cols-[0.7fr_1.3fr]">
+            <div>
+              <SectionLabel>What I won't do</SectionLabel>
+              <p className="max-w-sm text-[0.98rem] leading-7 text-[oklch(0.68_0.025_240)]">So you know where the edges are before you send anything.</p>
             </div>
-            <div className="grid divide-y divide-[oklch(0.92_0.005_80/0.14)] md:grid-cols-3 md:divide-x md:divide-y-0">
-              {diagnosticSteps.map((step, index) => (
-                <motion.article key={step.number} initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.25 }} transition={{ duration: 0.42, delay: index * 0.08 }} className="px-0 py-10 md:px-7 md:py-14 first:md:pl-0 last:md:pr-0">
-                  <div className="font-mono text-xs tracking-[0.18em] text-[oklch(0.76_0.14_85)]">{step.number}</div>
-                  <h3 className="mt-10 max-w-xs font-serif text-3xl leading-[1.02] tracking-[-0.025em]">{step.title}</h3>
-                  <p className="mt-5 max-w-sm text-sm leading-7 text-[oklch(0.69_0.025_240)]">{step.copy}</p>
-                </motion.article>
+            <ul className="grid gap-px bg-[oklch(0.92_0.005_80/0.14)] md:grid-cols-2">
+              {wontDo.map((line) => (
+                <li key={line} className="bg-[oklch(0.14_0.032_240)] p-6 text-base leading-7 text-[oklch(0.86_0.01_240)]">{line}</li>
               ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="beacon-paper-noise relative overflow-hidden py-24 md:py-32">
-          <div className="pointer-events-none absolute right-[9%] top-0 h-full w-px bg-[oklch(0.45_0.09_185/0.1)]" />
-          <div className="relative container">
-            <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-end"><div><SectionLabel>More ways in</SectionLabel><p className="max-w-sm text-lg leading-8 text-[oklch(0.38_0.03_240)]">The front page stays clear. Each of these routes gives the rest of the story a place to live.</p></div><h2 className="max-w-4xl font-serif text-[clamp(2.8rem,5vw,5.25rem)] leading-[0.94] tracking-[-0.045em] text-[oklch(0.16_0.03_240)]">Choose the context you need.</h2></div>
-            <div className="mt-14 grid gap-px bg-[oklch(0.35_0.07_185/0.2)] md:grid-cols-3">
-              {entryPoints.map((entry) => (
-                <a key={entry.title} href={entry.href} className={`group relative min-h-[315px] overflow-hidden p-7 transition-colors duration-300 md:p-8 ${entry.featured ? "bg-[oklch(0.40_0.08_185)] text-[oklch(0.98_0.003_80)] hover:bg-[oklch(0.35_0.07_185)]" : "bg-[oklch(0.97_0.005_80)] text-[oklch(0.16_0.03_240)] hover:bg-[oklch(0.94_0.01_85)]"}`}>
-                  <entry.icon className={`size-6 ${entry.featured ? "text-[oklch(0.82_0.105_85)]" : "text-[oklch(0.45_0.09_185)]"}`} strokeWidth={1.3} />
-                  <div className="mt-12"><div className={`font-mono text-[0.59rem] tracking-[0.16em] uppercase ${entry.featured ? "text-[oklch(0.82_0.105_85)]" : "text-[oklch(0.45_0.09_185)]"}`}>{entry.label}</div><h3 className="mt-3 font-serif text-3xl leading-none tracking-[-0.03em]">{entry.title}</h3><p className={`mt-4 max-w-xs text-sm leading-6 ${entry.featured ? "text-[oklch(0.88_0.01_185)]" : "text-[oklch(0.43_0.03_240)]"}`}>{entry.copy}</p></div>
-                  <span className={`absolute bottom-7 inline-flex items-center gap-2 font-mono text-[0.62rem] font-medium tracking-[0.14em] uppercase ${entry.featured ? "text-[oklch(0.82_0.105_85)]" : "text-[oklch(0.40_0.08_185)]"}`}>{entry.action}<ArrowUpRight className="size-3.5 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" /></span>
-                </a>
-              ))}
-            </div>
+            </ul>
           </div>
         </section>
 
         <section className="relative overflow-hidden bg-[oklch(0.82_0.105_85)] py-16 text-[oklch(0.16_0.03_240)] md:py-20">
-          <div className="container grid gap-8 md:grid-cols-[auto_1fr_auto] md:items-center"><span className="flex size-12 items-center justify-center border border-[oklch(0.16_0.03_240/0.3)]"><Compass className="size-5" /></span><p className="max-w-3xl font-serif text-2xl leading-[1.08] tracking-[-0.02em] md:text-3xl">Looking for a practical infrastructure resource instead? Explore PatchPilot—an independently operated, Beacon-endorsed software resource.</p><a href="/patchpilot" className="group inline-flex items-center gap-2 font-mono text-xs font-medium tracking-[0.14em] uppercase hover:underline">Explore PatchPilot <ArrowDownRight className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:translate-y-0.5" /></a></div>
+          <div className="container grid gap-8 md:grid-cols-[auto_1fr_auto] md:items-center">
+            <span className="flex size-12 items-center justify-center border border-[oklch(0.16_0.03_240/0.3)]"><Compass className="size-5" strokeWidth={1.4} /></span>
+            <p className="max-w-2xl text-lg leading-8">
+              Looking for a practical infrastructure resource instead? Explore PatchPilot—an independently operated, Beacon-endorsed software resource.
+            </p>
+            <a href="/patchpilot" className="inline-flex min-h-12 items-center justify-center gap-3 border border-[oklch(0.16_0.03_240/0.4)] px-6 py-3 font-mono text-xs font-medium tracking-[0.14em] uppercase transition-colors duration-200 hover:bg-[oklch(0.16_0.03_240/0.08)]">
+              Explore PatchPilot <ArrowUpRight className="size-4" />
+            </a>
+          </div>
         </section>
 
         <section className="relative bg-[oklch(0.14_0.032_240)] py-20 text-[oklch(0.92_0.005_80)] md:py-24">
           <div className="blueprint-grid-dark pointer-events-none absolute inset-0 opacity-30" />
-          <div className="relative container flex flex-col items-start justify-between gap-8 md:flex-row md:items-end"><div><SectionLabel>Need a direct conversation?</SectionLabel><h2 className="max-w-2xl font-serif text-4xl leading-[0.98] tracking-[-0.035em] md:text-5xl">Start with the Signal Check—or tell us what the organization is trying to solve.</h2></div><a href="mailto:hello@beaconlabs.ai?subject=Beacon%20Labs%20B2B%20conversation" className="group inline-flex min-h-12 shrink-0 items-center gap-3 border border-[oklch(0.76_0.14_85/0.6)] px-6 py-3 font-mono text-xs font-medium tracking-[0.14em] text-[oklch(0.92_0.005_80)] uppercase transition-colors hover:bg-[oklch(0.76_0.14_85)] hover:text-[oklch(0.16_0.03_240)]">Email Beacon Labs <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" /></a></div>
+          <div className="relative container flex flex-col items-start justify-between gap-8 md:flex-row md:items-end">
+            <div>
+              <SectionLabel>Not sure which fits?</SectionLabel>
+              <h2 className="max-w-2xl font-serif text-[clamp(2.2rem,4vw,3.6rem)] leading-[0.98] tracking-[-0.035em]">
+                Send me the question anyway.
+              </h2>
+              <p className="mt-5 max-w-xl text-base leading-7 text-[oklch(0.72_0.02_240)]">
+                I'll tell you in writing which door makes sense, including "none of them." Or watch the short <a href="/founder-brief" className="underline decoration-[oklch(0.76_0.14_85)] underline-offset-4 hover:text-white">founder briefing</a> first.
+              </p>
+            </div>
+            <div className="flex flex-col gap-4 sm:flex-row">
+              <a href="/signal-check" className="inline-flex min-h-12 items-center justify-center gap-3 bg-[oklch(0.76_0.14_85)] px-6 py-3 font-mono text-xs font-medium tracking-[0.14em] text-[oklch(0.16_0.03_240)] uppercase transition-colors duration-200 hover:bg-[oklch(0.82_0.105_85)]">
+                Send me your question <ArrowUpRight className="size-4" />
+              </a>
+              <a href={mailto("Beacon Labs question")} className="inline-flex min-h-12 items-center justify-center gap-3 border border-[oklch(0.92_0.005_80/0.3)] px-6 py-3 font-mono text-xs font-medium tracking-[0.14em] uppercase transition-colors duration-200 hover:border-[oklch(0.76_0.14_85)]">
+                Email {CONTACT_EMAIL}
+              </a>
+            </div>
+          </div>
         </section>
       </main>
       <Footer />

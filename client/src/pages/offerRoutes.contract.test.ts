@@ -1,41 +1,40 @@
 import { describe, expect, it } from "vitest";
-import { readFileSync } from "node:fs";
+import { readFileSync, existsSync } from "node:fs";
 import { resolve } from "node:path";
 
-const readSource = (relativePath: string) =>
-  readFileSync(resolve(process.cwd(), relativePath), "utf8");
+const src = (p: string) => readFileSync(resolve(process.cwd(), p), "utf8");
 
-describe("Beacon Labs public B2B offer routes", () => {
-  it("registers and exposes the restored pricing and inquiry journey", () => {
-    const app = readSource("client/src/App.tsx");
-    const navbar = readSource("client/src/components/Navbar.tsx");
-    const footer = readSource("client/src/components/Footer.tsx");
-    const pricing = readSource("client/src/components/Pricing.tsx");
-    const pricingPage = readSource("client/src/pages/PricingPage.tsx");
-
-    expect(app).toContain('path={"/pricing"}');
-    expect(navbar).toContain('{ label: "Packages", href: "/pricing" }');
-    expect(footer).toContain('{ label: "Packages & pricing", href: "/pricing" }');
-    expect(pricingPage).toContain("<Pricing />");
-    expect(pricingPage).toContain("<Contact />");
-
-    [
-      "AI Automation",
-      "Digital Infrastructure",
-      "Enterprise AI",
-      "Campaign Build",
-      "Growth Retainer",
-      "Full-Stack Growth",
-      "$3,000",
-      "$5,000",
-      "$10,000",
-    ].forEach((value) => expect(pricing).toContain(value));
-    expect(pricing).toContain("optional $297 paid follow-up");
+describe("Beacon Labs three-door site (Nov 2026 cleanup)", () => {
+  it("redirects the retired catalog and funnel routes", () => {
+    const app = src("client/src/App.tsx");
+    for (const route of ["/pricing", "/services", "/ecommerce", "/coaches", "/growth-blueprint", "/blueprint-thank-you"]) {
+      expect(app).toMatch(new RegExp(`path=\\{"${route}"\\}>\\s*<Redirect`));
+    }
+    for (const f of ["PricingPage", "GrowthBlueprint", "BlueprintThankYou", "Ecommerce", "Coaches", "Services"]) {
+      expect(existsSync(resolve(process.cwd(), `client/src/pages/${f}.tsx`))).toBe(false);
+    }
   });
 
-  it("keeps the free Signal Check and optional $297 follow-up distinct from packages", () => {
-    const signalCheck = readSource("client/src/pages/SignalCheck.tsx");
-    expect(signalCheck).toContain("separate $297 paid follow-up");
-    expect(signalCheck).toContain("It is optional and never automatic");
+  it("shows the three approved offers and no performance or call promises", () => {
+    const home = src("client/src/pages/Home.tsx");
+    const sc = src("client/src/pages/SignalCheck.tsx");
+    const offers = src("client/src/lib/offers.ts");
+    expect(home).toContain("Signal Check Working Session");
+    expect(home).toContain("90-Day Operator Engagement");
+    expect(home).toContain("$15,000");
+    expect(home).toContain("$6,000 a month");
+    expect(home).toContain("within five business days");
+    expect(offers).toContain("PLACEHOLDER: BOB PASTES THE STRIPE PAYMENT LINK HERE");
+    const all = home + sc + src("client/src/components/Navbar.tsx") + src("client/src/components/Footer.tsx");
+    for (const banned of ["ROAS", "Strategy Call", "strategy call", "24/7", "Slack channel", "discovery call", "guarantee", "does not begin an automatic scan"]) {
+      expect(all).not.toContain(banned);
+    }
+  });
+
+  it("retires the Blueprint checkout and audit API", () => {
+    const server = src("server/index.ts");
+    expect(server).not.toContain("paymentIntents.create");
+    expect(server).toContain('app.all(["/api/blueprint/*", "/api/audit"]');
+    expect(src("ops/nginx/beaconlabs-ai.conf")).toMatch(/location = \/api\/generate-report-page \{\s*return 410;/);
   });
 });

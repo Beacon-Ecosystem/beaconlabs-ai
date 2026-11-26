@@ -10,8 +10,7 @@ import { useLocation } from "wouter";
 
 const navLinks = [
   { label: "Signal Check", href: "/signal-check" },
-  { label: "Services", href: "/services" },
-  { label: "Packages", href: "/pricing" },
+  { label: "Work with me", href: "/#work" },
   { label: "Founder Brief", href: "/founder-brief" },
   { label: "PatchPilot", href: "/patchpilot" },
 ];

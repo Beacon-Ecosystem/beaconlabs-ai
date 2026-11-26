@@ -1,7 +1,8 @@
 /*
  * Signal Check Landing Page
  * Consent-based request form for the free Signal Check report.
- * The report may introduce the separately chosen $297 paid follow-up.
+ * Free written snapshot within 5 business days. The paid Working Session is a
+ * separate door (see client/src/lib/offers.ts).
  */
 import { motion, useInView } from "framer-motion";
 import { useRef, useState, useCallback } from "react";
@@ -19,63 +20,64 @@ import {
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Checkbox } from "@/components/ui/checkbox";
+import { isBlackFriday, workingSessionHref } from "@/lib/offers";
 
 const benefits = [
   {
     icon: Brain,
-    title: "Context reviewed with consent",
+    title: "Only what you choose to share",
     description:
-      "We begin with the information you choose to provide. A request does not authorize account access, system changes, or an automatic scan.",
+      "I start with what you send me and what anyone can see in public. I never ask for passwords or access to your systems.",
   },
   {
     icon: Search,
-    title: "A clear first report",
+    title: "A short written snapshot",
     description:
-      "If Beacon Labs accepts the request, the no-cost report identifies the operating question, what is visible now, and the possible next paths.",
+      "If I can help, you get a written snapshot within five business days: what I saw, when I looked, and how I checked.",
   },
   {
     icon: BarChart3,
     title: "The option to go deeper",
     description:
-      "The free report may introduce a separate $297 paid follow-up for organizations that want to begin answering the questions it surfaces. It is optional and never automatic.",
+      "If you want the full picture and a plan, the Signal Check Working Session is a separate paid option. You only buy it if you choose to.",
   },
   {
     icon: Zap,
-    title: "Clear Request Status",
+    title: "A straight answer",
     description:
-      "Your request enters Beacon Labs' review queue. A free request does not guarantee a report, recommendation, paid follow-up, or service engagement.",
+      "If your question isn't something I can help with, I'll tell you that in writing instead of leaving you waiting.",
   },
   {
     icon: Globe,
-    title: "A responsible engagement path",
+    title: "Done by me, in my own lab",
     description:
-      "Broader Beacon Labs systems work is scoped separately after an affirmative conversation about the question, owners, timing, and investment.",
+      "I do the analysis myself, on my own equipment, with local AI models. I don't paste your details into public AI services.",
   },
 ];
 
 const processSteps = [
   {
     step: "01",
-    title: "Request the free Signal Check",
-    description: "Share the organization, operating question, and context you want Beacon Labs to review.",
+    title: "Send your question",
+    description: "Tell me about the organization and the one question on your mind.",
   },
   {
     step: "02",
-    title: "We Review Your Request",
+    title: "I read it",
     description:
-      "We review the information you provide to determine whether a Signal Check is appropriate. Submission does not start an automatic scan.",
+      "Within one business day I tell you whether I can help, and when you'll hear back.",
   },
   {
     step: "03",
-    title: "Receive the free report",
+    title: "Get your written snapshot",
     description:
-      "If Beacon Labs accepts the request, the report makes the immediate need and responsible next paths easier to see.",
+      "Within five business days you get what I found, in writing, with what I checked and when.",
   },
   {
     step: "04",
-    title: "Choose any deeper work separately",
+    title: "Decide what's next, if anything",
     description:
-      "The report may include the optional $297 paid follow-up. It is a separate affirmative choice, not a charge, membership, or service commitment.",
+      "If it helps, you can book a Working Session for the full plan. If not, the snapshot is yours to keep.",
   },
 ];
 
@@ -89,6 +91,7 @@ const industries = [
   "Health & Wellness",
   "Real Estate",
   "Professional Services",
+  "Nonprofit",
   "Other",
 ];
 
@@ -196,14 +199,11 @@ export default function SignalCheck() {
             </div>
             <h1 className="text-3xl font-bold mb-4">Signal Check Request Received</h1>
             <p className="text-gray-400 text-lg mb-6">
-              Your information has been recorded for Beacon Labs review. A submission does not
-              automatically begin a scan or guarantee a report, recommendation, paid follow-up,
-              or service.
+              Thank you. I've got it. I'll read what you sent and reply by email within one
+              business day.
             </p>
             <p className="text-gray-500 text-sm">
-              If Beacon Labs accepts the request, we will contact you at the email address you
-              provided. The free report may introduce an optional $297 paid follow-up; it does not
-              authorize a charge or create an engagement.
+              Nothing is charged and nothing starts unless you choose it. — Bob
             </p>
           </motion.div>
         </div>
@@ -227,16 +227,17 @@ export default function SignalCheck() {
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#00d4ff]/10 border border-[#00d4ff]/20 text-[#00d4ff] text-sm font-medium mb-8">
             <Zap className="w-4 h-4" />
-            No Cost. Reviewed First. No Automatic Commitment.
+            Free. Written. Read by me.
           </div>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
             Start with the question.{" "}
             <span className="text-[#00d4ff]">Choose the next step on purpose.</span>
           </h1>
           <p className="text-xl text-gray-400 mb-10 max-w-2xl mx-auto">
-            Request a no-cost Beacon Signal Check when an operating question needs a clearer first
-            look. If Beacon Labs accepts the request, the free report makes the immediate need and
-            possible next paths easier to see.
+            Send me your website and the one question on your mind. I'll look at how your
+            organization shows up today: on your own site, in search, and when someone asks an AI
+            tool who to trust. If I can help, you'll get a short written snapshot within five
+            business days.
           </p>
           <a
             href="#signal-check-form"
@@ -253,8 +254,7 @@ export default function SignalCheck() {
         <div className="max-w-5xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-4">What the Signal Check Makes Clear</h2>
           <p className="text-gray-400 text-center mb-12 max-w-2xl mx-auto">
-            A no-cost request is reviewed first. If it is accepted, the free report gives you a
-            grounded starting point and explains the choices available from there.
+            A clear starting point, in writing, from the person who will do the work.
           </p>
           <div className="grid md:grid-cols-2 gap-6">
             {benefits.map((b, i) => (
@@ -278,7 +278,7 @@ export default function SignalCheck() {
       {/* Process */}
       <section className="py-20 px-6">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-12">How It Works</h2>
+          <h2 className="text-3xl font-bold text-center mb-12">What happens after you send it</h2>
           <div className="grid md:grid-cols-2 gap-8">
             {processSteps.map((step, i) => (
               <motion.div
@@ -303,6 +303,34 @@ export default function SignalCheck() {
       </section>
 
       {/* Form */}
+      {/* Working Session: the paid door */}
+      <section className="py-16 px-6">
+        <div className="max-w-3xl mx-auto rounded-xl border border-[#00d4ff]/30 bg-[#00d4ff]/5 p-8">
+          <p className="text-sm font-medium uppercase tracking-widest text-[#00d4ff]">Want the full picture?</p>
+          <h2 className="mt-3 text-2xl md:text-3xl font-bold">Signal Check Working Session</h2>
+          <p className="mt-3 text-xl text-white">
+            {isBlackFriday() ? "$197 through Monday, Dec 1 (five spots), then $297" : "$297"}
+          </p>
+          <ul className="mt-5 list-disc space-y-2 pl-5 text-gray-300">
+            <li>Up to seven findings, in order of what to fix first</li>
+            <li>A 30/60/90-day action brief</li>
+            <li>A 15-minute recorded walkthrough you can watch when it suits you</li>
+            <li>One round of written follow-up questions within 14 days</li>
+          </ul>
+          <p className="mt-5 text-gray-400">
+            I confirm within one business day whether I can help. If I can't, you get a full refund. Delivery is
+            within seven business days. All in writing, no calls.
+          </p>
+          <a
+            href={workingSessionHref()}
+            className="mt-6 inline-flex items-center gap-2 px-6 py-3 border border-[#00d4ff] text-[#00d4ff] font-semibold rounded-lg hover:bg-[#00d4ff]/10 transition-colors"
+          >
+            Book a Working Session
+            <ArrowRight className="w-5 h-5" />
+          </a>
+        </div>
+      </section>
+
       <section id="signal-check-form" ref={formRef} className="py-20 px-6 bg-[#0f0f0f]">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -474,7 +502,7 @@ export default function SignalCheck() {
             </button>
 
             <p className="text-center text-gray-500 text-xs">
-              No cost. No credit card. Submission does not guarantee a report or service. The optional $297 paid follow-up is presented only in the free report and requires a separate affirmative choice.
+              Free. No credit card. I reply by email within one business day.
             </p>
           </form>
         </motion.div>
