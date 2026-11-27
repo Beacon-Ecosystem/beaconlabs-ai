@@ -8,7 +8,7 @@
 // limit 5 payments, custom fields "Business website" and "Your one question".
 // While this stays empty, the Working Session button opens a pre-filled email instead
 // of a checkout, so nothing on the page is broken.
-export const WORKING_SESSION_PAYMENT_LINK = "";
+export const WORKING_SESSION_PAYMENT_LINK = "https://buy.stripe.com/aFa6oH1g09qGbCxatK2400z";
 
 export const CONTACT_EMAIL = "hello@beaconlabs.ai";
 
