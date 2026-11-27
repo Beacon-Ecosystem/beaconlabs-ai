@@ -3,12 +3,10 @@
  * Edit prices and links here only.
  */
 
-// >>> PLACEHOLDER: BOB PASTES THE STRIPE PAYMENT LINK HERE <<<
-// Create in Stripe: one-time product "Signal Check Working Session (Black Friday)", $197,
-// limit 5 payments, custom fields "Business website" and "Your one question".
-// While this stays empty, the Working Session button opens a pre-filled email instead
-// of a checkout, so nothing on the page is broken.
-export const WORKING_SESSION_PAYMENT_LINK = "https://buy.stripe.com/aFa6oH1g09qGbCxatK2400z";
+// Working Session checkout stays on beaconlabs.ai (/working-session/): Stripe's Payment Element runs on our page and
+// Stripe processes the payment; the price is fixed on the server ($197 BF rate through Dec 12, then $297). Nov 27, 2026.
+// The earlier buy.stripe.com Payment Link was retired because Beacon does not send buyers to Stripe-hosted pages.
+export const WORKING_SESSION_PAYMENT_LINK = "/working-session/";
 
 export const CONTACT_EMAIL = "hello@beaconlabs.ai";
 

@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Working Session booked | Beacon Labs</title>
+<meta name="description" content="Signal Check Working Session confirmation.">
+<link rel="canonical" href="https://beaconlabs.ai/working-session/thank-you.html">
+<link rel="icon" href="/brand/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Instrument+Serif&display=swap" rel="stylesheet">
+<script defer src="https://js.stripe.com/v3/"></script>
+<script defer src="/onsite-checkout.js"></script>
+<style>
+:root{--bg:#09161f;--panel:#0d1f2b;--line:rgba(255,255,255,.12);--teal:#7dd3c7;--gold:#d6b45a;--ink:#e6eef2;--soft:#a9bac4}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 "DM Sans",system-ui,sans-serif}
+a{color:var(--teal)}header{border-bottom:1px solid var(--line);background:#061019}
+.bar{max-width:1080px;margin:auto;padding:14px 20px;display:flex;align-items:center;gap:12px}
+.bar img{width:40px;height:40px;border-radius:8px;border:1px solid var(--line);background:var(--panel);padding:5px}
+.bar a{color:#fff;text-decoration:none;font:22px "Instrument Serif",serif}.bar small{display:block;color:var(--teal);font:11px/1 monospace;letter-spacing:.18em;text-transform:uppercase}
+main{max-width:1080px;margin:auto;padding:48px 20px 72px}.grid{display:grid;grid-template-columns:1.1fr .9fr;gap:48px}
+@media(max-width:860px){.grid{grid-template-columns:1fr}}
+.eyebrow{color:var(--teal);font-size:13px;letter-spacing:.16em;text-transform:uppercase;font-weight:500}
+h1{font:clamp(34px,5vw,50px)/1.1 "Instrument Serif",serif;margin:.4em 0 .4em;color:#fff;font-weight:400}
+.price{font-size:22px;color:#fff;margin:.2em 0 1em}.price small{color:var(--soft);font-size:15px}
+ul{padding-left:1.2em}li{margin:.35em 0}.soft{color:var(--soft)}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:26px}
+label{display:block;margin:14px 0 6px;font-weight:700;font-size:15px}label span{font-weight:400;color:var(--soft)}
+input,textarea{width:100%;padding:12px;border-radius:6px;border:1px solid var(--line);background:#fff;color:#111;font:inherit}textarea{min-height:90px}
+.secure{margin:16px 0;padding:12px 14px;border:1px solid rgba(214,180,90,.4);background:rgba(214,180,90,.08);border-radius:8px;font-size:14px;color:#efe3c0}
+.pe{background:#fff;border-radius:8px;padding:14px}
+button{margin-top:18px;width:100%;padding:15px;border:0;border-radius:8px;background:var(--teal);color:#061019;font:700 17px "DM Sans",sans-serif;cursor:pointer}button[disabled]{opacity:.7;cursor:wait}
+.checkout-status{min-height:1.4em;margin:12px 0 0;font-size:15px;color:var(--soft)}.checkout-status[data-state=error]{color:#ff9c9c}
+.btn{display:inline-block;margin-top:10px;padding:13px 20px;border-radius:8px;background:var(--teal);color:#061019;font-weight:700;text-decoration:none}
+footer{border-top:1px solid var(--line);color:var(--soft);font-size:14px}footer div{max-width:1080px;margin:auto;padding:22px 20px}
+</style>
+</head>
+<body>
+<header><div class="bar"><img src="/brand/beacon-mark.svg" alt=""><div><a href="/">Beacon Labs</a><small>Beacon Momentum, LLC</small></div></div></header>
+<main><section class="panel" style="max-width:760px" data-onsite-return data-offer="labs-working-session" data-api="https://beaconmomentum.com/api/stripe/onsite">
+  <div data-state="checking"><h1>Checking your payment…</h1><p class="soft">This takes a few seconds.</p></div>
+  <div data-state="paid" hidden>
+    <div class="eyebrow">Signal Check Working Session</div>
+    <h1>Thank you. You're booked.</h1>
+    <p>Stripe has emailed your receipt to <strong data-email>your email</strong>.</p>
+    <p>Here's what happens next:</p>
+    <ul><li>I read what you sent within one business day and confirm whether I can help. If I can't, you get a full refund.</li><li>Your findings, 30/60/90-day brief and recorded walkthrough arrive within seven business days.</li><li>Everything is in writing. No calls.</li></ul>
+    <p class="soft">Anything to add? Write to <a href="mailto:hello@beaconlabs.ai">hello@beaconlabs.ai</a>.</p>
+    <p>— Bob Burr, Beacon Labs</p>
+  </div>
+  <div data-state="processing" hidden><h1>Your payment is still being confirmed.</h1><p class="soft">Some payment methods take a little longer. Leave this page open, or come back and refresh in a few minutes.</p></div>
+  <div data-state="failed" hidden><h1>That payment didn't go through.</h1><p class="soft">Nothing was charged. You can <a href="/working-session/">try again</a>.</p></div>
+  <div data-state="missing" hidden><h1>We couldn't find this booking.</h1><p class="soft">If you just paid, refresh in a minute. If it still doesn't show, reply to your Stripe receipt or write to <a href="mailto:hello@beaconlabs.ai">hello@beaconlabs.ai</a>.</p></div>
+</section></main>
+<footer><div>Beacon Labs is part of Beacon Momentum, LLC · <a href="/">beaconlabs.ai</a> · Questions: <a href="mailto:hello@beaconlabs.ai">hello@beaconlabs.ai</a></div></footer>
+</body>
+</html>
