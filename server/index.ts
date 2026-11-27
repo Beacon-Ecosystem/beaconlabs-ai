@@ -17,6 +17,66 @@ const GHL_SIGNAL_CHECK_REQUESTED_STAGE_ID =
 
 
 
+
+// ─────────────────────────────────────────────────────────────
+// Nov 26, 2026: GoHighLevel is cancelled. Intake now goes by email to
+// hello@beaconlabs.ai through SendGrid, with a local JSONL copy so
+// nothing is lost if email fails.
+// ─────────────────────────────────────────────────────────────
+// hello@beaconlabs.ai bounced (550 address does not exist) on Nov 26, so intake also goes to admin@beaconmomentum.com.
+const LABS_INTAKE_TO = (process.env.LABS_INTAKE_TO || "hello@beaconlabs.ai,admin@beaconmomentum.com").split(",").map((e) => e.trim()).filter(Boolean);
+const LABS_INTAKE_FROM = process.env.LABS_INTAKE_FROM || "hello@beaconlabs.ai";
+const LABS_INTAKE_LOG = process.env.LABS_INTAKE_LOG || path.join(process.cwd(), "intake", "labs-intake.jsonl");
+
+async function recordLabsIntake(kind: string, fields: Record<string, unknown>) {
+  const fs = await import("fs/promises");
+  const entry = { kind, receivedAt: new Date().toISOString(), ...fields };
+  let saved = false;
+  try {
+    await fs.mkdir(path.dirname(LABS_INTAKE_LOG), { recursive: true, mode: 0o700 });
+    await fs.appendFile(LABS_INTAKE_LOG, JSON.stringify(entry) + "\n", { mode: 0o600 });
+    saved = true;
+  } catch (err) {
+    console.error("[Intake] local save failed:", err);
+  }
+  let emailed = false;
+  const key = process.env.SENDGRID_API_KEY || "";
+  if (key) {
+    const lines = Object.entries(fields)
+      .map(([k, v]) => `${k}: ${typeof v === "string" ? v : JSON.stringify(v)}`)
+      .join("\n");
+    const name = [fields.firstName, fields.lastName].filter(Boolean).join(" ");
+    const replyTo =
+      typeof fields.email === "string" && fields.email ? { email: fields.email, name: name || undefined } : undefined;
+    try {
+      const res = await fetch("https://api.sendgrid.com/v3/mail/send", {
+        method: "POST",
+        headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
+        body: JSON.stringify({
+          personalizations: [{ to: LABS_INTAKE_TO.map((email) => ({ email })) }],
+          from: { email: LABS_INTAKE_FROM, name: "Beacon Labs intake" },
+          ...(replyTo ? { reply_to: replyTo } : {}),
+          subject: `[Beacon Labs] ${kind}: ${name || "new request"}${fields.businessName ? " — " + fields.businessName : ""}`,
+          content: [
+            {
+              type: "text/plain",
+              value: `${kind} received ${entry.receivedAt}\n\n${lines}\n\nReply to this email to answer the requester directly.`,
+            },
+          ],
+        }),
+      });
+      emailed = res.ok;
+      if (!res.ok) console.error("[Intake] SendGrid error:", res.status, (await res.text()).slice(0, 300));
+    } catch (err) {
+      console.error("[Intake] SendGrid request failed:", err);
+    }
+  } else {
+    console.error("[Intake] SENDGRID_API_KEY missing; intake saved locally only.");
+  }
+  if (!saved && !emailed) throw new Error("Intake could not be saved or emailed.");
+  return { saved, emailed };
+}
+
 async function createGHLContact(data: {
   firstName: string;
   lastName: string;
@@ -165,20 +225,11 @@ async function startServer() {
         res.status(400).json({ error: "firstName, lastName, and email are required" });
         return;
       }
-      const result = await createGHLContact({
-        firstName,
-        lastName,
-        email,
-        phone,
-        businessName: company,
-        website,
-        investmentRange: budget,
-        serviceInterest: service,
-        primaryGoal: message,
-        tags: ["b2b-project-inquiry", "beacon-labs", "package-pricing"],
+      await recordLabsIntake("Project inquiry", {
+        firstName, lastName, email, phone, company, website, service, budget, message,
         source: "beaconlabs.ai/pricing",
       });
-      res.json({ success: true, contactId: (result.contact as Record<string, unknown>)?.id });
+      res.json({ success: true });
     } catch (err) {
       console.error("Contact form error:", err);
       res.status(500).json({ error: "Failed to submit request. Please try again." });
@@ -238,46 +289,11 @@ async function startServer() {
         return;
       }
 
-      if (!GHL_PIT || !GHL_SIGNAL_CHECK_PIPELINE_ID || !GHL_SIGNAL_CHECK_REQUESTED_STAGE_ID) {
-        console.error("Signal Check intake is unavailable: required CRM configuration is incomplete.");
-        res.status(503).json({ error: "The Signal Check is temporarily unavailable. Please try again shortly." });
-        return;
-      }
-
-      const sourceTags = [
-        "signal-check-requested",
-        "free-signal-check",
-        "beacon-labs",
-        "signal-check-consent-recorded",
-        ...(submission.reelKeyword ? [`signal-source-${submission.reelKeyword}`] : []),
-      ];
       const consentRecordedAt = new Date().toISOString();
-
-      const contactResult = await createGHLContact({
-        firstName: submission.firstName,
-        lastName: submission.lastName,
-        email: submission.email,
-        businessName: submission.businessName,
-        website: submission.website,
-        industry: submission.industry,
-        primaryGoal: submission.description,
+      await recordLabsIntake("Free Signal Check request", {
+        ...submission,
         consentRecordedAt,
-        tags: sourceTags,
         source: "beaconlabs.ai/signal-check",
-      });
-
-      const contact = (contactResult as Record<string, unknown>).contact as Record<string, unknown> | undefined;
-      const contactId = typeof contact?.id === "string" ? contact.id : "";
-
-      if (!contactId) {
-        throw new Error("GHL did not return a Signal Check contact identifier.");
-      }
-
-      await createGHLSignalCheckOpportunity({
-        contactId,
-        firstName: submission.firstName,
-        lastName: submission.lastName,
-        businessName: submission.businessName,
       });
 
       res.status(201).json({ success: true, status: "requested" });
