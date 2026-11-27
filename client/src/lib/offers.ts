@@ -12,8 +12,8 @@ export const WORKING_SESSION_PAYMENT_LINK = "";
 
 export const CONTACT_EMAIL = "hello@beaconlabs.ai";
 
-// Black Friday rate shows through Mon Dec 1, 2026, 11:59 PM ET (Dec 2, 04:59 UTC).
-export const BLACK_FRIDAY_ENDS_AT = Date.parse("2026-12-02T04:59:59Z");
+// Black Friday rate shows through Sat Dec 12, 2026, 11:59 PM ET (Dec 13, 04:59:59 UTC). Extended Nov 26 from Dec 1.
+export const BLACK_FRIDAY_ENDS_AT = Date.parse("2026-12-13T04:59:59Z");
 export const isBlackFriday = (now: number = Date.now()) => now <= BLACK_FRIDAY_ENDS_AT;
 
 export const mailto = (subject: string) =>

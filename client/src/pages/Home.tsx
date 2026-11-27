@@ -58,7 +58,7 @@ export default function Home() {
       label: "The full picture",
       title: "Signal Check Working Session",
       price: bf ? "$197" : "$297",
-      priceNote: bf ? "Through Monday, Dec 1, five spots. $297 after." : undefined,
+      priceNote: bf ? "Through Saturday, Dec 12, five spots. $297 after." : undefined,
       copy: "When you want the full picture and a plan you can act on.",
       gets: [
         "Up to seven findings, in order of what to fix first",
