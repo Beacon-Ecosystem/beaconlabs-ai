@@ -29,7 +29,10 @@ const MODEL_TIMEOUT_MS = Number(process.env.SIGNAL_CHECK_MODEL_TIMEOUT_MS || 60_
 const FETCH_TIMEOUT_MS = 8_000;
 const MAX_BODY_BYTES = 400_000;
 const REPLY_FROM = process.env.SIGNAL_CHECK_FROM || process.env.LABS_INTAKE_FROM || "hello@beaconlabs.ai";
-const REPLY_TO = process.env.SIGNAL_CHECK_REPLY_TO || "hello@beaconlabs.ai";
+// Replies go to a mailbox that actually receives mail. hello@beaconlabs.ai returned "550 address does not exist" on Nov 26-27, 2026
+// (SendGrid shows it as not_delivered), so until its routing is fixed replies go to admin@beaconmomentum.com.
+// After fixing hello@, set SIGNAL_CHECK_REPLY_TO=hello@beaconlabs.ai (or change this default).
+const REPLY_TO = process.env.SIGNAL_CHECK_REPLY_TO || "admin@beaconmomentum.com";
 const INTERNAL_COPY = (process.env.LABS_INTAKE_TO || "hello@beaconlabs.ai,admin@beaconmomentum.com").split(",").map((e) => e.trim().toLowerCase()).filter(Boolean);
 const REPLY_LOG = process.env.SIGNAL_CHECK_REPLY_LOG || path.join(process.cwd(), "intake", "signal-check-replies.jsonl");
 const CONSENT_TEXT = "I agree that Beacon Labs may use what I submitted to review my business and reply to this Signal Check request.";
