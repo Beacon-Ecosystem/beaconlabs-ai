@@ -2,6 +2,7 @@ import express from "express";
 import { createServer } from "http";
 import path from "path";
 import { fileURLToPath } from "url";
+import { processSignalCheck, signalCheckIpHash, signalCheckRateLimited } from "./signalCheckReply";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -297,6 +298,20 @@ async function startServer() {
   // ─────────────────────────────────────────────────────────────
   app.post("/api/signal-check", async (req, res) => {
     try {
+      res.setHeader("Cache-Control", "no-store");
+      // Rate limit per visitor (hashed IP). Honeypot: a real visitor never sees or fills company_url; pretend success, store and send nothing.
+      const ipRaw = String(req.headers["cf-connecting-ip"] || req.headers["x-real-ip"] || req.socket.remoteAddress || "");
+      let ipHash = "";
+      try { ipHash = await signalCheckIpHash(ipRaw); } catch { ipHash = ipRaw; }
+      if (signalCheckRateLimited(ipHash)) {
+        res.status(429).json({ error: "Too many attempts. Please wait a few minutes and try again." });
+        return;
+      }
+      const hp = (req.body && typeof req.body === "object" ? (req.body as Record<string, unknown>).company_url : "");
+      if (typeof hp === "string" && hp.trim()) {
+        res.status(201).json({ success: true, status: "requested" });
+        return;
+      }
       const {
         firstName,
         lastName,
@@ -350,6 +365,10 @@ async function startServer() {
         source: "beaconlabs.ai/signal-check",
       });
 
+      // Restored Phoenix behaviour: CRM record + an instant first read (or a plain acknowledgment) to the requester.
+      // Runs in the background so the visitor's page answers immediately; it never throws and always logs.
+      void processSignalCheck(submission, { ipHash, userAgent: String(req.headers["user-agent"] || "").slice(0, 300), source: "beaconlabs.ai/signal-check" })
+        .catch((e) => console.error("[SignalCheck] background reply failed:", e instanceof Error ? e.message : "unknown"));
       res.status(201).json({ success: true, status: "requested" });
     } catch (err) {
       console.error("Signal Check intake error:", err);

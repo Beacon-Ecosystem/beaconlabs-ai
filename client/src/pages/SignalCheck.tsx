@@ -103,6 +103,7 @@ interface FormData {
   website: string;
   industry: string;
   description: string;
+  company_url: string; // honeypot: hidden from people, left empty
 }
 
 const initialForm: FormData = {
@@ -113,6 +114,7 @@ const initialForm: FormData = {
   website: "",
   industry: "",
   description: "",
+  company_url: "",
 };
 
 export default function SignalCheck() {
@@ -450,6 +452,13 @@ export default function SignalCheck() {
                 className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-[#00d4ff]/50 transition-colors resize-none"
                 placeholder="Briefly describe the operating question, decision, workflow, or handoff you want to examine."
               />
+            </div>
+
+            <div aria-hidden="true" style={{ position: "absolute", left: "-10000px", width: 1, height: 1, overflow: "hidden" }}>
+              <label>
+                Leave this field empty
+                <input name="company_url" type="text" tabIndex={-1} autoComplete="off" value={form.company_url} onChange={handleChange} />
+              </label>
             </div>
 
             {error && (
