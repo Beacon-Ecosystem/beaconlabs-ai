@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Watch: Signal Check Working Session | Beacon Labs</title>
+<meta name="description" content="A one-minute look at the Signal Check Working Session from Bob Burr. Black Friday: $197 instead of $297, from 12:01 AM ET Nov 27 until 12:01 AM ET Dec 12, 2026. Every brief is reviewed by Bob personally.">
+<link rel="canonical" href="https://beaconlabs.ai/working-session/video/">
+<link rel="icon" type="image/svg+xml" href="/brand/beacon-mark.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/brand/beacon-mark-32.png">
+<link rel="apple-touch-icon" sizes="192x192" href="/brand/beacon-mark-192.png">
+<link rel="manifest" href="/brand/site.webmanifest">
+<meta name="theme-color" content="#09161f">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Watch: Signal Check Working Session | Beacon Labs">
+<meta property="og:description" content="A one-minute look at the written Working Session from Bob Burr. Black Friday: $197 instead of $297 until 12:01 AM ET Dec 12, 2026.">
+<meta property="og:url" content="https://beaconlabs.ai/working-session/video/">
+<meta property="og:image" content="https://beaconlabs.ai/brand/beacon-mark-512.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Instrument+Serif&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#09161f;
+  --header:#061019;
+  --panel:#0d1f2b;
+  --mark-navy:#0D1D29;
+  --line:rgba(247,241,229,.14);
+  --teal:#7dd3c7;
+  --gold:#E9BC52;          /* official mark lantern */
+  --gold-ui:#d6b45a;       /* gold used on the live /working-session/ page */
+  --cream:#F7F1E5;         /* official mark tower */
+  --ink:#e6eef2;
+  --soft:#a9bac4;
+  --focus:#E9BC52;
+}
+*{box-sizing:border-box}
+html:focus-within{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 "DM Sans",system-ui,sans-serif}
+a{color:var(--teal)}
+a:hover{color:#9ee4db}
+img{max-width:100%;height:auto}
+.skip{position:absolute;left:12px;top:-40px;z-index:100;padding:8px 12px;background:var(--gold);color:var(--mark-navy);font-weight:700;border-radius:6px;text-decoration:none}
+.skip:focus{top:12px}
+.draft-banner{background:rgba(233,188,82,.12);border-bottom:1px solid rgba(233,188,82,.35);color:#efe3c0;font-size:14px;line-height:1.45}
+.draft-banner div{max-width:1080px;margin:auto;padding:10px 20px}
+.draft-banner strong{color:var(--cream);font-weight:700}
+header{border-bottom:1px solid var(--line);background:var(--header)}
+.bar{max-width:1080px;margin:auto;padding:14px 20px;display:flex;align-items:center;gap:12px}
+.bar img{width:40px;height:40px;border-radius:8px;border:1px solid var(--line);background:var(--panel);padding:5px}
+.bar a.brand{color:#fff;text-decoration:none;font:22px "Instrument Serif",serif}
+.bar small{display:block;color:var(--teal);font:11px/1.2 "DM Sans",system-ui,sans-serif;letter-spacing:.18em;text-transform:uppercase}
+main{max-width:1080px;margin:auto;padding:40px 20px 72px}
+.eyebrow{color:var(--teal);font-size:13px;letter-spacing:.16em;text-transform:uppercase;font-weight:500}
+h1{font:clamp(34px,5vw,50px)/1.1 "Instrument Serif",serif;margin:.35em 0 .4em;color:var(--cream);font-weight:400}
+.lead{font-size:18px;color:var(--ink);max-width:40rem;margin:0 0 1.5rem}
+.player-wrap{position:relative;width:100%;aspect-ratio:16/9;background:#000;border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:0 16px 40px rgba(0,0,0,.35)}
+.player-wrap iframe,
+.player-wrap video{position:absolute;inset:0;width:100%;height:100%;border:0;background:#000}
+.player-wrap video{object-fit:contain}
+.vimeo-placeholder{display:none;position:absolute;left:12px;top:12px;z-index:2;padding:4px 8px;border-radius:4px;background:rgba(9,22,31,.82);color:var(--gold);font:12px/1.3 "DM Sans",sans-serif;letter-spacing:.04em;text-transform:uppercase}
+body.is-draft .vimeo-placeholder{display:block}
+/* End-of-video overlay */
+.overlay{position:absolute;inset:0;z-index:3;display:flex;align-items:center;justify-content:center;padding:20px 16px;background:rgba(6,16,25,.92);color:var(--cream);text-align:center;overflow:auto;-webkit-overflow-scrolling:touch}
+.overlay[hidden]{display:none !important}
+.overlay-card{max-width:28rem;width:100%;padding:20px 18px;border-radius:12px;background:rgba(13,31,43,.96);border:1px solid var(--line)}
+.overlay-card h2{font:clamp(24px,4vw,34px)/1.15 "Instrument Serif",serif;margin:0 0 .4em;color:var(--cream);font-weight:400}
+.overlay-card p{margin:0 0 1.1rem;color:var(--ink);font-size:16px}
+.overlay-actions{display:flex;flex-direction:column;align-items:center;gap:10px}
+.player-wrap.is-ended video{pointer-events:none}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:13px 22px;border-radius:8px;font:700 17px/1.2 "DM Sans",sans-serif;text-decoration:none;border:0;cursor:pointer;width:100%;max-width:22rem}
+.btn:focus-visible,
+.overlay button:focus-visible,
+a:focus-visible,
+video:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+.btn-primary{background:var(--teal);color:#061019}
+.btn-primary:hover{background:#8fdcd2;color:#061019}
+.btn-secondary{background:transparent;color:var(--cream);border:1px solid rgba(247,241,229,.45);font-weight:500}
+.btn-secondary:hover{border-color:var(--cream);background:rgba(247,241,229,.06);color:var(--cream)}
+.btn-replay{background:none;border:0;color:var(--gold);font:500 16px/1.4 "DM Sans",sans-serif;cursor:pointer;min-height:44px;padding:8px 12px;text-decoration:underline;text-underline-offset:3px;width:auto}
+.btn-replay:hover{color:var(--cream)}
+.facts{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;margin-top:40px}
+@media(max-width:860px){
+  .facts{grid-template-columns:1fr;gap:28px}
+  main{padding:28px 16px 56px}
+  .overlay{padding:10px 8px;align-items:stretch}
+  .overlay-card{padding:14px 12px;display:flex;flex-direction:column;justify-content:center;min-height:100%}
+  .overlay-card h2{font-size:22px;margin-bottom:.3em}
+  .overlay-card p{font-size:14px;margin-bottom:.8rem}
+  .btn{min-height:44px;padding:11px 16px;font-size:16px}
+  .player-wrap.is-ended{aspect-ratio:auto;min-height:34rem}
+}
+.price{font-size:22px;color:var(--cream);margin:.2em 0 1em}
+.price small{display:block;color:var(--soft);font-size:15px;font-weight:400;margin-top:.25em}
+h2.section{font:26px/1.2 "Instrument Serif",serif;color:var(--cream);font-weight:400;margin:0 0 .6em}
+ul{padding-left:1.2em;margin:.4em 0 1em}
+li{margin:.35em 0}
+.soft{color:var(--soft)}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:26px}
+.pay-note{margin:0 0 1.2em;padding:12px 14px;border:1px solid rgba(233,188,82,.4);background:rgba(233,188,82,.08);border-radius:8px;font-size:14px;color:#efe3c0}
+.panel .btn{width:100%;max-width:none}
+.panel .btn-secondary{margin-top:10px}
+.draft-note{margin:14px 0 0;font-size:13px;color:var(--soft)}
+footer{border-top:1px solid var(--line);color:var(--soft);font-size:14px}
+footer div{max-width:1080px;margin:auto;padding:22px 20px}
+.sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.kl-hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.signup{margin-top:40px;padding-top:32px;border-top:1px solid var(--line);max-width:40rem}
+.kl-form label{display:block;margin:0 0 6px;font-weight:700;font-size:15px}
+.kl-form label span{font-weight:400;color:var(--soft)}
+.kl-form input[type=text],.kl-form input[type=email]{width:100%;padding:12px;border-radius:6px;border:1px solid var(--line);background:#fff;color:#111;font:inherit;min-height:46px}
+.kl-form input:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.kl-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.kl-submit{margin-top:4px;max-width:20rem}
+.kl-fine{margin:12px 0 0;font-size:13px;color:var(--soft)}
+.kl-status{min-height:1.4em;margin:10px 0 0;font-size:15px;color:var(--soft)}
+.kl-status[data-state=ok]{color:var(--cream);font-weight:700}
+.kl-status[data-state=error]{color:#ff9c9c}
+.kl-form[data-done] .kl-row,.kl-form[data-done] .kl-submit,.kl-form[data-done] .kl-fine{display:none}
+.overlay-or{width:100%;max-width:22rem;display:flex;align-items:center;gap:10px;color:var(--soft);font-size:13px;text-transform:uppercase;letter-spacing:.12em}
+.overlay-or:before,.overlay-or:after{content:"";flex:1;height:1px;background:var(--line)}
+.overlay-sub{margin:0 !important;font-size:15px !important;color:var(--ink)}
+.kl-compact{width:100%;max-width:22rem;text-align:left}
+.kl-compact .kl-row{grid-template-columns:1fr;gap:8px;margin-bottom:8px}
+.kl-compact .kl-submit{max-width:none;width:100%;margin-top:0}
+.kl-compact .kl-fine{margin:8px 0 0;text-align:center;font-size:12px}
+.kl-compact .kl-status{text-align:center;margin-top:8px;min-height:1.2em;font-size:14px}
+.kl-compact[data-done]{text-align:center}
+@media(max-width:560px){.kl-row{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){
+  html:focus-within{scroll-behavior:auto}
+  .overlay{transition:none}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#player-wrap">Skip to video</a>
+</div>
+<header>
+  <div class="bar">
+    <img src="/brand/beacon-mark.svg" width="40" height="40" alt="">
+    <div>
+      <a class="brand" href="https://beaconlabs.ai/">Beacon Labs</a>
+      <small>Beacon Momentum, LLC</small>
+    </div>
+  </div>
+</header>
+<main>
+  <p class="eyebrow">A one-minute look</p>
+  <h1>Signal Check Working Session</h1>
+  <p class="lead">I’m Bob Burr. This short film is a look at the written Working Session I run from my home lab. If it sounds like what you need, you can book it on the next page. No calls.</p>
+
+  <div class="player-wrap" id="player-wrap">
+    <div id="vimeo-host">
+      <iframe
+        id="vimeo-iframe"
+        title="Signal Check Working Session, presented by Bob Burr"
+        src="https://player.vimeo.com/video/1250756633?h=0fe2a0a742&amp;dnt=1&amp;title=0&amp;byline=0&amp;portrait=0"
+        allow="autoplay; fullscreen; picture-in-picture"
+        allowfullscreen
+        referrerpolicy="strict-origin-when-cross-origin"></iframe>
+    </div>
+    <div id="end-overlay" class="overlay" hidden role="dialog" aria-modal="true" aria-labelledby="overlay-title">
+      <div class="overlay-card">
+        <h2 id="overlay-title">Ready for the next step?</h2>
+        <div class="overlay-actions">
+          <a class="btn btn-primary" id="overlay-primary" href="https://beaconlabs.ai/working-session/">Book a Working Session</a>
+          <div class="overlay-or" aria-hidden="true"><span>or</span></div>
+          <p class="overlay-sub" id="overlay-sub">The Keeper’s Log is free. I only send it when there’s something worth saying.</p>
+          <form class="kl-form kl-compact" data-kl-form novalidate aria-describedby="overlay-sub">
+            <div class="kl-row">
+              <label class="sr-only" for="kl-o-name">Name (optional)</label>
+              <input id="kl-o-name" name="name" type="text" autocomplete="name" maxlength="100" placeholder="Name (optional)">
+              <label class="sr-only" for="kl-o-email">Email</label>
+              <input id="kl-o-email" name="email" type="email" autocomplete="email" inputmode="email" required maxlength="254" placeholder="Email">
+            </div>
+            <div class="kl-hp" aria-hidden="true"><label>Leave this empty <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+            <button type="submit" class="btn btn-secondary kl-submit">Join the list</button>
+            <p class="kl-fine">By joining, you agree to receive it by email. Unsubscribe any time.</p>
+            <p class="kl-status" role="status" aria-live="polite" data-kl-status></p>
+          </form>
+          <button type="button" class="btn-replay" id="overlay-replay">Watch again</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="facts">
+    <section>
+      <p class="price">$197 one time <small>Black Friday: $100 off. $197 instead of $297, from 12:01 AM ET Nov 27 until 12:01 AM ET Dec 12, 2026.</small></p>
+      <h2 class="section">What comes back</h2>
+      <ul>
+        <li>Up to seven findings, in order of what to fix first</li>
+        <li>A 30/60/90-day action brief</li>
+        <li>A 15-minute recorded walkthrough you can watch when it suits you</li>
+        <li>One round of written follow-up questions within 14 days</li>
+      </ul>
+      <p>I confirm within one business day whether I can help. If I can’t, you get a full refund. Delivery is within seven business days. Every brief is reviewed by me personally. All in writing, no calls.</p>
+      <p class="soft">Not ready to pay? Start with the free <a href="https://beaconlabs.ai/signal-check">Signal Check</a>.</p>
+    </section>
+    <aside class="panel">
+      <p class="pay-note">Checkout stays on beaconlabs.ai. Payments are processed by Stripe. Beacon Labs does not take or hold your payment, and never sees or stores your card details. You are not sent to Stripe’s hosted checkout page. Pay-over-time options such as Klarna or Afterpay, where shown, are offered by those companies to buyers who qualify.</p>
+      <a class="btn btn-primary" href="https://beaconlabs.ai/working-session/">Book a Working Session</a>
+    </aside>
+  </div>
+  <section class="signup" aria-labelledby="kl-title">
+    <h2 class="section" id="kl-title">The Keeper’s Log</h2>
+    <p class="soft" id="kl-desc">The Keeper’s Log is free. I only send it when there’s something worth saying.</p>
+    <form class="kl-form" data-kl-form novalidate aria-describedby="kl-desc">
+      <div class="kl-row">
+        <div><label for="kl-name">Name <span>(optional)</span></label><input id="kl-name" name="name" type="text" autocomplete="name" maxlength="100"></div>
+        <div><label for="kl-email">Email</label><input id="kl-email" name="email" type="email" autocomplete="email" inputmode="email" required maxlength="254"></div>
+      </div>
+      <div class="kl-hp" aria-hidden="true"><label>Leave this empty <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+      <button type="submit" class="btn btn-primary kl-submit">Join the list</button>
+      <p class="kl-fine">By joining, you agree to receive the Keeper’s Log by email. You can unsubscribe at any time. Beacon Momentum, LLC.</p>
+      <p class="kl-status" role="status" aria-live="polite" data-kl-status></p>
+    </form>
+  </section>
+</main>
+<footer>
+  <div>Beacon Labs is part of Beacon Momentum, LLC · <a href="https://beaconlabs.ai/">beaconlabs.ai</a> · Questions: <a href="mailto:hello@beaconlabs.ai">hello@beaconlabs.ai</a></div>
+</footer>
+<script>
+(function () {
+  "use strict";
+
+  /* Unlisted Vimeo film. The hash is required for embeds (privacy hash). */
+  window.BEACON_VIMEO_ID = "1250756633";
+  window.BEACON_VIMEO_HASH = "0fe2a0a742";
+  window.BEACON_VIMEO_URL = "https://vimeo.com/1250756633/0fe2a0a742";
+
+  var VIMEO_PLAYER_JS = "https://player.vimeo.com/api/player.js";
+  var NEAR_END_SECONDS = 0.4;
+
+  var wrap = document.getElementById("player-wrap");
+  var overlay = document.getElementById("end-overlay");
+  var primary = document.getElementById("overlay-primary");
+  var replay = document.getElementById("overlay-replay");
+  var localPlayer = document.getElementById("local-player");
+  var vimeoHost = document.getElementById("vimeo-host");
+  var vimeoIframe = document.getElementById("vimeo-iframe");
+  var lastFocus = null;
+  var vimeoPlayer = null;
+  var showing = false;
+
+  function vimeoId() {
+    var id = String(window.BEACON_VIMEO_ID || "").trim();
+    return /^\d+$/.test(id) ? id : "";
+  }
+
+  function vimeoHash() {
+    var h = String(window.BEACON_VIMEO_HASH || "").trim();
+    return /^[0-9a-f]+$/i.test(h) ? h : "";
+  }
+
+  function vimeoUnlistedUrl() {
+    var id = vimeoId();
+    var h = vimeoHash();
+    if (!id || !h) return "";
+    return "https://vimeo.com/" + id + "/" + h;
+  }
+
+  function vimeoPlayerSrc(id, hash) {
+    var src = "https://player.vimeo.com/video/" + encodeURIComponent(id);
+    var q = [];
+    if (hash) q.push("h=" + encodeURIComponent(hash));
+    q.push("dnt=1", "title=0", "byline=0", "portrait=0");
+    return src + "?" + q.join("&");
+  }
+
+  function focusables() {
+    return Array.prototype.slice.call(overlay.querySelectorAll("a[href],button,input:not([tabindex='-1'])")).filter(function (el) {
+      return !el.disabled && el.offsetParent !== null;
+    });
+  }
+
+  function showOverlay() {
+    if (showing) return;
+    showing = true;
+    lastFocus = document.activeElement;
+    overlay.hidden = false;
+    if (wrap) wrap.classList.add("is-ended");
+    if (localPlayer) localPlayer.controls = false;
+    window.requestAnimationFrame(function () {
+      (primary || overlay).focus();
+    });
+  }
+
+  function hideOverlay() {
+    if (!showing) return;
+    showing = false;
+    overlay.hidden = true;
+    if (wrap) wrap.classList.remove("is-ended");
+    if (localPlayer) localPlayer.controls = true;
+    if (lastFocus && typeof lastFocus.focus === "function") {
+      try { lastFocus.focus(); } catch (e) {}
+    }
+  }
+
+  function replayVideo() {
+    hideOverlay();
+    if (vimeoPlayer) {
+      vimeoPlayer.setCurrentTime(0).then(function () {
+        return vimeoPlayer.play();
+      }).catch(function () {});
+      return;
+    }
+    if (localPlayer) {
+      try {
+        localPlayer.currentTime = 0;
+        var playPromise = localPlayer.play();
+        if (playPromise && playPromise.catch) playPromise.catch(function () {});
+      } catch (e) {}
+    }
+  }
+
+  function onKeydown(event) {
+    if (!showing) return;
+    if (event.key === "Escape") {
+      event.preventDefault();
+      replayVideo();
+      return;
+    }
+    if (event.key !== "Tab") return;
+    var items = focusables();
+    if (!items.length) return;
+    var first = items[0];
+    var last = items[items.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  }
+
+  function bindMediaEvents(getCurrent, getDuration, onPlay) {
+    return {
+      ended: showOverlay,
+      play: function () { hideOverlay(); if (onPlay) onPlay(); },
+      timeupdate: function () {
+        var duration = getDuration();
+        var current = getCurrent();
+        if (!duration || duration < 1) return;
+        if (duration - current <= NEAR_END_SECONDS) showOverlay();
+      }
+    };
+  }
+
+  function setupVimeo(id) {
+    if (localPlayer && localPlayer.parentNode) localPlayer.parentNode.removeChild(localPlayer);
+    vimeoHost.hidden = false;
+    var hash = vimeoHash();
+    /* Unlisted videos need the privacy hash on the iframe src (h=). */
+    vimeoIframe.src = vimeoPlayerSrc(id, hash);
+
+    var script = document.createElement("script");
+    script.src = VIMEO_PLAYER_JS;
+    script.async = true;
+    script.onload = function () {
+      if (!window.Vimeo || !window.Vimeo.Player) return;
+      /* Bind to the existing iframe, which already includes ?h= for the unlisted hash. */
+      vimeoPlayer = new window.Vimeo.Player(vimeoIframe);
+      vimeoPlayer.on("ended", showOverlay);
+      vimeoPlayer.on("play", hideOverlay);
+      vimeoPlayer.on("timeupdate", function (data) {
+        var duration = data && data.duration;
+        var seconds = data && data.seconds;
+        if (!duration) return;
+        if (duration - seconds <= NEAR_END_SECONDS) showOverlay();
+      });
+    };
+    document.head.appendChild(script);
+  }
+
+  /* Keeper's Log sign-up. Posts to the Labs server, which stores the address in Beacon's own database.
+     Nothing is emailed. Same-origin on beaconlabs.ai; in a local preview the call fails and shows the error line. */
+  var KL_ENDPOINT = "/api/keepers-log/subscribe";
+  var KL_SOURCE = "/working-session/video/";
+  function wireSignup(form) {
+    var status = form.querySelector("[data-kl-status]");
+    var submit = form.querySelector(".kl-submit");
+    var busy = false;
+    function say(msg, state) {
+      status.textContent = msg || "";
+      if (state) status.setAttribute("data-state", state); else status.removeAttribute("data-state");
+    }
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+      if (busy) return;
+      var email = (form.elements.email.value || "").trim();
+      if (!email || !form.elements.email.checkValidity()) {
+        say("Please enter a valid email address.", "error");
+        form.elements.email.focus();
+        return;
+      }
+      busy = true; submit.disabled = true; say("Joining…");
+      var body = JSON.stringify({
+        email: email,
+        name: (form.elements.name.value || "").trim(),
+        website: form.elements.website.value,
+        consent: true,
+        source: KL_SOURCE
+      });
+      fetch(KL_ENDPOINT, { method: "POST", headers: { "Content-Type": "application/json" }, body: body })
+        .then(function (r) { return r.json().then(function (j) { return { status: r.status, json: j }; }); })
+        .then(function (res) {
+          if (res.json && res.json.ok) {
+            form.setAttribute("data-done", "1");
+            say("You’re on the list. Thank you.", "ok");
+          } else if (res.status === 429) {
+            say("That’s a few too many tries. Please wait a few minutes and try again.", "error");
+          } else if (res.json && res.json.error === "invalid_email") {
+            say("That email doesn’t look right. Please check it and try again.", "error");
+          } else {
+            say("Sorry, that didn’t go through. Please try again, or write to hello@beaconlabs.ai.", "error");
+          }
+        })
+        .catch(function () { say("Sorry, that didn’t go through. Please try again, or write to hello@beaconlabs.ai.", "error"); })
+        .then(function () { busy = false; submit.disabled = false; });
+    });
+  }
+  Array.prototype.forEach.call(document.querySelectorAll("[data-kl-form]"), wireSignup);
+
+  replay.addEventListener("click", replayVideo);
+  document.addEventListener("keydown", onKeydown);
+
+  var id = vimeoId();
+  if (id) setupVimeo(id);
+
+  var params = new URLSearchParams(window.location.search);
+  if (params.get("overlay") === "1") {
+    showOverlay();
+  }
+})();
+</script>
+</body>
+</html>
