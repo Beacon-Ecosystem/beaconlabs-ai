@@ -195,6 +195,60 @@ async function createGHLSignalCheckOpportunity(data: {
   return response.json() as Promise<Record<string, unknown>>;
 }
 
+// ───────────────────────────────────────────────────────
+// The Keeper's Log sign-up (Nov 27, 2026). Store only: no email is sent.
+// Writes to the Beacon CRM Postgres on this Hub through crm.keepers_log_subscribe(),
+// using the crm_keepers role, which can execute that one function and nothing else.
+// Credentials come from /etc/beaconlabs-ai/keepers-log.env (root, mode 600), never from the repo.
+// ───────────────────────────────────────────────────────
+const KL_ENV_FILE = process.env.KEEPERS_LOG_ENV_FILE || "/etc/beaconlabs-ai/keepers-log.env";
+const KL_CONSENT_TEXT =
+  "The Keeper's Log is free. I only send it when there's something worth saying. By joining, you agree to receive it by email. You can unsubscribe at any time.";
+let klCfg: { url: URL; salt: string } | null = null;
+async function klConfig() {
+  if (klCfg) return klCfg;
+  const fs = await import("fs/promises");
+  const vars: Record<string, string> = {};
+  try {
+    for (const line of (await fs.readFile(KL_ENV_FILE, "utf8")).split("\n")) {
+      const m = line.match(/^([A-Z_]+)=(.*)$/);
+      if (m) vars[m[1]] = m[2];
+    }
+  } catch { /* fall through to process.env */ }
+  const dbUrl = process.env.KEEPERS_LOG_DATABASE_URL || vars.KEEPERS_LOG_DATABASE_URL;
+  const salt = process.env.KEEPERS_LOG_IP_SALT || vars.KEEPERS_LOG_IP_SALT;
+  if (!dbUrl || !salt) throw new Error("Keeper's Log sign-up is not configured.");
+  klCfg = { url: new URL(dbUrl), salt };
+  return klCfg;
+}
+const klHits = new Map<string, number[]>();
+let klGlobal: number[] = [];
+function klRateLimited(key: string) {
+  const now = Date.now();
+  const mine = (klHits.get(key) || []).filter((t) => now - t < 10 * 60 * 1000);
+  klGlobal = klGlobal.filter((t) => now - t < 60 * 60 * 1000);
+  if (mine.length >= 5 || klGlobal.length >= 300) { klHits.set(key, mine); return true; }
+  mine.push(now); klGlobal.push(now); klHits.set(key, mine);
+  if (klHits.size > 5000) for (const [k, v] of klHits) if (!v.some((t) => now - t < 10 * 60 * 1000)) klHits.delete(k);
+  return false;
+}
+async function klSubscribe(f: { email: string; name: string; source: string; ipHash: string; userAgent: string; isTest: boolean }) {
+  const { execFile } = await import("child_process");
+  const { url } = await klConfig();
+  const sql = "SELECT contact_created FROM crm.keepers_log_subscribe(:'email', :'name', :'source', true, :'consent', :'iphash', :'ua', :'is_test'::boolean);\n";
+  const args = [
+    "-X", "-q", "-At", "-v", "ON_ERROR_STOP=1",
+    "-h", url.hostname, "-p", url.port || "5432", "-U", decodeURIComponent(url.username), "-d", url.pathname.replace(/^\//, ""),
+    "-v", `email=${f.email}`, "-v", `name=${f.name}`, "-v", `source=${f.source}`, "-v", `consent=${KL_CONSENT_TEXT}`,
+    "-v", `iphash=${f.ipHash}`, "-v", `ua=${f.userAgent}`, "-v", `is_test=${f.isTest ? "true" : "false"}`, "-f", "-",
+  ];
+  return new Promise<string>((resolve, reject) => {
+    const child = execFile("psql", args, { timeout: 8000, env: { PATH: process.env.PATH || "/usr/bin:/bin", PGPASSWORD: decodeURIComponent(url.password), PGCONNECT_TIMEOUT: "5" } },
+      (err, stdout) => (err ? reject(new Error("keepers-log store failed")) : resolve(String(stdout).trim())));
+    child.stdin?.end(sql);
+  });
+}
+
 async function startServer() {
   const app = express();
   const server = createServer(app);
@@ -302,6 +356,54 @@ async function startServer() {
       res.status(502).json({
         error: "We could not queue your Signal Check. Please try again or contact Beacon Labs.",
       });
+    }
+  });
+
+  // ───────────────────────────────────────────────────────
+  // The Keeper's Log sign-up. Honeypot, rate limit, server-side validation; dedupe is on email in the CRM.
+  // Answers the same for new and existing addresses so the form cannot be used to check who is subscribed.
+  // ───────────────────────────────────────────────────────
+  app.post("/api/keepers-log/subscribe", async (req, res) => {
+    res.setHeader("Cache-Control", "no-store");
+    try {
+      const b = (req.body && typeof req.body === "object" ? req.body : {}) as Record<string, unknown>;
+      const str = (v: unknown, max: number) => (typeof v === "string" ? v.replace(/[\u0000-\u001f\u007f]/g, " ").trim().slice(0, max) : "");
+      const crypto = await import("crypto");
+      const { salt } = await klConfig();
+      const ip = String(req.headers["cf-connecting-ip"] || req.headers["x-real-ip"] || req.socket.remoteAddress || "");
+      const ipHash = crypto.createHmac("sha256", salt).update(ip).digest("hex");
+      if (klRateLimited(ipHash)) {
+        res.status(429).json({ ok: false, error: "too_many_attempts" });
+        return;
+      }
+      // Honeypot: real visitors never see or fill this field. Pretend success, store nothing.
+      if (str(b.website, 200) || str(b.company_url, 200)) {
+        res.json({ ok: true });
+        return;
+      }
+      const email = str(b.email, 254).toLowerCase();
+      if (!/^[^\s@,;<>()"]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)+$/i.test(email) || email.length > 254 || email.split("@")[0].length > 64) {
+        res.status(400).json({ ok: false, error: "invalid_email" });
+        return;
+      }
+      if (b.consent !== true) {
+        res.status(400).json({ ok: false, error: "consent_required" });
+        return;
+      }
+      const page = str(b.source, 120);
+      const source = "beaconlabs.ai" + (/^\/[a-z0-9\-\/]*$/i.test(page) ? page : "");
+      await klSubscribe({
+        email,
+        name: str(b.name, 100),
+        source,
+        ipHash,
+        userAgent: str(req.headers["user-agent"], 300),
+        isTest: /^test\+[a-z0-9._-]+@beaconmomentum\.com$/.test(email),
+      });
+      res.json({ ok: true });
+    } catch (err) {
+      console.error("Keeper's Log sign-up error:", err instanceof Error ? err.message : "unknown");
+      res.status(503).json({ ok: false, error: "temporarily_unavailable" });
     }
   });
 
