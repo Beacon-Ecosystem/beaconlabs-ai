@@ -301,7 +301,7 @@ export default function SignalCheck() {
           <p className="text-sm font-medium uppercase tracking-widest text-[#00d4ff]">Want the full picture?</p>
           <h2 className="mt-3 text-2xl md:text-3xl font-bold">Signal Check Working Session</h2>
           <p className="mt-3 text-xl text-white">
-            {isBlackFriday() ? "$197 through Saturday, Dec 12 (five spots), then $297" : "$297"}
+            {isBlackFriday() ? "$197 instead of $297. Black Friday: $100 off, from 12:01 AM ET Nov 27 until 12:01 AM ET Dec 12, 2026." : "$297"}
           </p>
           <ul className="mt-5 list-disc space-y-2 pl-5 text-gray-300">
             <li>Up to seven findings, in order of what to fix first</li>
