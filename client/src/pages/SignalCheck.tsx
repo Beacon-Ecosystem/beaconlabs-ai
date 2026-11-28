@@ -193,8 +193,9 @@ export default function SignalCheck() {
             </div>
             <h1 className="text-3xl font-bold mb-4">Signal Check Request Received</h1>
             <p className="text-gray-400 text-lg mb-6">
-              Thank you. I've got it. I'll read what you sent and reply by email within one
-              business day.
+              Thank you. I've got it. A short first read of your site is on its way to your
+              inbox, usually within a few minutes. The full written Signal Check follows. If
+              it doesn't arrive, check your spam folder or write to admin@beaconmomentum.com.
             </p>
             <p className="text-gray-500 text-sm">
               Nothing is charged and nothing starts unless you choose it. — Bob
@@ -503,7 +504,7 @@ export default function SignalCheck() {
             </button>
 
             <p className="text-center text-gray-500 text-xs">
-              Free. No credit card. I reply by email within one business day.
+              Free. No credit card. A short first read usually arrives within a few minutes. The full written Signal Check follows.
             </p>
           </form>
         </motion.div>
